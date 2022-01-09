@@ -13,3 +13,8 @@ function get_os() {
     esac
 }
 
+function urlencode() {
+    echo $@|jq -sRr @uri
+}
+
+
