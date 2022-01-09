@@ -24,6 +24,9 @@ DIR="${0%/*}"
 # GitHub
 source ${DIR}/functions_github.zsh
 
+# Golang
+source ${DIR}/functions_golang.zsh
+
 # tmux 
 source ${DIR}/functions_tmux.zsh
 
