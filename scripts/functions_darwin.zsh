@@ -1,36 +1,7 @@
-# get the operating system
-function get_os() {
-  case "$OSTYPE" in
-    darwin*)
-      echo "osx"
-      ;;
-    linux*)
-      echo "linux"
-      ;;
-    *)
-      echo "unknown"
-      ;;
-    esac
-}
-
-function urlencode() {
-    echo $@|jq -sRr @uri
-}
-
-###############################################################################
-# GitHub
-###############################################################################
-
-# Opens the GitHub page of the current repository.
-function og() {
-    open $(git config remote.origin.url |
-        sed "s/git@\(.*\):\(.*\).git/https:\/\/\1\/\2/")
-}
-
-
+##############################################################################
 # Darwin only
+##############################################################################
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
 
 ###############################################################################
 # Apple Music
@@ -41,4 +12,15 @@ function plaing() {
     osascript -e 'tell application "Music" to return (name of current track) & " - " & (artist of current track)'
 }
 
-fi
+###############################################################################
+# Finder
+###############################################################################
+
+# Finder current directory in the terminal
+function fcd() {                                                                    
+    pFinder=`osascript -e 'tell application "Finder" to if (count of Finder windows) > 0 then get POSIX path of (target of front Finder window as text)'`
+    [ -n "$pFinder" ] && cd "$pFinder"
+    pwd
+}
+
+
