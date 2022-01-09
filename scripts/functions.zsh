@@ -17,13 +17,11 @@ function urlencode() {
     echo $@|jq -sRr @uri
 }
 
-###############################################################################
+
 # GitHub
-###############################################################################
+source ./functions_github.zsh
 
-# Opens the GitHub page of the current repository.
-function og() {
-    open $(git config remote.origin.url |
-        sed "s/git@\(.*\):\(.*\).git/https:\/\/\1\/\2/")
-}
-
+# Darwin only
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    source ./functions_darwin.zsh
+fi
