@@ -23,4 +23,7 @@ function fcd() {
     pwd
 }
 
+# micelaneous
+
+function xmanpage() { open x-man-page://$@ ; }
 
