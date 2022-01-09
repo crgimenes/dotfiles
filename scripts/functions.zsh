@@ -21,6 +21,9 @@ function urlencode() {
 # GitHub
 source ./functions_github.zsh
 
+# tmux 
+source ./functions_tmux.zsh
+
 # Darwin only
 if [[ "$OSTYPE" == "darwin"* ]]; then
     source ./functions_darwin.zsh
