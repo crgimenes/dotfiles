@@ -18,19 +18,4 @@ function urlencode() {
 }
 
 
-DIR="${0%/*}"
 
-
-# GitHub
-source ${DIR}/functions_github.zsh
-
-# Golang
-source ${DIR}/functions_golang.zsh
-
-# tmux 
-source ${DIR}/functions_tmux.zsh
-
-# Darwin only
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    source ${DIR}/functions_darwin.zsh
-fi
