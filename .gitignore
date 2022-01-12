@@ -16,4 +16,7 @@ nonfree/
 config/github-copilot/terms.json
 config/github-copilot/hosts.json
 
+config/nvim/pack
+config/nvim/plugged
+
 
