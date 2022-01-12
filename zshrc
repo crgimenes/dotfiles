@@ -5,12 +5,12 @@ export ZSH="${DOTFILES_DIR}/oh-my-zsh"
 export ZSH_THEME="crg"
 
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git fzf zsh-syntax-highlighting zsh-autosuggestions)
+plugins=(git fzf)
 
 source ${ZSH}/oh-my-zsh.sh
 source "${DOTFILES_DIR}"/environment.zsh
 
-ZSH_HIGHLIGHT_STYLES[globbing]=fg=green,bold
+# ZSH_HIGHLIGHT_STYLES[globbing]=fg=green,bold
 
 
 if type brew &>/dev/null; then
