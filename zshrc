@@ -1,14 +1,14 @@
 # Cesar's zshrc
 
-export DOTFILES_DIR="$HOME/dotfiles"
-export ZSH="${DOTFILES_DIR}/oh-my-zsh"
+export DOTFILES_DIR="${HOME}/dotfiles"
+export ZSH="${HOME}/.oh-my-zsh"
 export ZSH_THEME="crg"
 
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git fzf)
 
-source ${ZSH}/oh-my-zsh.sh
-source "${DOTFILES_DIR}"/environment.zsh
+source "${ZSH}/oh-my-zsh.sh"
+source "${DOTFILES_DIR}/environment.zsh"
 
 # ZSH_HIGHLIGHT_STYLES[globbing]=fg=green,bold
 
@@ -21,17 +21,17 @@ if type brew &>/dev/null; then
 fi
 
 # GitHub
-source ${DOTFILES_DIR}/functions_github.zsh
+source "${DOTFILES_DIR}"/functions_github.zsh
 
 # Golang
-source ${DOTFILES_DIR}/functions_golang.zsh
+source "${DOTFILES_DIR}"/functions_golang.zsh
 
 # tmux 
-source ${DOTFILES_DIR}/functions_tmux.zsh
+source "${DOTFILES_DIR}"/functions_tmux.zsh
 
 # Darwin only
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    source ${DOTFILES_DIR}/functions_darwin.zsh
+if [[ "${OSTYPE}" == "darwin"* ]]; then
+    source "${DOTFILES_DIR}"/functions_darwin.zsh
 fi
 
 cat "${DOTFILES_DIR}"/crg.eti.br
