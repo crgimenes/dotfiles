@@ -35,8 +35,6 @@ if [[ "${OSTYPE}" == "darwin"* ]]; then
 fi
 
 cat "${DOTFILES_DIR}"/crg.eti.br
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-set rtp+=~/.fzf
 
 export PATH=~/bin:/usr/local/go/bin:~/go/bin:~/Library/Python/3.8/bin:$PATH
 
