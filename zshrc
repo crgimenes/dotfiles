@@ -38,7 +38,7 @@ cat "${DOTFILES_DIR}"/crg.eti.br
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 set rtp+=~/.fzf
 
-export PATH=~/bin:/usr/local/go/bin:~/Library/Python/3.8/bin:~/go/bin:$PATH
+export PATH=~/bin:/usr/local/go/bin:~/go/bin:~/Library/Python/3.8/bin:$PATH
 
 alias python=/usr/bin/python3
 
