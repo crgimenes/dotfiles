@@ -26,8 +26,7 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 "*****************************************************************************
 "" Plug install packages
 "*****************************************************************************
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
 Plug 'w0rp/ale'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'rhysd/vim-clang-format'
@@ -197,14 +196,6 @@ nnoremap N Nzzzv
 if exists("*fugitive#statusline")
     set statusline+=%{fugitive#statusline()}
 endif
-
-" vim-airline
-let g:airline_theme = 'powerlineish'
-let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#ale#enabled = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tagbar#enabled = 1
-let g:airline_skip_empty_sections = 1
 
 "*****************************************************************************
 "" Abbreviations
@@ -511,32 +502,6 @@ au FileType rust nmap gs <Plug>(rust-def-split)
 au FileType rust nmap gx <Plug>(rust-def-vertical)
 au FileType rust nmap <leader>gd <Plug>(rust-doc)
 
-"*****************************************************************************
-"" Convenience variables
-"*****************************************************************************
-
-" vim-airline
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-
-let g:airline#extensions#tabline#left_sep     = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline_left_sep                        = ''
-let g:airline_left_alt_sep                    = '»'
-let g:airline_right_sep                       = ''
-let g:airline_right_alt_sep                   = '«'
-let g:airline#extensions#branch#prefix        = '⤴' "➔, ➥, ⎇
-let g:airline#extensions#readonly#symbol      = '⊘'
-let g:airline#extensions#linecolumn#prefix    = '¶'
-let g:airline#extensions#paste#symbol         = 'ρ'
-let g:airline_symbols.linenr                  = '␊'
-let g:airline_symbols.branch                  = '⎇'
-let g:airline_symbols.paste                   = 'ρ'
-let g:airline_symbols.paste                   = 'Þ'
-let g:airline_symbols.paste                   = '∥'
-let g:airline_symbols.whitespace              = 'Ξ'
-let g:airline_symbols.tabline                 = '⇥'
 
 " buffer navegate
 map ff :bn<cr>
