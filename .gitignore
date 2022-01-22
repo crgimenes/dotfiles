@@ -19,6 +19,7 @@ config/github-copilot/hosts.json
 config/nvim/pack
 config/nvim/plugged
 config/coc
+config/pulse
 
 config/iterm2
 

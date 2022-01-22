@@ -45,4 +45,7 @@ source "${DOTFILES_DIR}"/aliases_dos.zsh
 source "${DOTFILES_DIR}"/aliases_mosh.zsh 
 source "${DOTFILES_DIR}"/aliases_tmux.zsh
 
+if test -f "~/.localrc"; then
+    source ~/.localrc
+fi
 
