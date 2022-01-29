@@ -33,7 +33,7 @@ fi
 
 cat "${DOTFILES_DIR}/crg.eti.br"
 
-export PATH=~/bin:/usr/local/go/bin:~/go/bin:~/Library/Python/3.8/bin:$PATH
+export PATH=~/bin:/usr/local/go/bin:~/go/bin:$PATH
 
 alias python=/usr/bin/python3
 
