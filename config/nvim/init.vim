@@ -30,7 +30,6 @@ Plug 'itchyny/lightline.vim'
 Plug 'w0rp/ale'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'rhysd/vim-clang-format'
-Plug 'github/copilot.vim'
 Plug 'junegunn/fzf.vim'
 
 let g:go_def_mode='gopls'
@@ -39,6 +38,10 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 
 Plug 'Shougo/vimproc.vim', {'do': 'make'} 
+
+"Copilot
+Plug 'github/copilot.vim'
+let g:copilot_enabled = 0
 
 "" Vim-Session
 Plug 'xolox/vim-misc'
@@ -75,30 +78,21 @@ nmap <Leader>C :ClangFormatAutoToggle<CR>
 autocmd FileType c,cpp,objc ClangFormatAutoEnable
 
 
-"
-" go
-"" Go Lang Bundle
+" Go Lang
 Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
 
-
-" html
-"" HTML Bundle
+" HTML Bundle
 Plug 'hail2u/vim-css3-syntax'
 Plug 'gorodinskiy/vim-coloresque'
 Plug 'tpope/vim-haml'
 Plug 'mattn/emmet-vim'
 
 
-" javascript
-"" Javascript Bundle
+" Javascript Bundle
 Plug 'jelera/vim-javascript-syntax'
 
-
-" rust
-" Vim racer
+" Rust
 Plug 'racer-rust/vim-racer'
-
-" Rust.vim
 Plug 'rust-lang/rust.vim'
 
 call plug#end()
@@ -212,17 +206,9 @@ cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Qall qall
 
-"" NERDTree configuration
-let g:NERDTreeChDirMode=2
-let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
-let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
-let g:NERDTreeShowBookmarks=1
-let g:nerdtree_tabs_focus_on_files=1
-let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-let g:NERDTreeWinSize = 50
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
-nnoremap <silent> <F2> :NERDTreeFind<CR>
-nnoremap <silent> <F3> :NERDTreeToggle<CR>
+" Copilot
+cnoreabbrev dcp Copilot disable
+cnoreabbrev ecp Copilot enable
 
 " grep.vim
 nnoremap <silent> <leader>f :Rgrep<CR>
@@ -232,7 +218,6 @@ let Grep_Skip_Dirs = '.git node_modules'
 
 " terminal emulation
 nnoremap <silent> <leader>sh :terminal<CR>
-
 
 "*****************************************************************************
 "" Commands
