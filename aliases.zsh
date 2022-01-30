@@ -13,3 +13,6 @@ alias -g gp='| grep -i' #creates a global alias for grep
 alias date_ISO8601_Z='date +%Y-%m-%dT%H:%M:%S%z'
 alias date_ISO8601='date -u +%FT%H:%M:%S'
 
+# searX alias
+alias \?='se'
+
