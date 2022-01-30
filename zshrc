@@ -26,6 +26,9 @@ source "${DOTFILES_DIR}/functions_golang.zsh"
 # tmux 
 source "${DOTFILES_DIR}/functions_tmux.zsh"
 
+# searX 
+source "${DOTFILES_DIR}/functions_searX.zsh"
+
 # Darwin only
 if [[ "${OSTYPE}" == "darwin"* ]]; then
     source "${DOTFILES_DIR}/functions_darwin.zsh"
