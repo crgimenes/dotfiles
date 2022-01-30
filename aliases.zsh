@@ -16,3 +16,6 @@ alias date_ISO8601='date -u +%FT%H:%M:%S'
 # searX alias
 alias \?='se'
 
+# path beautifier 
+alias path='echo -e ${PATH//:/\\n}'
+
