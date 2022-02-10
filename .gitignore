@@ -24,4 +24,5 @@ config/pulse
 config/iterm2
 
 configstore
+.DS_Store
 
