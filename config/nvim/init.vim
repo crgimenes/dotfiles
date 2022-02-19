@@ -364,6 +364,10 @@ noremap <leader>z :bp<CR>
 noremap <leader>q :bp<CR>
 noremap <leader>x :bn<CR>
 noremap <leader>w :bn<CR>
+noremap ff :bn<cr>
+"noremap gp :bp<cr>
+"noremap gd :bd<cr>
+
 
 "" Close buffer
 noremap <leader>c :bd<CR>
@@ -487,11 +491,6 @@ au FileType rust nmap gs <Plug>(rust-def-split)
 au FileType rust nmap gx <Plug>(rust-def-vertical)
 au FileType rust nmap <leader>gd <Plug>(rust-doc)
 
-
-" buffer navegate
-map ff :bn<cr>
-"map gp :bp<cr>
-"map gd :bd<cr>
 
 " text navegate
 map  <buffer> <silent> <Up>   gk
