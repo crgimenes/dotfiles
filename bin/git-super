@@ -1,0 +1,15 @@
+#!/bin/zsh
+
+function run() {
+    find . -name .git | while read -r dot_git; do 
+        REPO=$(dirname "${dot_git}")
+        cd "${REPO}"
+        echo "➔ ${REPO}"
+        echo "git $*"
+        git $*
+        cd -
+    done
+}
+
+run $*
+
