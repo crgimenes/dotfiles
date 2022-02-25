@@ -1,0 +1,20 @@
+[user]
+	name = crgimenes
+    email = crg@crg.eti.br
+
+[pull]
+	ff = only
+    default = current
+
+[push]
+    default = current
+
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+
+[init]
+    defaultBranch = master
+
+[color]
+    ui = auto
+
