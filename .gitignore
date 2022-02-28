@@ -21,7 +21,7 @@ config/nvim/plugged
 config/coc
 config/pulse
 config/systemd
-# config/iterm2
+config/iterm2
 
 configstore
 .DS_Store
