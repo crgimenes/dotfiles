@@ -538,3 +538,26 @@ set undoreload=100000
 "set wrap
 set wrap linebreak
 
+
+source ~/.config/nvim/local.vim
+
+if remote_clipboard_enabled 
+
+  " It Sends yanked text to the client 
+  " machine's clipboard. Requires terminal 
+  " emulator with OSC52 support
+  augroup remote_clipboard
+      au!
+      function Copy()
+          if system('uname -s') == "Darwin\n"
+              let l:c64 = system("base64 --break=0", @")
+          else
+              let l:c64 = system("base64 --wrap=0", @")
+          endif
+          let l:s = "\e]52;c;" . l:c64 . "\x07"
+          call chansend(v:stderr, l:s)
+      endfunction
+      autocmd TextYankPost * call Copy()
+  augroup END
+
+endif
