@@ -548,11 +548,7 @@ if remote_clipboard_enabled
   augroup remote_clipboard
       au!
       function Copy()
-          if system('uname -s') == "Darwin\n"
-              let l:c64 = system("base64 --break=0", @")
-          else
-              let l:c64 = system("base64 --wrap=0", @")
-          endif
+          let l:c64 = system("b64", @")
           let l:s = "\e]52;c;" . l:c64 . "\x07"
           call chansend(v:stderr, l:s)
       endfunction
