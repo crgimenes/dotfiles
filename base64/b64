@@ -3,5 +3,5 @@
 if [[ "${OSTYPE}" == "darwin"* ]]; then
     base64 --break=0 $@
 elif [[ "${OSTYPE}" == "linux"* ]]; then
-    base64 --wrap=0 $@
+    base64 -w0 $@
 fi
