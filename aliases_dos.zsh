@@ -1,5 +1,5 @@
 alias edit='open -a TextEdit'
-alias dir="ls"
+alias dir="ls -C -b"
 alias cls="clear"
 alias "c:"="cd ~/Projects/DOS/C"
 alias cd..='cd ..'
