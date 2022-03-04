@@ -1,3 +1,6 @@
+" load local configurations
+source ~/.config/nvim/local.vim
+
 augroup calendarfile
     autocmd!
     autocmd BufRead,BufNewFile calendar setlocal noexpandtab
@@ -536,9 +539,6 @@ set undoreload=100000
 
 "set wrap
 set wrap linebreak
-
-
-source ~/.config/nvim/local.vim
 
 if remote_clipboard_enabled 
 
