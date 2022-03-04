@@ -1,3 +1,6 @@
+" remote clipboard default disabled
+let g:remote_clipboard_enabled = 0
+
 " load local configurations
 source ~/.config/nvim/local.vim
 
