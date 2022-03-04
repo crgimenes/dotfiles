@@ -2,7 +2,9 @@
 let g:remote_clipboard_enabled = 0
 
 " load local configurations
-source ~/.config/nvim/local.vim
+if !empty(glob("~/.config/nvim/local.vim"))
+    source ~/.config/nvim/local.vim
+endif
 
 augroup calendarfile
     autocmd!
