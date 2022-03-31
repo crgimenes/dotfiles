@@ -3,7 +3,7 @@
     email = crg@crg.eti.br
 
 [pull]
-	ff = only
+    ff = only
     default = current
 
 [push]
