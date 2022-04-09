@@ -1,6 +1,10 @@
 " remote clipboard default disabled
 let g:remote_clipboard_enabled = 0
 
+" custom gotests templates dir
+" let g:gotests_template_dir = expand('~/dotfiles/gotest-templates')
+
+
 " load local configurations
 if !empty(glob("~/.config/nvim/local.vim"))
     source ~/.config/nvim/local.vim
