@@ -39,6 +39,7 @@ Plug 'w0rp/ale'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'rhysd/vim-clang-format'
 Plug 'junegunn/fzf.vim'
+Plug 'buoto/gotests-vim'
 
 let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
