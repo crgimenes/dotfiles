@@ -26,4 +26,5 @@ config/nvim/local.vim
 
 configstore
 .DS_Store
+*.old
 
