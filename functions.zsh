@@ -17,5 +17,9 @@ function urlencode() {
     echo $@|jq -sRr @uri
 }
 
-
+function pause {
+  >/dev/tty printf '%s' "${*:-Press any key to continue... }"
+  read -krs
+  printf '\n'
+}
 
