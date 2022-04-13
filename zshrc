@@ -36,7 +36,8 @@ fi
 
 cat "${DOTFILES_DIR}/crg.eti.br"
 
-export PATH=~/bin:/usr/local/go/bin:~/go/bin:$PATH
+export GOROOT="$(brew --prefix golang)/libexec"
+export PATH=~/bin:$GOROOT/bin:~/go/bin:$PATH
 
 alias python=/usr/bin/python3
 
