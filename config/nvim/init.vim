@@ -44,7 +44,13 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'rhysd/vim-clang-format'
 Plug 'junegunn/fzf.vim'
 Plug 'buoto/gotests-vim'
+Plug 'vimwiki/vimwiki'
 
+" vimwiki
+let g:vimwiki_list = [{'path': '~/Documents/wiki/',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
+
+" go
 let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
 let g:deoplete#enable_at_startup = 1
@@ -132,7 +138,7 @@ set shiftwidth=4
 set expandtab
 
 "" Map leader to ,
-let mapleader=','
+"let mapleader=','
 
 "" Enable hidden buffers
 set hidden
