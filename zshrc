@@ -17,6 +17,8 @@ if type brew &>/dev/null; then
     compinit
 fi
 
+source "${DOTFILES_DIR}/functions.zsh"
+
 # GitHub
 source "${DOTFILES_DIR}/functions_github.zsh"
 

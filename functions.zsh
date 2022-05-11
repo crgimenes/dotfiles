@@ -23,3 +23,6 @@ function pause {
   printf '\n'
 }
 
+function ww() {
+    vi -c ':VimwikiIndex'
+}
