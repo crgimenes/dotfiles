@@ -12,7 +12,9 @@ function og() {
 function update_branch() {
     export branch_name=$(git rev-parse --abbrev-ref HEAD)
     git checkout master
-    git pull
+    git fetch -p origin
+    git merge origin/master
     git checkout ${branch_name}
     git merge master
+    git push origin ${branch_name}
 }

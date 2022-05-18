@@ -1,6 +1,9 @@
 " remote clipboard default disabled
 let g:remote_clipboard_enabled = 0
 
+
+"autocmd FileType markdown let b:coc_suggest_disable = 1
+
 " custom gotests templates dir
 " let g:gotests_template_dir = expand('~/dotfiles/gotest-templates')
 
@@ -18,8 +21,8 @@ augroup END
 
 set path+=**
 
-set completeopt+=noinsert
-set completeopt+=noselect
+"set completeopt+=noinsert
+"set completeopt+=noselect
 let g:python3_host_skip_check = 1
 let g:python3_host_prog = '/usr/bin/python3'
 let g:python_host_prog = '/usr/bin/python3'
@@ -56,19 +59,19 @@ let g:go_info_mode='gopls'
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 
-Plug 'Shougo/vimproc.vim', {'do': 'make'} 
+"Plug 'Shougo/vimproc.vim', {'do': 'make'} 
 
 "Copilot
 Plug 'github/copilot.vim'
 let g:copilot_enabled = 0
 
 "" Vim-Session
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-session'
+"Plug 'xolox/vim-misc'
+"Plug 'xolox/vim-session'
 
 "" Snippets
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+"Plug 'SirVer/ultisnips'
+"Plug 'honza/vim-snippets'
 
 "" Color
 let base16colorspace=256
@@ -111,8 +114,8 @@ Plug 'mattn/emmet-vim'
 Plug 'jelera/vim-javascript-syntax'
 
 " Rust
-Plug 'racer-rust/vim-racer'
-Plug 'rust-lang/rust.vim'
+"Plug 'racer-rust/vim-racer'
+"Plug 'rust-lang/rust.vim'
 
 call plug#end()
 
