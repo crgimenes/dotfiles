@@ -29,3 +29,8 @@ configstore
 *.old
 config/QtProject
 
+config/.mono/
+config/Microsoft*
+config/NuGet/
+config/wireshark/
+config/xbuild/
