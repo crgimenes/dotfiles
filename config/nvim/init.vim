@@ -559,6 +559,9 @@ set undoreload=100000
 "set wrap
 set wrap linebreak
 
+set noswapfile
+set nobackup
+
 if remote_clipboard_enabled 
 
   " It Sends yanked text to the client 
@@ -575,3 +578,5 @@ if remote_clipboard_enabled
   augroup END
 
 endif
+
+
