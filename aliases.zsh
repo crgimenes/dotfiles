@@ -19,3 +19,4 @@ alias \?='se'
 # path beautifier 
 alias path='echo -e ${PATH//:/\\n}'
 
+alias f='fzf'
