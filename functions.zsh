@@ -26,3 +26,22 @@ function pause {
 function ww() {
     vi -c ':VimwikiIndex'
 }
+
+function delete-branches() {
+  local branches_to_delete
+  branches_to_delete=$(git branch | fzf --multi)
+
+  if [ -n "$branches_to_delete" ]; then 
+    git branch --delete --force $branches_to_delete
+  fi
+}
+
+#function delete-branches() {
+#  git branch |
+#    grep --invert-match '\*' |
+#    cut -c 3- |
+#    fzf --multi --preview="git log {} --" |
+#    xargs --no-run-if-empty git branch --delete --force
+#}
+
+
