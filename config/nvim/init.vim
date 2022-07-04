@@ -82,7 +82,8 @@ let g:vimwiki_list = [{'path': '~/Documents/wiki/',
                       \ 'ext': '.md',
                       \ 'auto_toc': 1,
                       \ 'auto_tags': 1,
-                      \ 'auto_generate_tags': 1
+                      \ 'auto_generate_tags': 1,
+                      \ 'auto_diary_index': 1
                       \ }]
 
 " go

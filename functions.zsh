@@ -36,6 +36,11 @@ function delete-branches() {
   fi
 }
 
+function wv() {
+    cd ~/Documents/wiki
+    rv $@
+}
+
 #function delete-branches() {
 #  git branch |
 #    grep --invert-match '\*' |
