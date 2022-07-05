@@ -37,9 +37,13 @@ function wv() {
     rv $@
 }
 
-function echoTest() {
-    echo "teste"
+function fbr() {
+    git for-each-ref --format='%(refname:short)' refs/heads| fzf | xargs git checkout
 }
+
+
+
+
 
 
 function delete-branches() {
