@@ -27,6 +27,11 @@ function ww() {
     vi -c ':VimwikiIndex'
 }
 
+
+function wdd() {
+    vim -c 'norm \w\w'
+}
+
 function delete-branches() {
   local branches_to_delete
   branches_to_delete=$(git branch | fzf --multi)

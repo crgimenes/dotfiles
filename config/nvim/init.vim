@@ -103,9 +103,21 @@ let g:vimwiki_diary_months = {
       \ 12: 'Dezembro'
       \ }
 
-:nmap <Leader>tl <Plug>VimwikiToggleListItem
-:vmap <Leader>tl <Plug>VimwikiToggleListItem
-:nnoremap glo :VimwikiChangeSymbolTo a)<CR>
+":nmap <Leader>tl <Plug>VimwikiToggleListItem
+":vmap <Leader>tl <Plug>VimwikiToggleListItem
+":nnoremap glo :VimwikiChangeSymbolTo a)<CR>
+
+":nmap <Leader>dd <Plug>VimwikiDiaryNextDay
+":nmap <Leader>ds <Plug>VimwikiDiaryPrevDay
+
+:nmap <C-S-t> <Plug>VimwikiToggleListItem
+
+:nmap <C-S-Up> <Plug>VimwikiDiaryNextDay
+:nmap <C-S-Down> <Plug>VimwikiDiaryPrevDay
+
+
+autocmd BufEnter diary.md :VimwikiDiaryGenerateLinks
+
 
 " go
 let g:go_def_mode='gopls'
