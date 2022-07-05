@@ -103,6 +103,10 @@ let g:vimwiki_diary_months = {
       \ 12: 'Dezembro'
       \ }
 
+:nmap <Leader>tl <Plug>VimwikiToggleListItem
+:vmap <Leader>tl <Plug>VimwikiToggleListItem
+:nnoremap glo :VimwikiChangeSymbolTo a)<CR>
+
 " go
 let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
