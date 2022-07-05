@@ -32,6 +32,16 @@ function wdd() {
     vim -c 'norm \w\w'
 }
 
+function wv() {
+    cd ~/Documents/wiki
+    rv $@
+}
+
+function echoTest() {
+    echo "teste"
+}
+
+
 function delete-branches() {
   local branches_to_delete
   branches_to_delete=$(git branch | fzf --multi)
@@ -39,11 +49,6 @@ function delete-branches() {
   if [ -n "$branches_to_delete" ]; then 
     git branch --delete --force $branches_to_delete
   fi
-}
-
-function wv() {
-    cd ~/Documents/wiki
-    rv $@
 }
 
 #function delete-branches() {
