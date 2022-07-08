@@ -23,10 +23,9 @@
 #
 
 bt() {
+    CMD=$1
     if [[ -z "$1" ]]; then
         CMD="$(history -10 | fzf --header="Choose a command to save" --no-sort --tac | cut -d' ' -f 3-)"
-    else
-        CMD=$1
     fi
 
     [[ -z "$CMD" ]] && echo "Aborted" && return 2
