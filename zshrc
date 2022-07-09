@@ -52,3 +52,6 @@ if test -f "${HOME}/.localrc"; then
     source "${HOME}/.localrc"
 fi
 
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+

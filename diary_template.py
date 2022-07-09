@@ -5,12 +5,10 @@ import datetime
 
 template = """tags: 
 
-## Checklist
-
-- [ ] t1
-- [ ] t2
-
 ## Todo
+
+- [ ] Verificar lista de projetos
+- [ ] Treino Live Code
 
 ## Notas
 
