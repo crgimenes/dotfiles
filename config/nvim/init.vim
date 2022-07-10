@@ -131,7 +131,7 @@ autocmd BufEnter diary.md :VimwikiDiaryGenerateLinks
 "autocmd BufNewFile ~/Documents/wiki/diary/*.md :silent 0r !~/.vim/bin/generate-vimwiki-diary-template '%'
 
 
-autocmd BufNewFile ~/Documents/wiki/diary/[0-9]\\\{4\}-[0-9]\\\{2\}-[0-9]\\\{2\}.md :execute 'silent 0r !~/dotfiles/diary_template.py' | normal gg
+autocmd BufNewFile ~/Documents/wiki/diary/[0-9]\\\{4\}-[0-9]\\\{2\}-[0-9]\\\{2\}.md :execute 'silent 0r !~/Documents/scripts/diary_template.py' | normal gg
 
 
 " go
