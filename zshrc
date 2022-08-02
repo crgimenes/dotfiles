@@ -38,10 +38,16 @@ fi
 
 cat "${DOTFILES_DIR}/crg.eti.br"
 
-export GOROOT="$(brew --prefix golang)/libexec"
-export PATH=~/bin:$GOROOT/bin:~/go/bin:$PATH
+python_prefix=$(brew --prefix python)
+export PATH=$python_prefix/bin:$PATH
 
-alias python=/usr/bin/python3
+export GOROOT="$(brew --prefix golang)/libexec"
+export PATH=$GOROOT/bin:~/go/bin:$PATH
+
+export PATH=~/bin:$PATH
+
+# alias python=/usr/bin/python3
+alias python=$python_prefix/bin/python3
 
 source "${DOTFILES_DIR}/aliases.zsh"
 source "${DOTFILES_DIR}/aliases_dos.zsh"
