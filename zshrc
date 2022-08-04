@@ -41,8 +41,9 @@ cat "${DOTFILES_DIR}/crg.eti.br"
 python_prefix=$(brew --prefix python)
 export PATH=$python_prefix/bin:$PATH
 
-export GOROOT="$(brew --prefix golang)/libexec"
+#export GOROOT="$(brew --prefix golang)/libexec"
 export PATH=$GOROOT/bin:~/go/bin:$PATH
+export GOROOT="/usr/local/go"
 
 export PATH=~/bin:$PATH
 
