@@ -615,6 +615,9 @@ let g:racer_experimental_completer = 1
 
 set mouse=a
 
+" CoC popup menus
+inoremap <expr> <tab> coc#pum#visible() ? coc#pum#confirm() : "\<tab>"
+
 
 "test leader
 nnoremap <leader>uu :let view=winsaveview()<cr>viw~<esc>:call winrestview(view)<cr>:echo "~"<cr>
