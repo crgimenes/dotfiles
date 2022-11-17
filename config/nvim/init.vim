@@ -158,12 +158,12 @@ let g:copilot_enabled = 0
 let base16colorspace=256
 set termguicolors
 Plug 'chriskempson/base16-vim'
-highlight Pmenu ctermbg=white guibg=black
+"highlight Pmenu ctermbg=white guibg=black
 "highlight Pmenu ctermbg=8 guibg=#606060
-highlight PmenuSel ctermbg=1 guifg=#dddd00 guibg=#1f82cd
-highlight PmenuSbar ctermbg=0 guibg=#d6d6d6
+"highlight PmenuSel ctermbg=1 guifg=#dddd00 guibg=#1f82cd
+"highlight PmenuSbar ctermbg=0 guibg=#d6d6d6
 
-highlight Visual  guifg=#000000 guibg=#FFFFFF gui=none
+"highlight Visual  guifg=#000000 guibg=#FFFFFF gui=none
 
 "auto format
 let g:clang_format#style_options = {
