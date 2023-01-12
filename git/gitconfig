@@ -1,6 +1,6 @@
 [user]
 	name = crgimenes
-    email = crg@crg.eti.br
+	email = crg@crg.eti.br
 
 [url "git@github.com:"]
     insteadOf = https://github.com/
@@ -9,7 +9,9 @@
 	defaultBranch = master
 
 [color]
-    ui = auto
+	ui = true
 
 [pull]
 	rebase = true
+[core]
+	editor = nvim
