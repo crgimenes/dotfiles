@@ -4,8 +4,10 @@
 
 # Opens the GitHub page of the current repository.
 function og() {
-    open $(git config remote.origin.url |
+    export REPO_URL=$(git config remote.origin.url |
         sed "s/git@\(.*\):\(.*\).git/https:\/\/\1\/\2/")
+    echo "\033[0;32mRepository URL:\033[0m $REPO_URL"
+    open $REPO_URL
 }
 
 # Update branch
