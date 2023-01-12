@@ -4,6 +4,10 @@ export DOTFILES_DIR="${HOME}/dotfiles"
 export ZSH="${HOME}/.oh-my-zsh"
 export ZSH_THEME="crg"
 
+if test -f "${HOME}/.prelocalrc"; then
+    source "${HOME}/.prelocalrc"
+fi
+
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git fzf)
 
