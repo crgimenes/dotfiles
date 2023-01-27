@@ -4,6 +4,10 @@ local g = vim.g -- global variables
 local o = vim.o -- global options
 local opt = vim.opt -- global/buffer/windows-scoped options
 local fn = vim.fn -- call Vim functions
+local call = vim.call -- call Vim functions
+
+-- g.mapleader = ','
+
 
 -- remote clipboard default disabled
 g.remote_clipboard_enabled = 0
@@ -67,6 +71,21 @@ Plug('vimwiki/vimwiki')
 Plug('Shougo/vimproc.vim', { ['do'] = 'make' })
 Plug('chriskempson/base16-vim')
 Plug('fatih/vim-go', { ['do'] = ':GoInstallBinaries' })
+
+-- HTML
+Plug('hail2u/vim-css3-syntax')
+Plug('gorodinskiy/vim-coloresque')
+Plug('tpope/vim-haml')
+Plug('mattn/emmet-vim')
+
+-- Javascript
+Plug 'jelera/vim-javascript-syntax'
+
+-- Rust
+-- Plug('racer-rust/vim-racer')
+-- Plug('rust-lang/rust.vim')
+
+-- Colors
 
 -- highlight Visual  guifg=#000000 guibg=#FFFFFF gui=none
 -- api.nvim_set_hl(0, 'Normal', { fg = "#ffffff", bg = "#333333" })
@@ -142,151 +161,139 @@ Copilot
 Plug('github/copilot.vim')
 g.copilot_enabled = 0
 
+--[[
+C/C++
+--]]
+
+g['clang_format#style_options'] = {
+    ['AccessModifierOffset'] = -4,
+    ['AllowShortIfStatementsOnASingleLine'] = 'true',
+    ['AlwaysBreakTemplateDeclarations'] = 'true',
+    ['Standard'] = 'C++11'
+}
+
+function set_clang_format_keymap()
+    local filetype = api.nvim_buf_get_option(0, 'filetype')
+    if filetype == 'c' or
+        filetype == 'cpp' or
+        filetype == 'objc' or
+        filetype == 'h' then
+        api.nvim_buf_set_keymap(0, "n", "<Leader>cf", "<cmd>ClangFormat<CR>", {
+            noremap = true,
+            silent = true
+        })
+        api.nvim_buf_set_keymap(0, "v", "<Leader>cf", "<cmd>ClangFormat<CR>", {
+            noremap = true,
+            silent = true
+        })
+        api.nvim_buf_set_keymap(0, "n", "<Leader>C", "<cmd>ClangFormatAutoToggle<CR>", {
+            noremap = true,
+            silent = true
+        })
+        api.nvim_command("ClangFormatAutoEnable")
+    end
+end
+
+api.nvim_command("autocmd BufEnter * lua set_clang_format_keymap()")
+
+--[[
+end plugin config
+--]]
+call('plug#end')
+
+-- automatic file type detection and indentation according to file type
+o.filetype_plugin = true
+o.indent_on = true
+
+o.encoding = 'utf-8'
+o.fileencoding = 'utf-8'
+o.fileencodings = 'utf-8'
+o.backspace = 'indent,eol,start'
+o.tabstop = 4
+o.softtabstop = 0
+o.shiftwidth = 4
+o.expandtab = true
+o.hidden = true
+
+-- search
+o.hlsearch = true
+o.incsearch = true
+o.ignorecase = true
+o.smartcase = true
+
+-- file format
+o.fileformats = 'unix,dos,mac'
+
+-- shell
+-- o.shell = os.getenv("SHELL")
+o.shell = '/bin/zsh'
+
+-- session management
+g.session_directory = '~/.config/nvim/session'
+g.session_autoload = 'no'
+g.session_autosave = 'no'
+g.session_command_aliases = 1
+
+g.syntax_on = true
+o.ruler = true
+o.number = true
+
+
+g.no_buffers_menu = 1
+o.mousemodel = "popup"
+o.t_Co = 256
+o.guioptions = "egmrti"
+o.gfn = "Monospace 10"
+
+g.CSApprox_loaded = 1
+
+g.indentLine_enabled = 1
+g.indentLine_concealcursor = 0
+g.indentLine_char = '┆'
+g.indentLine_faster = 1
+--------------------------------
+
+o.laststatus = 2
+o.modeline = true
+o.modelines = 10
+o.title = true
+o.titleold = "Terminal"
+o.titlestring = "%F"
+o.statusline = "%F%m%r%h%w%=(%{&ff}/%Y) (line %l/%L, col %c)"
+
+-- Search mappings: These will make it so that going to the next one in a
+-- search will center on the line it's found in.
+api.nvim_set_keymap("n", "n", "nzzzv", { noremap = true })
+api.nvim_set_keymap("n", "N", "Nzzzv", { noremap = true })
+
+if fn.exists("*fugitive#statusline") == 1 then
+    o.statusline = o.statusline .. fn['fugitive#statusline']()
+end
+
+-- No one is really happy until you have this shortcuts
+local mappings = {
+    ["W!"] = "w!",
+    ["Q!"] = "q!",
+    ["Qall!"] = "qall!",
+    ["Wq"] = "wq",
+    ["Wa"] = "wa",
+    ["wQ"] = "wq",
+    ["WQ"] = "wq",
+    ["W"] = "w",
+    ["Q"] = "q",
+    ["Qall"] = "qall",
+}
+
+for key, value in pairs(mappings) do
+    cmd("cnoreabbrev " .. key .. " " .. value)
+end
+
 -------------------------------------------------------------------------------
 cmd([[
 
-"auto format
-let g:clang_format#style_options = {
-            \ "AccessModifierOffset" : -4,
-            \ "AllowShortIfStatementsOnASingleLine" : "true",
-            \ "AlwaysBreakTemplateDeclarations" : "true",
-            \ "Standard" : "C++11"}
-
-" map to <Leader>cf in C++ code
-autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
-autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
-" Toggle auto formatting:
-nmap <Leader>C :ClangFormatAutoToggle<CR>
-
-autocmd FileType c,cpp,objc ClangFormatAutoEnable
 
 
-" HTML Bundle
-Plug 'hail2u/vim-css3-syntax'
-Plug 'gorodinskiy/vim-coloresque'
-Plug 'tpope/vim-haml'
-Plug 'mattn/emmet-vim'
-
-
-" Javascript Bundle
-Plug 'jelera/vim-javascript-syntax'
-
-" Rust
-"Plug 'racer-rust/vim-racer'
-"Plug 'rust-lang/rust.vim'
-
-call plug#end()
-
-filetype plugin indent on
-
-
-"*****************************************************************************
-"" Basic Setup
-"*****************************************************************************"
-"" Encoding
-set encoding=utf-8
-set fileencoding=utf-8
-set fileencodings=utf-8
-
-
-"" Fix backspace indent
-set backspace=indent,eol,start
-
-"" Tabs. May be overridden by autocmd rules
-set tabstop=4
-set softtabstop=0
-set shiftwidth=4
-set expandtab
-
-"" Map leader to ,
-"let mapleader=','
-
-"" Enable hidden buffers
-set hidden
-
-"" Searching
-set hlsearch
-set incsearch
-set ignorecase
-set smartcase
-
-set fileformats=unix,dos,mac
-
-set shell=$SHELL
-
-" session management
-let g:session_directory = "~/.config/nvim/session"
-let g:session_autoload = "no"
-let g:session_autosave = "no"
-let g:session_command_aliases = 1
-
-"*****************************************************************************
-"" Visual Settings
-"*****************************************************************************
-syntax on
-set ruler
-set number
-
-let no_buffers_menu=1
-
-set mousemodel=popup
-set t_Co=256
-set guioptions=egmrti
-set gfn=Monospace\ 10
-
-    let g:CSApprox_loaded = 1
-
-    " IndentLine
-    let g:indentLine_enabled = 1
-    let g:indentLine_concealcursor = 0
-    let g:indentLine_char = '┆'
-    let g:indentLine_faster = 1
-
-
-
-
-"" Disable the blinking cursor.
-set gcr=a:blinkon0
-set scrolloff=3
-
-"" Status bar
-set laststatus=2
-
-"" Use modeline overrides
-set modeline
-set modelines=10
-
-set title
-set titleold="Terminal"
-set titlestring=%F
-
-set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
-
-" Search mappings: These will make it so that going to the next one in a
-" search will center on the line it's found in.
-nnoremap n nzzzv
-nnoremap N Nzzzv
-
-if exists("*fugitive#statusline")
-    set statusline+=%{fugitive#statusline()}
-endif
-
-"*****************************************************************************
-"" Abbreviations
-"*****************************************************************************
-"" no one is really happy until you have this shortcuts
-cnoreabbrev W! w!
-cnoreabbrev Q! q!
-cnoreabbrev Qall! qall!
-cnoreabbrev Wq wq
-cnoreabbrev Wa wa
-cnoreabbrev wQ wq
-cnoreabbrev WQ wq
-cnoreabbrev W w
-cnoreabbrev Q q
-cnoreabbrev Qall qall
-
-" Copilot
+    " Copilot
 cnoreabbrev dcp Copilot disable
 cnoreabbrev ecp Copilot enable
 
