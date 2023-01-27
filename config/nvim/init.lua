@@ -65,17 +65,63 @@ Plug('junegunn/fzf.vim')
 Plug('buoto/gotests-vim')
 Plug('vimwiki/vimwiki')
 
+-- vimwiki
+g.vineiki_url_maxsave = 0
+g.vimwiki_auto_header = 1
+g.vimwiki_global_ext = 0
+g.vimwiki_autowriteall = 1
+g.vimwiki_markdown_link_ext = 1
+g.vimwiki_automatic_nested_syntaxes = 1
+g.vimwiki_links_space_char = '_'
+g.vimwiki_key_mappings = {
+    all_maps = 0,
+}
+g.vimwiki_listsyms = ' ○◐●✓'
+g.vimwiki_key_mappings = {
+    all_maps = 1,
+    global = 1,
+    headers = 1,
+    text_objs = 1,
+    table_format = 0,
+    table_mappings = 0,
+    lists = 0,
+    links = 1,
+    html = 1,
+    mouse = 1,
+}
+g.vimwiki_list = {
+    {
+        path = '~/Documents/wiki/',
+        syntax = 'markdown',
+        ext = '.md',
+        auto_toc = 1,
+        auto_tags = 1,
+        auto_generate_tags = 1,
+        auto_diary_index = 1
+    }
+}
+g.vimwiki_diary_months = {
+    ['1'] = 'Janeiro',
+    ['2'] = 'Fevereiro',
+    ['3'] = 'Março',
+    ['4'] = 'Abril',
+    ['5'] = 'Maio',
+    ['6'] = 'Junho',
+    ['7'] = 'Julho',
+    ['8'] = 'Agosto',
+    ['9'] = 'Setembro',
+    ['10'] = 'Outubro',
+    ['11'] = 'Novembro',
+    ['12'] = 'Dezembro',
+}
+
+
+
 -------------------------------------------------------------------------------
 cmd([[
 
 
 " vimwiki
-"hi VimwikiHeader1 guifg=#FF0000
-"hi VimwikiHeader2 guifg=#00FF00
-"hi VimwikiHeader3 guifg=#0000FF
-"hi VimwikiHeader4 guifg=#FF00FF
-"hi VimwikiHeader5 guifg=#00FFFF
-"hi VimwikiHeader6 guifg=#FFFF00
 let g:vimwiki_url_maxsave = 0
 let g:vimwiki_auto_header = 1
 let g:vimwiki_global_ext = 0
