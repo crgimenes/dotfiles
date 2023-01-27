@@ -65,8 +65,7 @@ Plug('itchyny/lightline.vim')
 Plug('w0rp/ale')
 Plug('neoclide/coc.nvim', { branch = 'release' })
 Plug('rhysd/vim-clang-format')
-Plug('junegunn/fzf', { ['do'] = fn['fzf#install'] })
-Plug('junegunn/fzf.vim')
+Plug('junegunn/fzf')
 Plug('buoto/gotests-vim')
 Plug('vimwiki/vimwiki')
 Plug('Shougo/vimproc.vim', { ['do'] = 'make' })
@@ -322,265 +321,125 @@ api.nvim_create_autocmd("BufRead,BufNewFile", {
 })
 
 
+api.nvim_set_keymap("n", "<Tab>", "gt", { noremap = true })
+api.nvim_set_keymap("n", "<S-Tab>", "gT", { noremap = true })
+api.nvim_set_keymap("n", "<S-t>", ":tabnew<CR>", { noremap = true, silent = true })
+api.nvim_set_keymap("n", "<leader>.", ":lcd %:p:h<CR>", { noremap = true, silent = true })
+api.nvim_set_keymap("n", "<leader>e", ':e <C-R>=expand("%:p:h") . "/" <CR>', { noremap = true, silent = true })
 
--------------------------------------------------------------------------------
+
+api.nvim_set_keymap("n", "<leader>b", ":Buffers<CR>", { noremap = true, silent = true })
+api.nvim_set_keymap("n", "<leader>h", ":History:<CR>", { noremap = true, silent = true })
+api.nvim_set_keymap("n", "<leader>e", ":FZF -m<CR>", { noremap = true, silent = true })
+api.nvim_set_keymap("n", "<leader>l", ":FZF -m --no-sort<CR>", { noremap = true, silent = true })
+api.nvim_set_keymap("n", "<leader>y", ":History:<CR>", { noremap = true, silent = true })
+
+-- Copy/Paste/Cut
+o.clipboard = 'unnamed,unnamedplus'
+api.nvim_set_keymap("n", "YY", '"+y<CR>', { noremap = true })
+api.nvim_set_keymap("n", "<leader>p", '"+gP<CR>', { noremap = true })
+api.nvim_set_keymap("n", "XX", '"+x<CR>', { noremap = true })
+
+if fn.has('macunix') == 1 then
+    -- pbcopy for OSX copy/paste
+    api.nvim_set_keymap("v", "<C-x>", ":!pbcopy<CR>", { noremap = true })
+    api.nvim_set_keymap("v", "<C-c>", ":w !pbcopy<CR><CR>", { noremap = true })
+end
+
+api.nvim_set_keymap("n", "<leader>z", ":bp<CR>", { noremap = true })
+api.nvim_set_keymap("n", "<leader>q", ":bp<CR>", { noremap = true })
+api.nvim_set_keymap("n", "<leader>x", ":bn<CR>", { noremap = true })
+api.nvim_set_keymap("n", "<leader>w", ":bn<CR>", { noremap = true })
+api.nvim_set_keymap("n", "ff", ":bn<cr>", { noremap = true })
+-- Close buffer
+api.nvim_set_keymap("n", "<leader>c", ":bd<CR>", { noremap = true })
+
+-- Clean search (highlight)
+api.nvim_set_keymap("n", "<leader><space>", ":noh<CR>", { noremap = true })
+
+
+g.go_list_type = "quickfix"
+g.go_fmt_command = "goimports"
+g.go_fmt_fail_silently = 1
+
+g.go_highlight_types = 1
+g.go_highlight_fields = 1
+g.go_highlight_functions = 1
+g.go_highlight_methods = 1
+g.go_highlight_operators = 1
+g.go_highlight_build_constraints = 1
+g.go_highlight_structs = 1
+g.go_highlight_generate_tags = 1
+g.go_highlight_space_tab_error = 0
+g.go_highlight_array_whitespace_error = 0
+g.go_highlight_trailing_whitespace_error = 0
+g.go_highlight_extra_types = 1
+
+-- text navegate
+api.nvim_set_keymap("n", "<Up>", "gk", { noremap = true })
+api.nvim_set_keymap("n", "<Down>", "gj", { noremap = true })
+-- api.nvim_set_keymap("i", "<Up>", "<C-o>gk", { noremap = true })
+-- api.nvim_set_keymap("i", "<Down>", "<C-o>gj", { noremap = true })
+
+
+-- CoC popup menus
+-- api.nvim_set_keymap('i', '<expr><tab>', 'coc#pum#visible() ? coc#pum#confirm() : "<tab>"', { noremap = true })
+-- api.nvim_set_keymap("i", "<expr><tab>", 'coc#pum#visible() ? coc#pum#confirm() : "<tab>"', { noremap = true })
+-- api.nvim_set_keymap("i", "<expr><s-tab>", "coc#pum#visible() ? coc#pum#select_prev() : '<s-tab>'", { noremap = true })
+
+--      inoremap <expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
+-- cmd('inoremap <expr> <tab> coc#pum#visible() ? coc#pum#confirm() : "<tab>"')
+
+
+-- https://github.com/neoclide/coc.nvim/blob/release/Readme.md
+local keyset = vim.keymap.set
+local opts = { silent = true, noremap = true, expr = true, replace_keycodes = false }
+keyset("i", "<TAB>", 'coc#pum#visible() ? coc#pum#next(1) : v:lua.check_back_space() ? "<TAB>" : coc#refresh()', opts)
+keyset("i", "<S-TAB>", [[coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"]], opts)
+
+-- keyset("i", "<cr>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], opts)
+-- keyset('i', '<tab>', 'coc#pum#visible() ? coc#pum#confirm() : "<tab>"', { expr = true })
+
+--[[
+vim.keymap.set(
+    'i',
+    '<tab>',
+    function()
+        if fn['coc#pum#visible']() == 1 then
+            -- coc Pop Up Menu (pum) is visible, confirm selection
+            fn['coc#pum#confirm']()
+        else
+            -- coco Pop Up Menu is not open, make no change to <CR>
+            return "<tab>"
+        end
+    end,
+    { expr = true }
+);
+]] --
+
+-- abbreviatons
+api.nvim_exec("iabbrev qq qualquer", false)
+api.nvim_exec("iabbrev vc você", false)
+api.nvim_exec("iabbrev crg@ crg@crg.eti.br", false)
+
+-- add undo break points
+-- api.nvim_set_keymap("i", '"', '<c-g>u', { noremap = true })
+-- api.nvim_set_keymap("i", '<cr>', '<cr><c-g>u', { noremap = true })
+
+-- undo
+o.undofile = true
+o.undodir = "~/.localtmp/undodir"
+o.undolevels = 1000
+o.undoreload = 100000
+
+-- set wrap
+o.wrap = 'linebreak'
+
+o.noswapfile = true
+o.nobackup = true
+
+
 cmd([[
-
-
-
-"*****************************************************************************
-"" Mappings
-"*****************************************************************************
-
-"" Tabs
-nnoremap <Tab> gt
-nnoremap <S-Tab> gT
-nnoremap <silent> <S-t> :tabnew<CR>
-
-"" Set working directory
-nnoremap <leader>. :lcd %:p:h<CR>
-
-"" Opens an edit command with the path of the currently edited file filled in
-noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
-
-"" Opens a tab edit command with the path of the currently edited file filled
-noremap <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
-
-"" fzf.vim
-set wildmode=list:longest,list:full
-set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
-let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o  -type f -print -o -type l -print 2> /dev/null"
-
-" The Silver Searcher
-if executable('ag')
-    let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
-    set grepprg=ag\ --nogroup\ --nocolor
-endif
-
-" ripgrep
-if executable('rg')
-    let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
-    set grepprg=rg\ --vimgrep
-    command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
-endif
-
-cnoremap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
-nnoremap <silent> <leader>b :Buffers<CR>
-nnoremap <silent> <leader>e :FZF -m<CR>
-"Recovery commands from history through FZF
-nmap <leader>y :History:<CR>
-
-" ale
-let g:ale_linters = {}
-
-" Tagbar
-nmap <silent> <F4> :TagbarToggle<CR>
-let g:tagbar_autofocus = 1
-
-" Disable visualbell
-set noerrorbells visualbell t_vb=
-if has('autocmd')
-    autocmd GUIEnter * set visualbell t_vb=
-endif
-
-"" Copy/Paste/Cut
-if has('unnamedplus')
-    set clipboard=unnamed,unnamedplus
-endif
-
-noremap YY "+y<CR>
-noremap <leader>p "+gP<CR>
-noremap XX "+x<CR>
-
-if has('macunix')
-    " pbcopy for OSX copy/paste
-    vmap <C-x> :!pbcopy<CR>
-    vmap <C-c> :w !pbcopy<CR><CR>
-endif
-
-"" Buffer nav
-noremap <leader>z :bp<CR>
-noremap <leader>q :bp<CR>
-noremap <leader>x :bn<CR>
-noremap <leader>w :bn<CR>
-noremap ff :bn<cr>
-"noremap gp :bp<cr>
-"noremap gd :bd<cr>
-
-
-"" Close buffer
-noremap <leader>c :bd<CR>
-
-"" Clean search (highlight)
-nnoremap <silent> <leader><space> :noh<cr>
-
-"" Switching windows
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
-noremap <C-h> <C-w>h
-
-"" Vmap for maintain Visual Mode after shifting > and <
-vmap < <gv
-vmap > >gv
-
-"" Move visual block
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
-
-"" Open current line on GitHub
-nnoremap <Leader>o :.Gbrowse<CR>
-
-"*****************************************************************************
-"" Custom configs
-"*****************************************************************************
-
-" c
-autocmd FileType c setlocal tabstop=4 shiftwidth=4 expandtab
-autocmd FileType cpp setlocal tabstop=4 shiftwidth=4 expandtab
-
-
-" go
-" vim-go
-" run :GoBuild or :GoTestCompile based on the go file
-function! s:build_go_files()
-    let l:file = expand('%')
-    if l:file =~# '^\f\+_test\.go$'
-        call go#test#Test(0, 1)
-    elseif l:file =~# '^\f\+\.go$'
-        call go#cmd#Build(0)
-    endif
-endfunction
-
-let g:go_list_type = "quickfix"
-let g:go_fmt_command = "goimports"
-let g:go_fmt_fail_silently = 1
-
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_generate_tags = 1
-let g:go_highlight_space_tab_error = 0
-let g:go_highlight_array_whitespace_error = 0
-let g:go_highlight_trailing_whitespace_error = 0
-let g:go_highlight_extra_types = 1
-
-autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
-
-augroup completion_preview_close
-    autocmd!
-    if v:version > 703 || v:version == 703 && has('patch598')
-        autocmd CompleteDone * if !&previewwindow && &completeopt =~ 'preview' | silent! pclose | endif
-    endif
-augroup END
-
-augroup go
-
-    au!
-    au Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
-    au Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
-    au Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
-    au Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
-
-    au FileType go nmap <Leader>dd <Plug>(go-def-vertical)
-    au FileType go nmap <Leader>dv <Plug>(go-doc-vertical)
-    au FileType go nmap <Leader>db <Plug>(go-doc-browser)
-
-    au FileType go nmap <leader>r  <Plug>(go-run)
-    au FileType go nmap <leader>t  <Plug>(go-test)
-    au FileType go nmap <Leader>gt <Plug>(go-coverage-toggle)
-    au FileType go nmap <Leader>i <Plug>(go-info)
-    au FileType go nmap <silent> <Leader>l <Plug>(go-metalinter)
-    au FileType go nmap <C-g> :GoDecls<cr>
-    au FileType go nmap <leader>dr :GoDeclsDir<cr>
-    au FileType go imap <C-g> <esc>:<C-u>GoDecls<cr>
-    au FileType go imap <leader>dr <esc>:<C-u>GoDeclsDir<cr>
-    au FileType go nmap <leader>rb :<C-u>call <SID>build_go_files()<CR>
-
-augroup END
-
-" ale
-:call extend(g:ale_linters, {
-            \"go": ['golint', 'go vet'], })
-
-
-" html
-" for html files, 2 spaces
-autocmd Filetype html setlocal ts=2 sw=2 expandtab
-
-
-" javascript
-let g:javascript_enable_domhtmlcss = 1
-
-" vim-javascript
-augroup vimrc-javascript
-    autocmd!
-    autocmd FileType javascript setl tabstop=4|setl shiftwidth=4|setl expandtab softtabstop=4
-augroup END
-
-
-" rust
-" Vim racer
-au FileType rust nmap gd <Plug>(rust-def)
-au FileType rust nmap gs <Plug>(rust-def-split)
-au FileType rust nmap gx <Plug>(rust-def-vertical)
-au FileType rust nmap <leader>gd <Plug>(rust-doc)
-
-
-" text navegate
-map  <buffer> <silent> <Up>   gk
-map  <buffer> <silent> <Down> gj
-"inoremap <buffer> <silent> <Up>   <C-o>gk
-"inoremap <buffer> <silent> <Down> <C-o>gj
-
-" rust
-let g:rustfmt_autosave = 1
-let g:racer_experimental_completer = 1
-"au FileType rust set makeprg=cargo\ build\ -j\ 4
-"au FileType rust nmap <leader>t :!cargo test<cr>
-"au FileType rust nmap <leader>r :!RUST_BACKTRACE=1 cargo run<cr>
-"au FileType rust nmap <leader>c :term cargo build -j 4<cr>
-"au FileType rust nmap gd <Plug>(rust-def)
-"au FileType rust nmap gs <Plug>(rust-def-split)
-"au FileType rust nmap gx <Plug>(rust-def-vertical)
-"au FileType rust nmap <leader>gd <Plug>(rust-doc)
-
-set mouse=a
-
-" CoC popup menus
-inoremap <expr> <tab> coc#pum#visible() ? coc#pum#confirm() : "\<tab>"
-
-
-"test leader
-nnoremap <leader>uu :let view=winsaveview()<cr>viw~<esc>:call winrestview(view)<cr>:echo "~"<cr>
-
-nnoremap <leader>ev :e $MYVIMRC<cr>
-nnoremap <leader>sv :source $MYVIMRC<cr>
-
-"abbreviatons
-iabbrev qq qualquer
-iabbrev vc você
-iabbrev crg@ crg@crg.eti.br
-
-"add undo break points
-inoremap " "<c-g>u
-inoremap <cr> <cr><c-g>u
-
-"undo
-set undofile
-set undodir=~/.localtmp/undodir
-set undolevels=1000
-set undoreload=100000
-
-"set wrap
-set wrap linebreak
-
-set noswapfile
-set nobackup
 
 if remote_clipboard_enabled 
 
@@ -598,5 +457,4 @@ if remote_clipboard_enabled
   augroup END
 
 endif
-
 ]])
