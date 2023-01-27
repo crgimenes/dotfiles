@@ -5,6 +5,7 @@ local o = vim.o -- global options
 local opt = vim.opt -- global/buffer/windows-scoped options
 local fn = vim.fn -- call Vim functions
 local call = vim.call -- call Vim functions
+local wo = vim.wo -- window-scoped options
 
 -- g.mapleader = ','
 
@@ -260,6 +261,7 @@ o.title = true
 o.titleold = "Terminal"
 o.titlestring = "%F"
 o.statusline = "%F%m%r%h%w%=(%{&ff}/%Y) (line %l/%L, col %c)"
+o.autoread = true
 
 -- Search mappings: These will make it so that going to the next one in a
 -- search will center on the line it's found in.
@@ -288,97 +290,47 @@ for key, value in pairs(mappings) do
     cmd("cnoreabbrev " .. key .. " " .. value)
 end
 
+-- Copilot
+cmd("cnoreabbrev dcp Copilot disable")
+cmd("cnoreabbrev ecp Copilot enable")
+
+-- remove trailing whitespaces
+cmd("command! FixWhitespace :%s/\\s\\+$//e")
+
+-- Remember cursor position
+cmd([[
+augroup vimrc-remember-cursor-position
+    autocmd!
+    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+augroup END
+]])
+
+
+if not fn.exists('setupWrapping') then
+    function setupWrapping()
+        wo.wrap = true
+        wo.wrapmargin = 2
+        wo.textwidth = 79
+    end
+end
+
+-- nasm
+api.nvim_create_autocmd("BufRead,BufNewFile", {
+    command = "set filetype=nasm",
+    group = calendarfile,
+    pattern = "*.asm",
+})
+
+
+
 -------------------------------------------------------------------------------
 cmd([[
 
 
 
-    " Copilot
-cnoreabbrev dcp Copilot disable
-cnoreabbrev ecp Copilot enable
-
-" grep.vim
-nnoremap <silent> <leader>f :Rgrep<CR>
-let Grep_Default_Options = '-IR'
-let Grep_Skip_Files = '*.log *.db'
-let Grep_Skip_Dirs = '.git node_modules'
-
-" terminal emulation
-nnoremap <silent> <leader>sh :terminal<CR>
-
-"*****************************************************************************
-"" Commands
-"*****************************************************************************
-" remove trailing whitespaces
-command! FixWhitespace :%s/\s\+$//e
-
-"*****************************************************************************
-"" Functions
-"*****************************************************************************
-if !exists('*s:setupWrapping')
-    function s:setupWrapping()
-        set wrap
-        set wm=2
-        set textwidth=79
-    endfunction
-endif
-
-"*****************************************************************************
-"" Autocmd Rules
-"*****************************************************************************
-"" The PC is fast enough, do syntax highlight syncing from start unless 200 lines
-augroup vimrc-sync-fromstart
-    autocmd!
-    autocmd BufEnter * :syntax sync maxlines=200
-augroup END
-
-"" Remember cursor position
-augroup vimrc-remember-cursor-position
-    autocmd!
-    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-augroup END
-
-"" txt
-augroup vimrc-wrapping
-    autocmd!
-    autocmd BufRead,BufNewFile *.txt call s:setupWrapping()
-augroup END
-
-"" make/cmake
-augroup vimrc-make-cmake
-    autocmd!
-    autocmd FileType make setlocal noexpandtab
-    autocmd BufNewFile,BufRead CMakeLists.txt setlocal filetype=cmake
-augroup END
-
-"" nasm
-autocmd BufNewFile,BufRead *.asm set filetype=nasm
-
-set autoread
-
 "*****************************************************************************
 "" Mappings
 "*****************************************************************************
-
-"" Split
-noremap <Leader>h :<C-u>split<CR>
-noremap <Leader>v :<C-u>vsplit<CR>
-
-"" Git
-noremap <Leader>ga :Gwrite<CR>
-noremap <Leader>gc :Gcommit<CR>
-noremap <Leader>gsh :Gpush<CR>
-noremap <Leader>gll :Gpull<CR>
-noremap <Leader>gs :Gstatus<CR>
-noremap <Leader>gb :Gblame<CR>
-noremap <Leader>gd :Gvdiff<CR>
-noremap <Leader>gr :Gremove<CR>
-
-" session management
-nnoremap <leader>so :OpenSession<Space>
-nnoremap <leader>ss :SaveSession<Space>
-nnoremap <leader>sd :DeleteSession<CR>
-nnoremap <leader>sc :CloseSession<CR>
 
 "" Tabs
 nnoremap <Tab> gt
