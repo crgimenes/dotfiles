@@ -64,6 +64,16 @@ Plug('junegunn/fzf', { ['do'] = fn['fzf#install'] })
 Plug('junegunn/fzf.vim')
 Plug('buoto/gotests-vim')
 Plug('vimwiki/vimwiki')
+Plug('Shougo/vimproc.vim', { ['do'] = 'make' })
+Plug('chriskempson/base16-vim')
+Plug('fatih/vim-go', { ['do'] = ':GoInstallBinaries' })
+
+-- highlight Visual  guifg=#000000 guibg=#FFFFFF gui=none
+-- api.nvim_set_hl(0, 'Normal', { fg = "#ffffff", bg = "#333333" })
+-- api.nvim_set_hl(0, 'Comment', { fg = "#111111", bold = true })
+-- api.nvim_set_hl(0, 'Error', { fg = "#ffffff", undercurl = true })
+-- api.nvim_set_hl(0, 'Cursor', { reverse = true })
+api.nvim_set_hl(0, "Visual", { reverse = true, bold = true })
 
 -- vimwiki
 g.vineiki_url_maxsave = 0
@@ -114,122 +124,26 @@ g.vimwiki_diary_months = {
     ['11'] = 'Novembro',
     ['12'] = 'Dezembro',
 }
+-- vimwiki key mappings
+api.nvim_set_keymap('n', '<C-S-t>', "<Plug>VimwikiToggleListItem", { noremap = true, silent = true });
 
+--[[
+Golang
+--]]
 
+g.go_def_mode = 'gopls'
+g.go_info_mode = 'gopls'
+-- g.deoplete#enable_at_startup = 1
+-- g.deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+
+--[[
+Copilot
+--]]
+Plug('github/copilot.vim')
+g.copilot_enabled = 0
 
 -------------------------------------------------------------------------------
 cmd([[
-
-
-" vimwiki
-let g:vimwiki_url_maxsave = 0
-let g:vimwiki_auto_header = 1
-let g:vimwiki_global_ext = 0
-let g:vimwiki_autowriteall = 1
-let g:vimwiki_markdown_link_ext = 1
-let g:vimwiki_automatic_nested_syntaxes = 1
-let g:vimwiki_links_space_char = '_'
-"let g:vimwiki_key_mappings = { 'all_maps': 0, }
-"let g:vimwiki_listsyms = ' ○◐●✓'
-let g:vimwiki_key_mappings =
-  \ {
-  \   'all_maps': 1,
-  \   'global': 1,
-  \   'headers': 1,
-  \   'text_objs': 1,
-  \   'table_format': 0,
-  \   'table_mappings': 0,
-  \   'lists': 0,
-  \   'links': 1,
-  \   'html': 1,
-  \   'mouse': 1,
-  \ }
-let g:vimwiki_list = [{
-            \ 'path': '~/Documents/wiki/',
-            \ 'syntax': 'markdown', 
-            \ 'ext': '.md',
-            \ 'auto_toc': 1,
-            \ 'auto_tags': 1,
-            \ 'auto_generate_tags': 1,
-            \ 'auto_diary_index': 1
-            \ }]
-
-let g:vimwiki_diary_months = {
-      \ 1: 'Janeiro', 
-      \ 2: 'Fevereiro', 
-      \ 3: 'Março',
-      \ 4: 'Abril', 
-      \ 5: 'Maio', 
-      \ 6: 'Junho',
-      \ 7: 'Julho', 
-      \ 8: 'Agosto', 
-      \ 9: 'Setembro',
-      \ 10: 'Outubro', 
-      \ 11: 'Novembro', 
-      \ 12: 'Dezembro'
-      \ }
-
-":nmap <Leader>tl <Plug>VimwikiToggleListItem
-":vmap <Leader>tl <Plug>VimwikiToggleListItem
-":nnoremap glo :VimwikiChangeSymbolTo a)<CR>
-
-":nmap <Leader>dd <Plug>VimwikiDiaryNextDay
-":nmap <Leader>ds <Plug>VimwikiDiaryPrevDay
-
-:nmap <C-S-t> <Plug>VimwikiToggleListItem
-
-:nmap <C-S-Up> <Plug>VimwikiDiaryNextDay
-:nmap <C-S-Down> <Plug>VimwikiDiaryPrevDay
-
-
-autocmd BufEnter diary.md :VimwikiDiaryGenerateLinks
-
-
-"au BufNewFile ~/Documents/wiki/diary/*.md
-"      \ call append(0,[
-"      \ "# " . split(expand('%:r'),'/')[-1], "",
-"      \ "## Daily checklist", "",
-"      \ "## Todo",  "",
-"      \ "## Notes", "" ])
-
-"autocmd BufNewFile ~/Documents/wiki/diary/[0-9]\\\{4\}-[0-9]\\\{2\}-[0-9]\\\{2\}.md :execute 'silent 0r !vimwiki-diary-template.py'
-"autocmd BufNewFile ~/Documents/wiki/diary/[0-9]\\\{4\}-[0-9]\\\{2\}-[0-9]\\\{2\}.md :execute 'silent 0r !vimwiki-diary-template.py' | normal 7gg
-"autocmd BufNewFile ~/Documents/wiki/diary/*.md :silent 0r !~/.vim/bin/generate-vimwiki-diary-template '%'
-
-
-autocmd BufNewFile ~/Documents/wiki/diary/[0-9]\\\{4\}-[0-9]\\\{2\}-[0-9]\\\{2\}.md :execute 'silent 0r !~/Documents/scripts/diary_template.py' | normal gg
-
-
-" go
-let g:go_def_mode='gopls'
-let g:go_info_mode='gopls'
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
-
-"Plug 'Shougo/vimproc.vim', {'do': 'make'} 
-
-"Copilot
-Plug 'github/copilot.vim'
-let g:copilot_enabled = 0
-
-"" Vim-Session
-"Plug 'xolox/vim-misc'
-"Plug 'xolox/vim-session'
-
-"" Snippets
-"Plug 'SirVer/ultisnips'
-"Plug 'honza/vim-snippets'
-
-"" Color
-let base16colorspace=256
-set termguicolors
-Plug 'chriskempson/base16-vim'
-"highlight Pmenu ctermbg=white guibg=black
-"highlight Pmenu ctermbg=8 guibg=#606060
-"highlight PmenuSel ctermbg=1 guifg=#dddd00 guibg=#1f82cd
-"highlight PmenuSbar ctermbg=0 guibg=#d6d6d6
-
-highlight Visual  guifg=#000000 guibg=#FFFFFF gui=none
 
 "auto format
 let g:clang_format#style_options = {
@@ -246,9 +160,6 @@ nmap <Leader>C :ClangFormatAutoToggle<CR>
 
 autocmd FileType c,cpp,objc ClangFormatAutoEnable
 
-
-" Go Lang
-Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
 
 " HTML Bundle
 Plug 'hail2u/vim-css3-syntax'
