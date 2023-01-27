@@ -1,11 +1,22 @@
-local api = vim.api
-local cmd = vim.cmd
-local g = vim.g
-local opt = vim.opt
-local fn = vim.fn
+local api = vim.api -- nvim api
+local cmd = vim.cmd -- execute Vim commands
+local g = vim.g -- global variables
+local o = vim.o -- global options
+local opt = vim.opt -- global/buffer/windows-scoped options
+local fn = vim.fn -- call Vim functions
 
 -- remote clipboard default disabled
 g.remote_clipboard_enabled = 0
+
+-- python3
+g.python3_host_skip_check = 1
+g.python3_host_prog = "/usr/bin/python3"
+g.python_host_prog = "/usr/bin/python3"
+
+-- find files recursively in subdirectories
+-- set path+=**
+o.path = o.path .. "**"
+
 
 -- load local configurations
 local local_vim = "~/.config/nvim/local.vim"
@@ -26,40 +37,37 @@ api.nvim_create_autocmd("BufRead,BufNewFile", {
     pattern = "calendarfile",
 })
 
+--[[
+*****************************************************************************
+Vim-PLug core
+*****************************************************************************
+--]]
+-- let vimplug_exists = expand('~/.config/nvim/autoload/plug.vim')
+local vimplug_exists = fn.expand('~/.config/nvim/autoload/plug.vim')
+g.vim_bootstrap_langs = "c,go,html,javascript,rust"
+g.vim_bootstrap_editor = "nvim" -- nvim or vim
+
+-- Required:
+fn.call("plug#begin", { "~/.config/nvim/plugged" })
+local Plug = fn['plug#']
+
+--[[
+*****************************************************************************
+Plug install packages
+*****************************************************************************
+--]]
+Plug('itchyny/lightline.vim')
+Plug('w0rp/ale')
+Plug('neoclide/coc.nvim', { branch = 'release' })
+Plug('rhysd/vim-clang-format')
+Plug('junegunn/fzf', { ['do'] = fn['fzf#install'] })
+Plug('junegunn/fzf.vim')
+Plug('buoto/gotests-vim')
+Plug('vimwiki/vimwiki')
 
 -------------------------------------------------------------------------------
 cmd([[
 
-set path+=**
-
-"set completeopt+=noinsert
-"set completeopt+=noselect
-let g:python3_host_skip_check = 1
-let g:python3_host_prog = '/usr/bin/python3'
-let g:python_host_prog = '/usr/bin/python3'
-
-"*****************************************************************************
-"" Vim-PLug core
-"*****************************************************************************
-let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
-
-let g:vim_bootstrap_langs = "c,go,html,javascript,rust"
-let g:vim_bootstrap_editor = "nvim"             " nvim or vim
-
-" Required:
-call plug#begin(expand('~/.config/nvim/plugged'))
-
-"*****************************************************************************
-"" Plug install packages
-"*****************************************************************************
-Plug 'itchyny/lightline.vim'
-Plug 'w0rp/ale'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'rhysd/vim-clang-format'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'buoto/gotests-vim'
-Plug 'vimwiki/vimwiki'
 
 " vimwiki
 "hi VimwikiHeader1 guifg=#FF0000
