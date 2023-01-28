@@ -24,7 +24,7 @@ o.path = o.path .. "**"
 
 
 -- load local configurations
-local local_vim = "~/.config/nvim/local.vim"
+local local_vim = fn.expand("~/.config/nvim/local.vim")
 if fn.filereadable(local_vim) == 1 then
     cmd("source " .. local_vim)
 end
@@ -42,18 +42,12 @@ api.nvim_create_autocmd("BufRead,BufNewFile", {
     pattern = "calendarfile",
 })
 
---[[
-*****************************************************************************
-Vim-PLug core
-*****************************************************************************
---]]
 -- let vimplug_exists = expand('~/.config/nvim/autoload/plug.vim')
-local vimplug_exists = fn.expand('~/.config/nvim/autoload/plug.vim')
-g.vim_bootstrap_langs = "c,go,html,javascript,rust"
-g.vim_bootstrap_editor = "nvim" -- nvim or vim
+-- local vimplug_exists = fn.expand('~/.config/nvim/autoload/plug.vim')
 
 -- Required:
-fn.call("plug#begin", { "~/.config/nvim/plugged" })
+local plugged = fn.expand("~/.config/nvim/plugged")
+fn.call("plug#begin", { plugged })
 local Plug = fn['plug#']
 
 --[[
@@ -61,8 +55,7 @@ local Plug = fn['plug#']
 Plug install packages
 *****************************************************************************
 --]]
--- Plug('itchyny/lightline.vim')
-Plug('nvim-lualine/lualine.nvim')
+Plug('nvim-lualine/lualine.nvim') -- statusline
 Plug('w0rp/ale')
 Plug('neoclide/coc.nvim', { branch = 'release' })
 Plug('rhysd/vim-clang-format')
@@ -81,6 +74,13 @@ Plug('mattn/emmet-vim')
 
 -- Javascript
 Plug 'jelera/vim-javascript-syntax'
+
+Plug('github/copilot.vim')
+g.copilot_enabled = 0
+
+call('plug#end')
+
+
 
 -- Rust
 -- Plug('racer-rust/vim-racer')
@@ -121,7 +121,7 @@ g.vimwiki_key_mappings = {
 }
 g.vimwiki_list = {
     {
-        path = '~/Documents/wiki/',
+        path = fn.expand('~/Documents/wiki/'),
         syntax = 'markdown',
         ext = '.md',
         auto_toc = 1,
@@ -155,12 +155,6 @@ g.go_def_mode = 'gopls'
 g.go_info_mode = 'gopls'
 -- g.deoplete#enable_at_startup = 1
 -- g.deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
-
---[[
-Copilot
---]]
-Plug('github/copilot.vim')
-g.copilot_enabled = 0
 
 --[[
 C/C++
@@ -204,10 +198,14 @@ api.nvim_create_autocmd("BufEnter", {
 
 
 
---[[
-end plugin config
---]]
-call('plug#end')
+
+-- lualine setup
+require('lualine').setup({
+    options = {
+        theme = '16color',
+        icons_enabled = false,
+    },
+})
 
 -- automatic file type detection and indentation according to file type
 o.filetype_plugin = true
@@ -237,7 +235,7 @@ o.fileformats = 'unix,dos,mac'
 o.shell = '/bin/zsh'
 
 -- session management
-g.session_directory = '~/.config/nvim/session'
+g.session_directory = fn.expand('~/.config/nvim/session')
 g.session_autoload = 'no'
 g.session_autosave = 'no'
 g.session_command_aliases = 1
@@ -416,7 +414,7 @@ api.nvim_exec("iabbrev crg@ crg@crg.eti.br", false)
 
 -- undo
 o.undofile = true
-o.undodir = "~/.localtmp/undodir"
+o.undodir = fn.expand("~/.localtmp/undodir")
 o.undolevels = 1000
 o.undoreload = 100000
 
