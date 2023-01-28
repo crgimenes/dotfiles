@@ -60,11 +60,13 @@ Plug('w0rp/ale')
 Plug('neoclide/coc.nvim', { branch = 'release' })
 Plug('rhysd/vim-clang-format')
 Plug('junegunn/fzf')
+Plug('junegunn/fzf.vim')
 Plug('buoto/gotests-vim')
 Plug('vimwiki/vimwiki')
 Plug('Shougo/vimproc.vim', { ['do'] = 'make' })
 Plug('chriskempson/base16-vim')
 Plug('fatih/vim-go', { ['do'] = ':GoInstallBinaries' })
+
 
 -- HTML
 Plug('hail2u/vim-css3-syntax')
@@ -94,6 +96,15 @@ call('plug#end')
 -- api.nvim_set_hl(0, 'Error', { fg = "#ffffff", undercurl = true })
 -- api.nvim_set_hl(0, 'Cursor', { reverse = true })
 api.nvim_set_hl(0, "Visual", { reverse = true, bold = true })
+-- highlight Pmenu ctermbg=gray guibg=gray
+-- highlight PmenuSel ctermbg=gray guibg=gray
+-- highlight PmenuSbar ctermbg=gray guibg=gray
+api.nvim_set_hl(0, "Pmenu", { bg = "gray" })
+
+-- cnoremap <expr><Up> pumvisible() ? "\<Left>" : "\<Up>"
+-- cnoremap <expr><Down> pumvisible() ? "\<Right>" : "\<Down>"
+
+
 
 -- vimwiki
 g.vineiki_url_maxsave = 0
@@ -299,6 +310,10 @@ end
 cmd("cnoreabbrev dcp Copilot disable")
 cmd("cnoreabbrev ecp Copilot enable")
 
+--cmd("cnoreabbrev rf Files")
+--cmd("cnoreabbrev rv Rg")
+
+
 -- remove trailing whitespaces
 cmd("command! FixWhitespace :%s/\\s\\+$//e")
 
@@ -342,12 +357,37 @@ api.nvim_set_keymap("n", "<leader>e", ':e <C-R>=expand("%:p:h") . "/" <CR>', { n
 --    ['ctrl-t'] = 'tabnew',
 -- }
 
+o.wildmode = "list:longest,list:full"
+o.wildignore = "*.o,*.obj,.git,*.rbc,*.pyc,__pycache__"
+o.wildignorecase = true
+o.wildmenu = true
+o.wildoptions = "pum"
+-- wildmenu colors
+-- cmd("highlight WildMenu ctermfg=White ctermbg=Black")
+api.nvim_set_hl(0, "WildMenu", { ctermfg = "White", ctermbg = "Black" })
+
+
 
 api.nvim_set_keymap("n", "<leader>b", ":Buffers<CR>", { noremap = true, silent = true })
 api.nvim_set_keymap("n", "<leader>h", ":History:<CR>", { noremap = true, silent = true })
-api.nvim_set_keymap("n", "<leader>e", ":FZF -m<CR>", { noremap = true, silent = true })
+api.nvim_set_keymap("n", "<leader>e", ":Files<CR>", { noremap = true, silent = true })
 api.nvim_set_keymap("n", "<leader>l", ":FZF -m --no-sort<CR>", { noremap = true, silent = true })
 api.nvim_set_keymap("n", "<leader>y", ":History:<CR>", { noremap = true, silent = true })
+
+
+
+api.nvim_set_keymap("n", "<leader>rv", ":Lines<CR>", { noremap = true, silent = true })
+api.nvim_set_keymap("n", "<leader>rf", ":Files<CR>", { noremap = true, silent = true })
+api.nvim_set_keymap("n", "<leader>rg", ":Rg<CR>", { noremap = true, silent = true })
+--[[
+
+:Lines
+:BLines
+:Rg
+:Ag
+
+--]]--
+
 
 -- Copy/Paste/Cut
 o.clipboard = 'unnamed,unnamedplus'
