@@ -61,7 +61,8 @@ local Plug = fn['plug#']
 Plug install packages
 *****************************************************************************
 --]]
-Plug('itchyny/lightline.vim')
+-- Plug('itchyny/lightline.vim')
+Plug('nvim-lualine/lualine.nvim')
 Plug('w0rp/ale')
 Plug('neoclide/coc.nvim', { branch = 'release' })
 Plug('rhysd/vim-clang-format')
@@ -194,7 +195,14 @@ function set_clang_format_keymap()
     end
 end
 
-api.nvim_command("autocmd BufEnter * lua set_clang_format_keymap()")
+local clang_format = api.nvim_create_augroup("clang_format", { clear = true })
+api.nvim_create_autocmd("BufEnter", {
+    command = "lua set_clang_format_keymap()",
+    pattern = "*",
+    group = clang_format,
+})
+
+
 
 --[[
 end plugin config
@@ -328,6 +336,15 @@ api.nvim_set_keymap("n", "<leader>.", ":lcd %:p:h<CR>", { noremap = true, silent
 api.nvim_set_keymap("n", "<leader>e", ':e <C-R>=expand("%:p:h") . "/" <CR>', { noremap = true, silent = true })
 
 
+-- FZF
+-- g.fzf_action = {
+--    ['enter'] = 'tab split',
+--    ['ctrl-x'] = 'split',
+--    ['ctrl-v'] = 'vsplit',
+--    ['ctrl-t'] = 'tabnew',
+-- }
+
+
 api.nvim_set_keymap("n", "<leader>b", ":Buffers<CR>", { noremap = true, silent = true })
 api.nvim_set_keymap("n", "<leader>h", ":History:<CR>", { noremap = true, silent = true })
 api.nvim_set_keymap("n", "<leader>e", ":FZF -m<CR>", { noremap = true, silent = true })
@@ -383,39 +400,10 @@ api.nvim_set_keymap("n", "<Down>", "gj", { noremap = true })
 
 
 -- CoC popup menus
--- api.nvim_set_keymap('i', '<expr><tab>', 'coc#pum#visible() ? coc#pum#confirm() : "<tab>"', { noremap = true })
--- api.nvim_set_keymap("i", "<expr><tab>", 'coc#pum#visible() ? coc#pum#confirm() : "<tab>"', { noremap = true })
--- api.nvim_set_keymap("i", "<expr><s-tab>", "coc#pum#visible() ? coc#pum#select_prev() : '<s-tab>'", { noremap = true })
-
---      inoremap <expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
--- cmd('inoremap <expr> <tab> coc#pum#visible() ? coc#pum#confirm() : "<tab>"')
-
-
 -- https://github.com/neoclide/coc.nvim/blob/release/Readme.md
 local keyset = vim.keymap.set
-local opts = { silent = true, noremap = true, expr = true, replace_keycodes = false }
-keyset("i", "<TAB>", 'coc#pum#visible() ? coc#pum#next(1) : v:lua.check_back_space() ? "<TAB>" : coc#refresh()', opts)
-keyset("i", "<S-TAB>", [[coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"]], opts)
+keyset('i', '<tab>', 'coc#pum#visible() ? coc#pum#confirm() : "<tab>"', { expr = true })
 
--- keyset("i", "<cr>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], opts)
--- keyset('i', '<tab>', 'coc#pum#visible() ? coc#pum#confirm() : "<tab>"', { expr = true })
-
---[[
-vim.keymap.set(
-    'i',
-    '<tab>',
-    function()
-        if fn['coc#pum#visible']() == 1 then
-            -- coc Pop Up Menu (pum) is visible, confirm selection
-            fn['coc#pum#confirm']()
-        else
-            -- coco Pop Up Menu is not open, make no change to <CR>
-            return "<tab>"
-        end
-    end,
-    { expr = true }
-);
-]] --
 
 -- abbreviatons
 api.nvim_exec("iabbrev qq qualquer", false)
