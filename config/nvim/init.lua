@@ -2,9 +2,58 @@
 -- Email: crg@crg.eti.br
 -- Description: Neovim configuration file
 
+
+
 -- Options
 local o = vim.o -- global options
 local opt = vim.opt -- global/buffer/windows-scoped options
+
+-- opt.relativenumber = true -- TODO: create a keybinding to toggle this
+opt.number = true
+
+opt.cursorline = false -- TODO: create a keybinding to toggle this
+
+opt.encoding = 'utf-8'
+opt.fileencoding = 'utf-8'
+opt.fileencodings = 'utf-8'
+opt.backspace = 'indent,eol,start'
+opt.tabstop = 4
+opt.softtabstop = 0
+opt.shiftwidth = 4
+opt.expandtab = true
+opt.hidden = true
+opt.autoindent = true
+
+-- search
+opt.hlsearch = true
+opt.incsearch = true
+opt.ignorecase = true
+opt.smartcase = true
+
+-- file format
+opt.fileformats = 'unix,dos,mac'
+
+-- shell
+-- o.shell = os.getenv("SHELL")
+opt.shell = '/bin/zsh'
+
+-- colors
+opt.termguicolors = true
+opt.background = "dark"
+-- opt.signcolumn = "yes"
+
+-- Copy/Paste/Cut
+opt.clipboard = 'unnamed,unnamedplus'
+-- opt. clipboard: append ("unnamedplus")
+
+-- split 
+opt.splitbelow = true
+opt.splitright = true
+
+
+-- automatic file type detection and indentation according to file type
+o.filetype_plugin = true
+o.indent_on = true
 
 
 
@@ -227,32 +276,6 @@ require('lualine').setup({
     },
 })
 
--- automatic file type detection and indentation according to file type
-o.filetype_plugin = true
-o.indent_on = true
-
-o.encoding = 'utf-8'
-o.fileencoding = 'utf-8'
-o.fileencodings = 'utf-8'
-o.backspace = 'indent,eol,start'
-o.tabstop = 4
-o.softtabstop = 0
-o.shiftwidth = 4
-o.expandtab = true
-o.hidden = true
-
--- search
-o.hlsearch = true
-o.incsearch = true
-o.ignorecase = true
-o.smartcase = true
-
--- file format
-o.fileformats = 'unix,dos,mac'
-
--- shell
--- o.shell = os.getenv("SHELL")
-o.shell = '/bin/zsh'
 
 -- session management
 g.session_directory = fn.expand('~/.config/nvim/session')
@@ -262,7 +285,6 @@ g.session_command_aliases = 1
 
 g.syntax_on = true
 o.ruler = true
-o.number = true
 
 
 g.no_buffers_menu = 1
@@ -399,8 +421,6 @@ api.nvim_set_keymap("n", "<leader>rg", ":Rg<CR>", { noremap = true, silent = tru
 --]] --
 
 
--- Copy/Paste/Cut
-o.clipboard = 'unnamed,unnamedplus'
 api.nvim_set_keymap("n", "YY", '"+y<CR>', { noremap = true })
 api.nvim_set_keymap("n", "<leader>p", '"+gP<CR>', { noremap = true })
 api.nvim_set_keymap("n", "XX", '"+x<CR>', { noremap = true })
