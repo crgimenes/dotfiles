@@ -1,8 +1,16 @@
+-- Author: Cesar Gimenes
+-- Email: crg@crg.eti.br
+-- Description: Neovim configuration file
+
+-- Options
+local o = vim.o -- global options
+local opt = vim.opt -- global/buffer/windows-scoped options
+
+
+
 local api = vim.api -- nvim api
 local cmd = vim.cmd -- execute Vim commands
 local g = vim.g -- global variables
-local o = vim.o -- global options
-local opt = vim.opt -- global/buffer/windows-scoped options
 local fn = vim.fn -- call Vim functions
 local call = vim.call -- call Vim functions
 local wo = vim.wo -- window-scoped options
@@ -96,10 +104,11 @@ call('plug#end')
 -- api.nvim_set_hl(0, 'Error', { fg = "#ffffff", undercurl = true })
 -- api.nvim_set_hl(0, 'Cursor', { reverse = true })
 api.nvim_set_hl(0, "Visual", { reverse = true, bold = true })
--- highlight Pmenu ctermbg=gray guibg=gray
--- highlight PmenuSel ctermbg=gray guibg=gray
+
+cmd("highlight Pmenu ctermbg=lightgrey guibg=lightgrey")
+cmd("highlight PmenuSel ctermbg=white guibg=white")
 -- highlight PmenuSbar ctermbg=gray guibg=gray
-api.nvim_set_hl(0, "Pmenu", { bg = "gray" })
+
 
 -- cnoremap <expr><Up> pumvisible() ? "\<Left>" : "\<Up>"
 -- cnoremap <expr><Down> pumvisible() ? "\<Right>" : "\<Down>"
@@ -365,6 +374,7 @@ o.wildoptions = "pum"
 -- wildmenu colors
 -- cmd("highlight WildMenu ctermfg=White ctermbg=Black")
 api.nvim_set_hl(0, "WildMenu", { ctermfg = "White", ctermbg = "Black" })
+api.nvim_set_hl(0, "WildMenuSel", { ctermfg = "Black", ctermbg = "White" })
 
 
 
@@ -386,7 +396,7 @@ api.nvim_set_keymap("n", "<leader>rg", ":Rg<CR>", { noremap = true, silent = tru
 :Rg
 :Ag
 
---]]--
+--]] --
 
 
 -- Copy/Paste/Cut
