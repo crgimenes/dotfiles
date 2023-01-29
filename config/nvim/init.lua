@@ -2,6 +2,54 @@
 -- Email: crg@crg.eti.br
 -- Description: Neovim configuration file
 
+--[[
+local status,_ = pcall(vim.cmd, "vim command")
+if not status then
+    print("vim command failed")
+    return
+end
+]] --
+
+local fn = vim.fn -- call Vim functions
+local g = vim.g -- global variables
+local call = vim.call -- call Vim functions
+
+-- Plugin manager (vim-plug) TODO: use packer.nvim
+local plugged = fn.expand("~/.config/nvim/plugged")
+fn.call("plug#begin", { plugged })
+local Plug = fn['plug#']
+
+Plug('nvim-lualine/lualine.nvim') -- statusline
+Plug('w0rp/ale')
+Plug('neoclide/coc.nvim', { branch = 'release' })
+Plug('rhysd/vim-clang-format')
+Plug('junegunn/fzf')
+Plug('junegunn/fzf.vim')
+Plug('buoto/gotests-vim')
+Plug('vimwiki/vimwiki')
+Plug('Shougo/vimproc.vim', { ['do'] = 'make' })
+Plug('chriskempson/base16-vim')
+Plug('fatih/vim-go', { ['do'] = ':GoInstallBinaries' })
+
+-- HTML
+Plug('hail2u/vim-css3-syntax')
+Plug('gorodinskiy/vim-coloresque')
+Plug('tpope/vim-haml')
+Plug('mattn/emmet-vim')
+
+-- Javascript
+Plug 'jelera/vim-javascript-syntax'
+
+Plug('github/copilot.vim')
+g.copilot_enabled = 0
+
+-- Rust
+-- Plug('racer-rust/vim-racer')
+-- Plug('rust-lang/rust.vim')
+
+
+call('plug#end')
+
 
 
 -- Options
@@ -40,15 +88,24 @@ opt.shell = '/bin/zsh'
 -- colors
 opt.termguicolors = true
 opt.background = "dark"
+
+-- SignColumn
 -- opt.signcolumn = "yes"
+-- opt.signcolumn="number"
+-- highlight clear SignColumn
+local cmd = vim.cmd -- execute Vim commands
+cmd("highlight clear SignColumn")
 
 -- Copy/Paste/Cut
 opt.clipboard = 'unnamed,unnamedplus'
 -- opt. clipboard: append ("unnamedplus")
 
--- split 
+-- split
 opt.splitbelow = true
 opt.splitright = true
+
+-- keywords
+opt.iskeyword:append("-") -- treat dash separated words as a word text object
 
 
 -- automatic file type detection and indentation according to file type
@@ -56,12 +113,7 @@ o.filetype_plugin = true
 o.indent_on = true
 
 
-
 local api = vim.api -- nvim api
-local cmd = vim.cmd -- execute Vim commands
-local g = vim.g -- global variables
-local fn = vim.fn -- call Vim functions
-local call = vim.call -- call Vim functions
 local wo = vim.wo -- window-scoped options
 
 -- g.mapleader = ','
@@ -103,47 +155,6 @@ api.nvim_create_autocmd("BufRead,BufNewFile", {
 -- local vimplug_exists = fn.expand('~/.config/nvim/autoload/plug.vim')
 
 -- Required:
-local plugged = fn.expand("~/.config/nvim/plugged")
-fn.call("plug#begin", { plugged })
-local Plug = fn['plug#']
-
---[[
-*****************************************************************************
-Plug install packages
-*****************************************************************************
---]]
-Plug('nvim-lualine/lualine.nvim') -- statusline
-Plug('w0rp/ale')
-Plug('neoclide/coc.nvim', { branch = 'release' })
-Plug('rhysd/vim-clang-format')
-Plug('junegunn/fzf')
-Plug('junegunn/fzf.vim')
-Plug('buoto/gotests-vim')
-Plug('vimwiki/vimwiki')
-Plug('Shougo/vimproc.vim', { ['do'] = 'make' })
-Plug('chriskempson/base16-vim')
-Plug('fatih/vim-go', { ['do'] = ':GoInstallBinaries' })
-
-
--- HTML
-Plug('hail2u/vim-css3-syntax')
-Plug('gorodinskiy/vim-coloresque')
-Plug('tpope/vim-haml')
-Plug('mattn/emmet-vim')
-
--- Javascript
-Plug 'jelera/vim-javascript-syntax'
-
-Plug('github/copilot.vim')
-g.copilot_enabled = 0
-
-call('plug#end')
-
-
-
--- Rust
--- Plug('racer-rust/vim-racer')
--- Plug('rust-lang/rust.vim')
 
 -- Colors
 
