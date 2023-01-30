@@ -148,8 +148,9 @@ g.python3_host_skip_check = 1
 g.python3_host_prog = "/usr/bin/python3"
 g.python_host_prog = "/usr/bin/python3"
 
+-- o.concealcursor = ''
 -- vimwiki
-g.vineiki_url_maxsave = 0
+g.vimwiki_url_maxsave = 0
 g.vimwiki_auto_header = 1
 g.vimwiki_global_ext = 0
 g.vimwiki_autowriteall = 1

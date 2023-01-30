@@ -1,7 +1,6 @@
 -- Author: Cesar Gimenes
 -- Email: crg@crg.eti.br
 -- Description: Neovim configuration file
-
 require "plugins"
 require "options"
 require "mappings"
