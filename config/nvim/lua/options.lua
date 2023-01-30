@@ -74,7 +74,68 @@ o.nobackup = true
 o.path = o.path .. "**"
 
 
+o.laststatus = 2
+o.modeline = true
+o.modelines = 10
+o.title = true
+o.titleold = "Terminal"
+o.titlestring = "%F"
+o.statusline = "%F%m%r%h%w%=(%{&ff}/%Y) (line %l/%L, col %c)"
+o.autoread = true
+
+
+if fn.exists("*fugitive#statusline") == 1 then
+    o.statusline = o.statusline .. fn['fugitive#statusline']()
+end
+
+o.wildmode = "list:longest,list:full"
+o.wildignore = "*.o,*.obj,.git,*.rbc,*.pyc,__pycache__"
+o.wildignorecase = true
+o.wildmenu = true
+o.wildoptions = "pum"
+-- wildmenu colors
+
+-- automatic file type detection and indentation according to file type
+-- o.filetype_plugin = true
+-- o.indent_on = true
+
+
+if not fn.exists('setupWrapping') then
+    function setupWrapping()
+        local wo = vim.wo -- window-scoped options
+
+        wo.wrap = true
+        wo.wrapmargin = 2
+        wo.textwidth = 79
+    end
+end
+
+
 -- global variables
+
+-- session management
+g.session_directory = fn.expand('~/.config/nvim/session')
+g.session_autoload = 'no'
+g.session_autosave = 'no'
+g.session_command_aliases = 1
+
+g.syntax_on = true
+o.ruler = true
+
+
+g.no_buffers_menu = 1
+o.mousemodel = "popup"
+o.t_Co = 256
+o.guioptions = "egmrti"
+o.gfn = "Monospace 10"
+
+g.CSApprox_loaded = 1
+
+g.indentLine_enabled = 1
+g.indentLine_concealcursor = 0
+g.indentLine_char = '┆'
+g.indentLine_faster = 1
+
 
 -- g.mapleader = ','
 g.copilot_enabled = 0
