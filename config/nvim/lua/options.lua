@@ -175,7 +175,7 @@ g.vimwiki_key_mappings = {
 }
 g.vimwiki_list = {
     {
-        path = fn.expand('~/Documents/wiki/'),
+        path = fn.expand('~/Docs/wiki/'),
         syntax = 'markdown',
         ext = '.md',
         auto_toc = 1,

@@ -41,6 +41,8 @@ return require('packer').startup(function(use)
     use('fatih/vim-go')
     use('github/copilot.vim')
 
+    use("/Users/cesar/Projects/liprog.nvim")
+
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins

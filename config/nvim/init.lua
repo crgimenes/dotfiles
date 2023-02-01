@@ -72,3 +72,8 @@ if remote_clipboard_enabled
 
 endif
 ]])
+
+P = function(v)
+    print(vim.inspect(v))
+    return v
+end
