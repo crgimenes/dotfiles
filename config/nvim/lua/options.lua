@@ -138,6 +138,7 @@ g.indentLine_faster = 1
 
 
 -- g.mapleader = ','
+g.mapleader = " "
 g.copilot_enabled = 0
 
 -- remote clipboard default disabled
