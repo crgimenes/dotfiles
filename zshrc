@@ -1,5 +1,8 @@
 # Cesar's zshrc
 
+setopt hist_ignore_all_dups
+
+
 export DOTFILES_DIR="${HOME}/dotfiles"
 export ZSH="${HOME}/.oh-my-zsh"
 export ZSH_THEME="crg"
