@@ -22,6 +22,6 @@ alias path='echo -e ${PATH//:/\\n}'
 alias f='fzf'
 
 # fzf cd
-alias zcd=`cd $(find . -type d -print | fzf)`
+alias zcd='cd $(find . -type d -print | fzf)'
 
 
