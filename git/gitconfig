@@ -15,3 +15,5 @@
 	rebase = true
 [core]
 	editor = nvim
+[daemon]
+	uploadArch = false
