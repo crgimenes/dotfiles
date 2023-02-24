@@ -234,6 +234,12 @@ g['clang_format#style_options'] = {
     ['Standard'] = 'C++11'
 }
 
+
+g.tags='tags;/'
+
+g.coc_global_extensions = {'coc-clangd'}
+
+
 function set_clang_format_keymap()
     local filetype = api.nvim_buf_get_option(0, 'filetype')
     if filetype == 'c' or

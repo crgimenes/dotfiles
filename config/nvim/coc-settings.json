@@ -6,6 +6,11 @@
       "trace.server": "verbose",
       "filetypes": ["go"]
     },
+    "coc-clangd": {
+        "command": "clangd",
+        "rootPatterns": [".git/", "compile_flags.txt", "compile_commands.json"],
+        "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"]
+    },
     "ccls": {
             "command": "ccls",
             "filetypes": [

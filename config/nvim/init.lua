@@ -53,6 +53,21 @@ api.nvim_create_autocmd("BufRead,BufNewFile", {
     pattern = "*.asm",
 })
 
+
+cmd([[
+autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
+autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
+" Toggle auto formatting:
+nmap <Leader>C :ClangFormatAutoToggle<CR>
+
+autocmd FileType c,cpp,objc ClangFormatAutoEnable
+
+autocmd FileType c setlocal tabstop=4 shiftwidth=4 expandtab
+autocmd FileType cpp setlocal tabstop=4 shiftwidth=4 expandtab
+
+]])
+
+
 cmd([[
 
 if remote_clipboard_enabled 
