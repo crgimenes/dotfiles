@@ -65,6 +65,24 @@ autocmd FileType c,cpp,objc ClangFormatAutoEnable
 autocmd FileType c setlocal tabstop=4 shiftwidth=4 expandtab
 autocmd FileType cpp setlocal tabstop=4 shiftwidth=4 expandtab
 
+let g:ale_completion_enabled = 1
+let g:ale_cpp_ccls_init_options = {
+\   'cache': {
+\       'directory': '"/tmp/ccls'
+\   }
+\ }
+
+
+
+
+" Example keybindings
+"nn <silent> <M-d> :ALEGoToDefinition<cr>
+"nn <silent> <M-r> :ALEFindReferences<cr>
+"nn <silent> <M-a> :ALESymbolSearch<cr>
+"nn <silent> <M-h> :ALEHover<cr>
+
+nn <silent> <c-[> :ALEGoToDefinition<cr>
+
 ]])
 
 
