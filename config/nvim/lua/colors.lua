@@ -12,6 +12,7 @@ api.nvim_set_hl(0, "WildMenuSel", { ctermfg = "Black", ctermbg = "White" })
 -- api.nvim_set_hl(0, 'Cursor', { reverse = true })
 api.nvim_set_hl(0, "Visual", { reverse = true, bold = true })
 
-cmd("highlight Pmenu ctermbg=lightgrey guibg=lightgrey")
-cmd("highlight PmenuSel ctermbg=white guibg=white")
+cmd("highlight Pmenu ctermbg=gray guibg=grey ctermfg=black guifg=black")
+cmd("highlight PmenuSel ctermbg=white guibg=white ctermfg=black guifg=black")
 -- highlight PmenuSbar ctermbg=gray guibg=gray
+
