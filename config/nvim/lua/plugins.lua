@@ -29,7 +29,7 @@ return require('packer').startup(function(use)
     -- My plugins here
 
     use('nvim-lualine/lualine.nvim') -- statusline
-    use('w0rp/ale')
+   -- use('w0rp/ale')
     use { 'neoclide/coc.nvim', branch = 'release' }
     use('rhysd/vim-clang-format')
     use('junegunn/fzf')
