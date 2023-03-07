@@ -81,7 +81,7 @@ let g:ale_cpp_ccls_init_options = {
 "nn <silent> <M-a> :ALESymbolSearch<cr>
 "nn <silent> <M-h> :ALEHover<cr>
 
-nn <silent> <c-[> :ALEGoToDefinition<cr>
+"nn <silent> <c-[> :ALEGoToDefinition<cr>
 
 ]])
 
