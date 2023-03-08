@@ -87,6 +87,12 @@ local keyset = vim.keymap.set
 keyset('i', '<tab>', 'coc#pum#visible() ? coc#pum#confirm() : "<tab>"', { expr = true })
 keyset('i', '<cr>', 'coc#pum#visible() ? coc#pum#confirm() : "<cr>"', { expr = true })
 
+-- CoC jump to definition
+-- call CocActionAsync('jumpDefinition')
+-- keyset('n', 'gd', '<Plug>(coc-definition)', {})
+keyset('n', '<C-]>', '<Plug>(coc-definition)', { silent = true, noremap = true })
+
+
 -- cnoremap <expr><Up> pumvisible() ? "\<Left>" : "\<Up>"
 -- cnoremap <expr><Down> pumvisible() ? "\<Right>" : "\<Down>"
 
@@ -111,3 +117,11 @@ cmd("cnoreabbrev ecp Copilot enable")
 
 -- remove trailing whitespaces
 cmd("command! FixWhitespace :%s/\\s\\+$//e")
+
+
+
+
+
+
+
+
