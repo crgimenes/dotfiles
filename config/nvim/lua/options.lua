@@ -12,6 +12,25 @@ opt.number = true
 -- opt.cursorcolumn = true -- TODO: create a keybinding to toggle this
 -- opt.colorcolumn = '80'
 
+
+-- troggle cursorline and cursorcolumn
+function _G.TroggleCursorLineAndCursorColumn()
+    if opt.cursorline:get() then
+        opt.cursorline = false
+        opt.cursorcolumn = false
+        cmd("highlight CursorLine guibg=none")
+    else
+        opt.cursorline = true
+        opt.cursorcolumn = true
+        cmd("highlight CursorLine guibg=#1c1c1c")
+    end
+end
+
+-- creade command to troggle cursorline and cursorcolumn
+cmd("command! TroggleCursorLineAndCursorColumn lua TroggleCursorLineAndCursorColumn()")
+
+
+
 -- set cursorline colors
 cmd("highlight CursorLine guibg=#1c1c1c")
 cmd("highlight CursorColumn guibg=#1c1c1c")
