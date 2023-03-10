@@ -3,12 +3,19 @@ local opt = vim.opt -- global/buffer/windows-scoped options
 local o = vim.o -- global options
 local g = vim.g -- global variables
 local api = vim.api -- nvim api
-
+local cmd = vim.cmd -- execute Vim commands
 
 -- opt.relativenumber = true -- TODO: create a keybinding to toggle this
 opt.number = true
 
-opt.cursorline = false -- TODO: create a keybinding to toggle this
+-- opt.cursorline = true -- TODO: create a keybinding to toggle this
+-- opt.cursorcolumn = true -- TODO: create a keybinding to toggle this
+-- opt.colorcolumn = '80'
+
+-- set cursorline colors
+cmd("highlight CursorLine guibg=#1c1c1c")
+cmd("highlight CursorColumn guibg=#1c1c1c")
+cmd("highlight ColorColumn guibg=#1c1c1c")
 
 opt.encoding = 'utf-8'
 opt.fileencoding = 'utf-8'
@@ -40,9 +47,8 @@ opt.background = "dark"
 
 -- SignColumn
 opt.signcolumn = "yes"
--- opt.signcolumn="number"
+opt.signcolumn = "number"
 -- highlight clear SignColumn
-local cmd = vim.cmd -- execute Vim commands
 -- cmd("highlight SignColumn guibg=none")
 cmd("highlight SignColumn guibg=#1c1c1c")
 
