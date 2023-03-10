@@ -39,11 +39,12 @@ opt.termguicolors = true
 opt.background = "dark"
 
 -- SignColumn
--- opt.signcolumn = "yes"
+opt.signcolumn = "yes"
 -- opt.signcolumn="number"
 -- highlight clear SignColumn
 local cmd = vim.cmd -- execute Vim commands
-cmd("highlight clear SignColumn")
+-- cmd("highlight SignColumn guibg=none")
+cmd("highlight SignColumn guibg=#1c1c1c")
 
 -- Copy/Paste/Cut
 opt.clipboard = 'unnamed,unnamedplus'
