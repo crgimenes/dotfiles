@@ -78,9 +78,13 @@ function colors256() {
 }
 
 function ei {
-    t="$(mktemp).$1"
+    ext=$1
+    if [ -z "$ext" ]; then
+        ext="md"
+    fi
+    t="$(mktemp).$ext"
     touch $t
     vi $t
-    pbcopy < $t
+    pbcopy < $t # TODO: use xclip on linux, pbcopy on osx and if remote use OSC52.  
     rm -f $t
 }
