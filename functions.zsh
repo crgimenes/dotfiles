@@ -42,10 +42,6 @@ function fbr() {
 }
 
 
-
-
-
-
 function delete-branches() {
   local branches_to_delete
   branches_to_delete=$(git branch | fzf --multi)
@@ -55,13 +51,6 @@ function delete-branches() {
   fi
 }
 
-#function delete-branches() {
-#  git branch |
-#    grep --invert-match '\*' |
-#    cut -c 3- |
-#    fzf --multi --preview="git log {} --" |
-#    xargs --no-run-if-empty git branch --delete --force
-#}
 
 function colors256() {
         local c i j
