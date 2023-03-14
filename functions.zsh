@@ -77,3 +77,10 @@ function colors256() {
         printf "|\n"
 }
 
+function ei {
+    t="$(mktemp).$1"
+    touch $t
+    vi $t
+    pbcopy < $t
+    rm -f $t
+}
