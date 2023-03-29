@@ -38,4 +38,3 @@ config/xbuild/
 
 simple-update-notifier
 
-config/nvim/plugin/packer_compiled.lua
