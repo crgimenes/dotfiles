@@ -42,11 +42,11 @@ return require('packer').startup(function(use)
     use('github/copilot.vim')
 
 
-    use {'nvim-treesitter/nvim-treesitter'}
-    use {'nvim-orgmode/orgmode', config = function()
-        require('orgmode').setup{}
-    end
-    }
+    -- use {'nvim-treesitter/nvim-treesitter'}
+    -- use {'nvim-orgmode/orgmode', config = function()
+    --     require('orgmode').setup{}
+    -- end
+    -- }
     -- use("/Users/cesar/Projects/liprog.nvim")
 
 

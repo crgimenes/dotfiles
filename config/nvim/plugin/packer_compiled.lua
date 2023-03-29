@@ -74,11 +74,6 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
-  ale = {
-    loaded = true,
-    path = "/Users/cesar/.local/share/nvim/site/pack/packer/start/ale",
-    url = "https://github.com/w0rp/ale"
-  },
   ["base16-vim"] = {
     loaded = true,
     path = "/Users/cesar/.local/share/nvim/site/pack/packer/start/base16-vim",
@@ -108,11 +103,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/cesar/.local/share/nvim/site/pack/packer/start/gotests-vim",
     url = "https://github.com/buoto/gotests-vim"
-  },
-  ["liprog.nvim"] = {
-    loaded = true,
-    path = "/Users/cesar/.local/share/nvim/site/pack/packer/start/liprog.nvim",
-    url = "/Users/cesar/Projects/liprog.nvim"
   },
   ["lualine.nvim"] = {
     loaded = true,
