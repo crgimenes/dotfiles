@@ -41,13 +41,34 @@ return require('packer').startup(function(use)
     use('fatih/vim-go')
     use('github/copilot.vim')
 
+    -- Orgmode Experimental
+        use {'nvim-treesitter/nvim-treesitter'}
+        use {'nvim-orgmode/orgmode', config = function()
+            require('orgmode').setup{}
+        end
+        }
 
-    -- use {'nvim-treesitter/nvim-treesitter'}
-    -- use {'nvim-orgmode/orgmode', config = function()
-    --     require('orgmode').setup{}
-    -- end
-    -- }
-    -- use("/Users/cesar/Projects/liprog.nvim")
+        require('orgmode').setup_ts_grammar()
+
+        -- Treesitter configuration
+        require('nvim-treesitter.configs').setup {
+            -- If TS highlights are not enabled at all, or disabled via `disable` prop,
+            -- highlighting will fallback to default Vim syntax highlighting
+            highlight = {
+                enable = true,
+                -- Required for spellcheck, some LaTex highlights and
+                -- code block highlights that do not have ts grammar
+                additional_vim_regex_highlighting = {'org'},
+            },
+            ensure_installed = {'org'}, -- Or run :TSUpdate org
+        }
+
+        vim.opt.foldenable = false
+        -- vim.opt.foldmethod = "expr"
+        -- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+    
+    --
+
 
 
     -- Automatically set up your configuration after cloning packer.nvim
