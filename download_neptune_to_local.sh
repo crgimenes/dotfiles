@@ -11,6 +11,23 @@ cyan="\e[36m"
 white="\e[37m"
 bold="\e[1m"
 
+
+folders=("/Users/cesar/Projects" "/Users/cesar/Docs")
+
+function rsync_loop_dry_run() {
+    for folder in $folders; do
+        rsync -hvaz --dry-run --delete-after cesar@$remote_machine:$folder $folder
+    done
+}
+
+function rsync_loop() {
+    for folder in $folders; do
+        rsync -hvaz --delete-after cesar@$remote_machine:$folder $folder
+    done
+}
+
+rsync_loop_dry_run
+
 # confirm execution
 
 echo -e "${yellow}${bold}This script will sync the following folders:${reset}"
@@ -30,6 +47,6 @@ fi
 
 # Syncing files
 
-rsync -hvaz --delete cesar@$remote_machine:/Users/cesar/Docs/ ~/Docs
-rsync -hvaz --delete cesar@$remote_machine:/Users/cesar/Projects/ ~/Projects
+echo -e "${green}${bold}Syncing files...${reset}"
+rsync_loop
 
