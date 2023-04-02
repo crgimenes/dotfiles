@@ -16,13 +16,13 @@ folders=("/Users/cesar/Projects/" "/Users/cesar/Docs/")
 
 function rsync_loop_dry_run() {
     for folder in $folders; do
-        rsync -hvaz --dry-run --delete cesar@$remote_machine:$folder $folder
+        rsync -hvaz --dry-run --delete --progress cesar@$remote_machine:$folder $folder
     done
 }
 
 function rsync_loop() {
     for folder in $folders; do
-        rsync -hvaz --delete cesar@$remote_machine:$folder $folder
+        rsync -hvaz --delete --progress cesar@$remote_machine:$folder $folder
     done
 }
 
