@@ -10,17 +10,17 @@ purple="\e[35m"
 cyan="\e[36m"
 white="\e[37m"
 
-folders=["/Users/cesar/Projects" "/Users/cesar/Docs"]
+folders=("/Users/cesar/Projects" "/Users/cesar/Docs")
 
 function rsync_loop_dry_run() {
     for folder in $folders; do
-        rsync -hvaz --dry-run --delete-after --out-format="[%t]:%o:%f:Last Modified %M" $folder cesar@$remote_machine:$folder
+        rsync -hvaz --dry-run --delete-after $folder cesar@$remote_machine:$folder
     done
 }
 
 function rsync_loop() {
     for folder in $folders; do
-        rsync -hvaz --delete-after --out-format="[%t]:%o:%f:Last Modified %M" $folder cesar@$remote_machine:$folder
+        rsync -hvaz --delete-after $folder cesar@$remote_machine:$folder
     done
 }
 
