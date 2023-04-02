@@ -10,8 +10,23 @@ purple="\e[35m"
 cyan="\e[36m"
 white="\e[37m"
 
-# confirm execution
+folders=["/Users/cesar/Projects" "/Users/cesar/Docs"]
 
+function rsync_loop_dry_run() {
+    for folder in $folders; do
+        rsync -hvaz --dry-run --delete-after --out-format="[%t]:%o:%f:Last Modified %M" $folder cesar@$remote_machine:$folder
+    done
+}
+
+function rsync_loop() {
+    for folder in $folders; do
+        rsync -hvaz --delete-after --out-format="[%t]:%o:%f:Last Modified %M" $folder cesar@$remote_machine:$folder
+    done
+}
+
+rsync_loop_dry_run
+
+# confirm execution
 echo -e "${yellow}${bold}Warning: This will sync your local files to $remote_machine${reset}"
 echo -e "Are you sure you want to continue?${green}${bold}(y/n)${reset}"
 
@@ -24,6 +39,5 @@ fi
 
 # Syncing files
 
-rsync -hvaz --delete ~/Projects/ cesar@$remote_machine:/Users/cesar/Projects
-rsync -hvaz --delete ~/Docs/ cesar@$remote_machine:/Users/cesar/Docs
-
+echo -e "${green}${bold}Syncing files...${reset}"
+rsync_loop
