@@ -12,21 +12,22 @@ white="\e[37m"
 bold="\e[1m"
 
 
-folders=("/Users/cesar/Projects" "/Users/cesar/Docs")
+folders=("/Users/cesar/Projects/" "/Users/cesar/Docs/")
 
 function rsync_loop_dry_run() {
     for folder in $folders; do
-        rsync -hvaz --dry-run --delete-after cesar@$remote_machine:$folder $folder
+        rsync -hvaz --dry-run --delete cesar@$remote_machine:$folder $folder
     done
 }
 
 function rsync_loop() {
     for folder in $folders; do
-        rsync -hvaz --delete-after cesar@$remote_machine:$folder $folder
+        rsync -hvaz --delete cesar@$remote_machine:$folder $folder
     done
 }
 
-rsync_loop_dry_run
+# rsync_loop_dry_run
+# exit 0
 
 # confirm execution
 
