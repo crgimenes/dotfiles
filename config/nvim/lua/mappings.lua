@@ -68,6 +68,7 @@ api.nvim_set_keymap("n", "<leader>q", ":bp<CR>", { noremap = true })
 api.nvim_set_keymap("n", "<leader>x", ":bn<CR>", { noremap = true })
 api.nvim_set_keymap("n", "<leader>w", ":bn<CR>", { noremap = true })
 api.nvim_set_keymap("n", "ff", ":bn<cr>", { noremap = true })
+api.nvim_set_keymap("n", "fq", ":bd<cr>", { noremap = true })
 -- Close buffer
 api.nvim_set_keymap("n", "<leader>c", ":bd<CR>", { noremap = true })
 
