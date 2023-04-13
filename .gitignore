@@ -37,4 +37,5 @@ config/wireshark/
 config/xbuild/
 
 simple-update-notifier
+config/mc/ini
 
