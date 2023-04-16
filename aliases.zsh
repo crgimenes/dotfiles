@@ -24,4 +24,5 @@ alias f='fzf'
 # fzf cd
 alias zcd='cd $(find . -type d -print | fzf)'
 
+alias e='${EDITOR} $@'
 
