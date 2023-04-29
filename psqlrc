@@ -1,0 +1,4 @@
+\set PROMPT1 '%l [%n@%M:%>/%~]%# '
+\set PROMPT2 '%l [%R] '
+\set q '\\q'
+
