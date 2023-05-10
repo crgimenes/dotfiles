@@ -90,6 +90,8 @@ opt.undoreload = 100000
 
 -- set wrap
 opt.wrap = true
+opt.linebreak = true
+
 
 -- global options
 o.noswapfile = true
