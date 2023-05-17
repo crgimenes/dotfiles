@@ -84,7 +84,7 @@ function ei {
     fi
     t="$(mktemp).$ext"
     touch $t
-    vi $t
+    $EDITOR $t
     pbcopy < $t # TODO: use xclip on linux, pbcopy on osx and if remote use OSC52.  
     rm -f $t
 }
