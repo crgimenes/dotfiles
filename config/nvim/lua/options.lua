@@ -170,7 +170,11 @@ g.mapleader = " "
 -- g.copilot_enabled = 0
 
 -- remote clipboard default disabled
+-- if $SSH_CLIENT is set, enable remote clipboard
 g.remote_clipboard_enabled = 0
+if os.getenv("SSH_CLIENT") ~= nil then
+    g.remote_clipboard_enabled = 1
+end
 
 -- python3
 g.python3_host_skip_check = 1
