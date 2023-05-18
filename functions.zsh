@@ -85,6 +85,12 @@ function ei {
     t="$(mktemp).$ext"
     touch $t
     $EDITOR $t
-    pbcopy < $t # TODO: use xclip on linux, pbcopy on osx and if remote use OSC52.  
+    if [[ -n $SSH_CLIENT ]]; then
+        printf "\033]52;c;$(base64 -i $t)\a" #OSC52
+    elif [[ "$(uname)" == "Darwin" ]]; then
+        pbcopy < $t
+    elif [[ "$(uname)" == "Linux" ]]; then
+        xclip -selection clipboard < $t
+    fi
     rm -f $t
 }
