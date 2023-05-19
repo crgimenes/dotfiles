@@ -77,6 +77,16 @@ function colors256() {
         printf "|\n"
 }
 
+function copyFromStdin() {
+    if [[ -n $SSH_CLIENT ]]; then
+        printf "\033]52;c;$(base64)\a" #OSC52
+    elif [[ "$(uname)" == "Darwin" ]]; then
+        pbcopy
+    elif [[ "$(uname)" == "Linux" ]]; then
+        xclip -selection clipboard
+    fi
+}
+
 function ei {
     ext=$1
     if [ -z "$ext" ]; then
@@ -85,12 +95,6 @@ function ei {
     t="$(mktemp).$ext"
     touch $t
     $EDITOR $t
-    if [[ -n $SSH_CLIENT ]]; then
-        printf "\033]52;c;$(base64 -i $t)\a" #OSC52
-    elif [[ "$(uname)" == "Darwin" ]]; then
-        pbcopy < $t
-    elif [[ "$(uname)" == "Linux" ]]; then
-        xclip -selection clipboard < $t
-    fi
+    copyFromStdin < $t
     rm -f $t
 }
