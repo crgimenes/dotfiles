@@ -79,7 +79,9 @@ function colors256() {
 
 function copyFromStdin() {
     if [[ -n $SSH_CLIENT ]]; then
-        printf "\033]52;c;$(base64)\a" #OSC52
+        printf "\033]52;c;"
+        base64
+        printf "\a" #OSC52
     elif [[ "$(uname)" == "Darwin" ]]; then
         pbcopy
     elif [[ "$(uname)" == "Linux" ]]; then
