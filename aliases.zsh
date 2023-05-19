@@ -1,5 +1,4 @@
 alias ccb='pbpaste|pbcopy' # clear clipboard 
-alias copy=pbcopy
 
 #alias ls='ls --time-style="+%Y-%m-%d %H:%M:%S" --color -h'
 alias lsa='stat -l -t '%F%T' * | tr ' ' \\t'
