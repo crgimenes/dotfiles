@@ -96,7 +96,12 @@ function ei {
     fi
     t="$(mktemp).$ext"
     touch $t
-    $EDITOR $t
+    # se a variavel EDITOR contem nvim
+    if [[ $EDITOR == *"nvim"* ]]; then
+        $EDITOR -c "startinsert" $t
+    else
+        $EDITOR $t
+    fi
     copyFromStdin < $t
     rm -f $t
 }
