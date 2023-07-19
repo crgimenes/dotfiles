@@ -38,4 +38,4 @@ config/xbuild/
 
 simple-update-notifier
 config/mc/ini
-
+config/github-copilot
