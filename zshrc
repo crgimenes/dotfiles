@@ -73,5 +73,5 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 # https://www.npmjs.com/package/@githubnext/github-copilot-cli
 eval "$(github-copilot-cli alias -- "$0")"
 
-
+echo tty: $(tty)
 
