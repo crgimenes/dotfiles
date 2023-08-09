@@ -1,11 +1,11 @@
 #!/bin/bash
 
 find . -name "go.mod" -type f | while read -r file; do
-    if grep -q -v "go 1.20" "$file"; then
-        sed -i -e 's/^go .*$/go 1.20/g' "$file"
-        echo "Arquivo $file atualizado para Go 1.20"
+    if grep -q -v "go 1.21" "$file"; then
+        sed -i -e 's/^go .*$/go 1.21/g' "$file"
+        echo "Arquivo $file atualizado para Go 1.21"
     else
-        echo "Arquivo $file já está atualizado para Go 1.20"
+        echo "Arquivo $file já está atualizado para Go 1.21"
         continue
     fi
 
@@ -22,7 +22,7 @@ find . -name "go.mod" -type f | while read -r file; do
         continue
     fi
     git add .
-    git commit -m "update to go 1.20"
+    git commit -m "update to go 1.21"
     git push
 
     cd - > /dev/null || exit

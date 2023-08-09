@@ -8,7 +8,7 @@ find . -name "go.mod" -type f | while read -r file; do
     go mod tidy
 
     git add .
-    git commit -m "update to go mod"
+    git commit -m "update go mod"
     git push
 
 
