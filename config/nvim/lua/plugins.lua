@@ -42,6 +42,7 @@ return require('packer').startup(function(use)
     use('github/copilot.vim')
 
     -- Orgmode Experimental
+    --[[
         use {'nvim-treesitter/nvim-treesitter'}
         use {'nvim-orgmode/orgmode', config = function()
             require('orgmode').setup{}
@@ -70,7 +71,7 @@ return require('packer').startup(function(use)
     --
 
     -- use('~/Projects/liprog.nvim')
-
+    ]]--
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if packer_bootstrap then
