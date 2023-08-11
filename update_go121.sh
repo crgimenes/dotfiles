@@ -1,7 +1,11 @@
 #!/bin/bash
 
+pwd_local=$(pwd)
+
 find . -name "go.mod" -type f | while read -r file; do
-    if grep -q -v "go 1.21" "$file"; then
+    cd "$pwd_local" || exit
+
+    if grep -q -v "go 1.20" "$file"; then
         sed -i -e 's/^go .*$/go 1.21/g' "$file"
         echo "Arquivo $file atualizado para Go 1.21"
     else
