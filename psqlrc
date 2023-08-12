@@ -5,3 +5,5 @@
 \pset linestyle unicode
 \pset border 2
 \pset expanded on
+\pset format wrapped
+
