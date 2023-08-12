@@ -2,4 +2,6 @@
 \set PROMPT2 '%l [%R] '
 \set q '\\q'
 \set e '\\edit'
-
+\pset linestyle unicode
+\pset border 2
+\pset expanded on
