@@ -36,6 +36,8 @@ config/NuGet/
 config/wireshark/
 config/xbuild/
 
+experimental
+
 simple-update-notifier
 config/mc/ini
 config/github-copilot
