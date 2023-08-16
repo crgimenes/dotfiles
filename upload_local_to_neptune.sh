@@ -24,10 +24,8 @@ function rsync_loop() {
     done
 }
 
-# rsync_loop_dry_run
-# exit 0
+cat ~/dotfiles/ansi/mini_skull.ans
 
-# confirm execution
 echo -e "${yellow}${bold}Warning: This will sync your local files to $remote_machine${reset}"
 echo -e "Are you sure you want to continue?${green}${bold}(y/n)${reset}"
 

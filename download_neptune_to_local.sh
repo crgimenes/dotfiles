@@ -26,10 +26,7 @@ function rsync_loop() {
     done
 }
 
-# rsync_loop_dry_run
-# exit 0
-
-# confirm execution
+cat ~/dotfiles/ansi/mini_skull.ans
 
 echo -e "${yellow}${bold}This script will sync the following folders:${reset}"
 echo -e "${green}${bold}"
