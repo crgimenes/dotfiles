@@ -5,13 +5,15 @@ local g = vim.g -- global variables
 local api = vim.api -- nvim api
 local cmd = vim.cmd -- execute Vim commands
 
--- opt.relativenumber = true -- TODO: create a keybinding to toggle this
+-- opt.relativenumber = true
 opt.number = true
 
--- opt.cursorline = true -- TODO: create a keybinding to toggle this
--- opt.cursorcolumn = true -- TODO: create a keybinding to toggle this
+-- opt.cursorline = true
+-- opt.cursorcolumn = true
 -- opt.colorcolumn = '80'
 
+cmd("cnoreabbrev ern set relativenumber")
+cmd("cnoreabbrev drn set norelativenumber")
 
 -- troggle cursorline and cursorcolumn
 function _G.TroggleCursorLineAndCursorColumn()
