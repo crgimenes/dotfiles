@@ -93,6 +93,7 @@ keyset('i', '<cr>', 'coc#pum#visible() ? coc#pum#confirm() : "<cr>"', { expr = t
 -- keyset('n', 'gd', '<Plug>(coc-definition)', {})
 keyset('n', '<C-]>', '<Plug>(coc-definition)', { silent = true, noremap = true })
 
+keyset('n', '<cr>', '<Plug>(coc-definition)', { silent = true, noremap = true })
 
 -- cnoremap <expr><Up> pumvisible() ? "\<Left>" : "\<Up>"
 -- cnoremap <expr><Down> pumvisible() ? "\<Right>" : "\<Down>"
