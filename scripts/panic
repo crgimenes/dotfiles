@@ -3,8 +3,7 @@
 OUTPUT=$("${@}" 2>&1 | tee /dev/tty)
 
 if [[ ! $OUTPUT =~ "panic" ]]; then
-    echo "$OUTPUT"
-    exit 0
+    exit $?
 fi
 
 LOCAL_PATH=$(pwd)
