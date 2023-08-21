@@ -1,34 +1,36 @@
 #!/usr/bin/env bash
 
-output=$("${@}" 2>&1)
+OUTPUT=$("${@}" 2>&1 | tee /dev/tty)
 
-if [[ ! $output =~ "panic" ]]; then
-    echo "$output"
+if [[ ! $OUTPUT =~ "panic" ]]; then
+    echo "$OUTPUT"
     exit 0
 fi
 
-local_path=$(pwd)
+LOCAL_PATH=$(pwd)
 
-panic_line=$(echo "${output}" | grep "panic")
+PANIC_LINE=$(echo "${OUTPUT}" | grep "panic")
 
-output=$(echo "$output" | \
-    grep "$local_path" | \
-    sed "s|$local_path/||g" | \
+OUTPUT=$(echo "$OUTPUT" | \
+    grep "$LOCAL_PATH" | \
+    sed "s|$LOCAL_PATH/||g" | \
     sed "s| +.*||g" | \
     sed "s|\t||g")
 
-IFS=: read -ra selected < <(echo "${output}" | fzf \
+IFS=: read -ra SELECTED < <(echo "${OUTPUT}" | fzf \
     --ansi \
     --delimiter : \
     --color=dark \
     --reverse \
-    --header="${panic_line}" \
+    --header="${PANIC_LINE}" \
     --preview 'bat --color=always {1} --highlight-line {2}' \
     --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
 )
 
-[ -n "${selected[0]}" ] && \
-    nvim "${selected[0]}" "+${selected[1]}" && \
-    echo "${selected[0]}" "+${selected[1]}"
+echo -e "\n\033[33;41m${PANIC_LINE}\033[0m"
+echo -e "\n\033[35;40m${OUTPUT}\033[0m"
 
+[ -n "${SELECTED[0]}" ] && \
+    nvim "${SELECTED[0]}" "+${SELECTED[1]}" && \
+    echo -e "\n\033[33;40m${SELECTED[0]} +${SELECTED[1]}\033[0m"
 
