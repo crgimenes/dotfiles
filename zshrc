@@ -43,7 +43,15 @@ if [[ "${OSTYPE}" == "darwin"* ]]; then
     source "${DOTFILES_DIR}/functions_darwin.zsh"
 fi
 
-cat "${DOTFILES_DIR}/crg.eti.br"
+##################################################
+# Print banner
+##################################################
+if [[ $(tput cols) -gt 68 ]]; then
+    cat "${DOTFILES_DIR}/ansi/crg.eti.br"
+else
+    cat "${DOTFILES_DIR}/ansi/crg.eti.br.small"
+fi
+
 
 python_prefix=$(brew --prefix python)
 export PATH=$python_prefix/bin:$PATH
