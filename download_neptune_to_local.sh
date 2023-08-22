@@ -30,10 +30,11 @@ cat ~/dotfiles/ansi/mini_skull.ans
 
 echo -e "${yellow}${bold}This script will sync the following folders:${reset}"
 echo -e "${green}${bold}"
-echo "  - /Users/cesar/Docs/"
-echo "  - /Users/cesar/Projects/"
+
+for folder in $folders; do
+    echo "  - $folder"
+done
 echo -e "${reset}"
-echo "with the remote machine $remote_machine"
 echo -e "Are you sure you want to continue?${green}${bold}(y/n)${reset}"
 
 read answer
