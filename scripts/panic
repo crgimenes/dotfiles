@@ -30,6 +30,6 @@ echo -e "\n\033[33;41m${PANIC_LINE}\033[0m"
 echo -e "\n\033[35;40m${OUTPUT}\033[0m"
 
 [ -n "${SELECTED[0]}" ] && \
-    nvim "${SELECTED[0]}" "+${SELECTED[1]}" && \
+    $EDITOR "${SELECTED[0]}" "+${SELECTED[1]}" && \
     echo -e "\n\033[33;40m${SELECTED[0]} +${SELECTED[1]}\033[0m"
 
