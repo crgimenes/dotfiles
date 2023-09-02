@@ -7,9 +7,7 @@ export DOTFILES_DIR="${HOME}/dotfiles"
 export ZSH="${HOME}/.oh-my-zsh"
 export ZSH_THEME="crg"
 
-if test -f "${HOME}/.prelocalrc"; then
-    source "${HOME}/.prelocalrc"
-fi
+test -f "${HOME}/.prelocalrc" && source "${HOME}/.prelocalrc"
 
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git fzf)
@@ -39,18 +37,21 @@ source "${DOTFILES_DIR}/functions_tmux.zsh"
 source "${DOTFILES_DIR}/functions_searX.zsh"
 
 # Darwin only
-if [[ "${OSTYPE}" == "darwin"* ]]; then
-    source "${DOTFILES_DIR}/functions_darwin.zsh"
-fi
+[[ "${OSTYPE}" == "darwin"* ]] && source "${DOTFILES_DIR}/functions_darwin.zsh"
 
 ##################################################
 # Print banner
 ##################################################
-if [[ $(tput cols) -gt 68 ]]; then
-    cat "${DOTFILES_DIR}/ansi/crg.eti.br"
-else
+#[[ $(tput cols) -gt 68 ]]; then
+#    cat "${DOTFILES_DIR}/ansi/crg.eti.br"
+#else
+#    cat "${DOTFILES_DIR}/ansi/crg.eti.br.small"
+#fi
+
+
+[[ $(tput cols) -gt 68 ]] && \
+    cat "${DOTFILES_DIR}/ansi/crg.eti.br" || \
     cat "${DOTFILES_DIR}/ansi/crg.eti.br.small"
-fi
 
 
 python_prefix=$(brew --prefix python)
@@ -70,9 +71,7 @@ source "${DOTFILES_DIR}/aliases_dos.zsh"
 source "${DOTFILES_DIR}/aliases_mosh.zsh" 
 source "${DOTFILES_DIR}/aliases_tmux.zsh"
 
-if test -f "${HOME}/.localrc"; then
-    source "${HOME}/.localrc"
-fi
+test -f "${HOME}/.localrc" && source "${HOME}/.localrc"
 
 export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=YES
 
