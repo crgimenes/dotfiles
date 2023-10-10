@@ -10,7 +10,7 @@ purple="\e[35m"
 cyan="\e[36m"
 white="\e[37m"
 
-folders=("/Users/cesar/Projects/" "/Users/cesar/Docs/")
+folders=("/Users/cesar/Projects/" "/Users/cesar/Documents/")
 
 function rsync_loop_dry_run() {
     for folder in $folders; do
