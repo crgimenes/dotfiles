@@ -25,6 +25,7 @@ if fn.filereadable(local_vim) == 1 then
 end
 
 -- calendarfile autocmd
+--[[
 local calendarfile = api.nvim_create_augroup("calendarfile", { clear = true })
 api.nvim_create_autocmd("BufRead,BufNewFile", {
     command = "setlocal noexpandtab",
@@ -36,6 +37,7 @@ api.nvim_create_autocmd("BufRead,BufNewFile", {
     group = calendarfile,
     pattern = "calendarfile",
 })
+]]--
 
 -- Remember cursor position
 cmd([[
@@ -47,11 +49,27 @@ augroup END
 
 
 -- nasm
-api.nvim_create_autocmd("BufRead,BufNewFile", {
+--[[
+api.nvim_create_autocmd("BufNewFile,BufRead", {
     command = "set filetype=nasm",
     group = calendarfile,
     pattern = "*.asm",
 })
+]]--
+
+cmd([[
+augroup calendarfile
+    autocmd!
+    autocmd BufRead,BufNewFile calendar setlocal noexpandtab
+    autocmd BufRead,BufNewFile calendarfile setlocal noexpandtab
+augroup END
+
+augroup nasm
+    autocmd!
+    autocmd BufNewFile,BufRead *.asm set filetype=nasm
+augroup END
+
+]])
 
 
 cmd([[
