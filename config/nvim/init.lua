@@ -71,7 +71,7 @@ augroup END
 
 augroup gohtml
     autocmd!
-    autocmd BufNewFile,BufRead *.gohtml set filetype=html
+    autocmd BufNewFile,BufRead *.gohtml set filetype=gohtmltmpl
 augroup END
 
 ]])
