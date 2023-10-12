@@ -69,6 +69,11 @@ augroup nasm
     autocmd BufNewFile,BufRead *.asm set filetype=nasm
 augroup END
 
+augroup gohtml
+    autocmd!
+    autocmd BufNewFile,BufRead *.gohtml set filetype=html
+augroup END
+
 ]])
 
 
