@@ -79,7 +79,7 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && \
     source "${HOME}/.iterm2_shell_integration.zsh"
 
 # https://www.npmjs.com/package/@githubnext/github-copilot-cli
-eval "$(github-copilot-cli alias -- "$0")"
+# eval "$(github-copilot-cli alias -- "$0")"
 
 test -f "$HOME/Projects/scripts/config.sh" && \
     source "$HOME/Projects/scripts/config.sh"
