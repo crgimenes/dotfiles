@@ -12,17 +12,27 @@ white="\e[37m"
 bold="\e[1m"
 
 
-folders=("/Users/cesar/Projects/" "/Users/cesar/Documents/")
+origem_folders=(
+    "cesar@neptune.local:/Users/cesar/Projects/"
+    "cesar@neptune.local:/Users/cesar/Documents/"
+)
+
+destination_folders=(
+    "/Users/crg/Projects/"
+    "/Users/crg/Documents/"
+)
 
 function rsync_loop_dry_run() {
-    for folder in $folders; do
-        rsync -hvaz --dry-run --delete --progress cesar@$remote_machine:$folder $folder
+    for ((i = 1; i <= ${#origem_folders[@]}; i++)); do
+        echo -e "${green}${bold}Syncing ${origem_folders[$i]} to ${destination_folders[$i]}${reset}"
+        rsync -hvaz --dry-run --progress --delete ${origem_folders[$i]} ${destination_folders[$i]}
     done
 }
 
 function rsync_loop() {
-    for folder in $folders; do
-        rsync -hvaz --delete --progress cesar@$remote_machine:$folder $folder
+    for ((i = 1; i <= ${#origem_folders[@]}; i++)); do
+        echo -e "${green}${bold}Syncing ${origem_folders[$i]} to ${destination_folders[$i]}${reset}"
+        rsync -hvaz --delete --progress ${origem_folders[$i]} ${destination_folders[$i]}
     done
 }
 
