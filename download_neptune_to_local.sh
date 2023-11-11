@@ -41,7 +41,7 @@ cat ~/dotfiles/ansi/mini_skull.ans
 echo -e "${yellow}${bold}This script will sync the following folders:${reset}"
 echo -e "${green}${bold}"
 
-for folder in $folders; do
+for folder in "${origem_folders[@]}"; do
     echo "  - $folder"
 done
 echo -e "${reset}"
