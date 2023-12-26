@@ -6,7 +6,9 @@ setopt hist_ignore_all_dups
 export DOTFILES_DIR="${HOME}/dotfiles"
 export ZSH="${HOME}/.oh-my-zsh"
 export ZSH_THEME="crg"
-export TERM=screen-256color # xterm-256color
+#export TERM=screen-256color # xterm-256color
+export TERM='xterm-256color'
+
 
 test -f "${HOME}/.prelocalrc" && source "${HOME}/.prelocalrc"
 
