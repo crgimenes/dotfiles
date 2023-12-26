@@ -43,3 +43,4 @@ config/mc/ini
 config/github-copilot
 config/nvim/plugin/packer_compiled.lua
 weechat
+config/fossil.db
