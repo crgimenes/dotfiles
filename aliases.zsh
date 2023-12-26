@@ -27,3 +27,4 @@ alias e='${EDITOR} $@'
 
 alias listdraft='find . -name "*.md" -exec grep -H "^draft.*=.*true$" {} \;'
 
+alias vi='TERM=screen-256color-bce nvim'
