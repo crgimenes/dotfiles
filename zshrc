@@ -6,11 +6,12 @@ setopt hist_ignore_all_dups
 export DOTFILES_DIR="${HOME}/dotfiles"
 export ZSH="${HOME}/.oh-my-zsh"
 export ZSH_THEME="crg"
+export TERM=screen-256color # xterm-256color
 
 test -f "${HOME}/.prelocalrc" && source "${HOME}/.prelocalrc"
 
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git fzf)
+plugins=(git fzf fossil)
 
 source "${ZSH}/oh-my-zsh.sh"
 source "${DOTFILES_DIR}/environment.zsh"
