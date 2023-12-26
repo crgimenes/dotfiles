@@ -111,7 +111,7 @@ if remote_clipboard_enabled
 endif
 ]])
 
-vim.o.termguicolors = false
+-- vim.o.termguicolors = false
 
 P = function(v)
     print(vim.inspect(v))
