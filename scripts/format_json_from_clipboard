@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Pega o conteúdo da área de transferência
+json_input=$(pbpaste)
+
+# Usa jq para formatar o JSON
+formatted_json=$(echo "$json_input" | jq '.')
+
+# Verifica se jq foi bem-sucedido
+if [ $? -eq 0 ]; then
+    # Retorna o JSON formatado para a área de transferência
+    echo "$formatted_json" | pbcopy
+    exit
+fi
+
+echo "Erro ao formatar JSON."
+
