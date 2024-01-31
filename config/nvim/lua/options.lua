@@ -67,6 +67,9 @@ opt.termguicolors = true
 opt.background = "dark"
 
 -- SignColumn
+-- vim.o.signcolumn = 'auto' -- this is what you seem to be using.
+-- vim.o.signcolumn = 3 -- will use 3 columns. 
+-- vim.o.signcolumn = 'number' -- will display signs in the number column.
 opt.signcolumn = "yes"
 opt.signcolumn = "number"
 -- highlight clear SignColumn
