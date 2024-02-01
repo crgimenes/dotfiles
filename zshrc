@@ -89,4 +89,8 @@ test -f "$HOME/Projects/scripts/config.sh" && \
 
 echo tty: $(tty)
 
+source "${DOTFILES_DIR}/functions_compterm.sh"
+if is_parent_compterm; then
+    PS1="%F{yellow}compterm%f%F{green}>%f "
+fi
 
