@@ -1,0 +1,3 @@
+;; Set default character encoding to UTF-8
+(setf sb-impl::*default-external-format* :utf-8)
+
