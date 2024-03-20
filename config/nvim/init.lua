@@ -150,3 +150,8 @@ nmap <silent> [e <Plug>(coc-diagnostic-prev)
 nmap <silent> ]e <Plug>(coc-diagnostic-next)
 ]])
 
+vim.api.nvim_exec([[
+  au SwapExists * let v:swapchoice = "o" | echohl WarningMsg echo "The file is already open, entering read-only mode." | echohl None
+  au FocusGained,BufEnter * checktime
+  au FileChangedShellPost * echohl WarningMsg | echo "File changed. Buffer reloaded." | echohl None
+]], false)
