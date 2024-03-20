@@ -13,7 +13,7 @@ export TERM='xterm-256color'
 test -f "${HOME}/.prelocalrc" && source "${HOME}/.prelocalrc"
 
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git fzf fossil)
+plugins=(git fzf)
 
 source "${ZSH}/oh-my-zsh.sh"
 source "${DOTFILES_DIR}/environment.zsh"
