@@ -1,21 +1,23 @@
 #!/usr/bin/env bash
 
-[[ -z "$TMUX" ]] && \
+[[ -z "${TMUX}" ]] && \
     echo "This script must be run from within tmux" && \
     exit 1
 
-[[ -z "$selected" ]] && \
-    selected=$(find ~/Work ~/Projects ~/Documents ~ -mindepth 1 -maxdepth 1 -type d | fzf) || \
-    selected=$1
 
-[[ -z "$selected" ]] && \
+SELECTED=${1}
+[[ -z "${SELECTED}" ]] && \
+    DIRECTORY=$(find ~/Work ~/Projects ~/Documents ~ -mindepth 1 -maxdepth 1 -type d) && \
+    SELECTED=$(echo "${DIRECTORY}" | fzf)
+
+[[ -z "${SELECTED}" ]] && \
     exit 0
 
-selected_name=$(basename "$selected" | tr . _)
+SELECTED_NAME=$(basename "${SELECTED}" | tr . _)
 
-if ! tmux has-session -t="$selected_name" 2> /dev/null; then
-    tmux new-session -ds "$selected_name" -c "$selected"
+if ! tmux has-session -t="${SELECTED_NAME}" 2> /dev/null; then
+    tmux new-session -ds "${SELECTED_NAME}" -c "${SELECTED}"
 fi
 
-tmux switch-client -t "$selected_name"
+tmux switch-client -t "${SELECTED_NAME}"
 
