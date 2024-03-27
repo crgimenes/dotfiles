@@ -105,3 +105,23 @@ function ei {
     copyFromStdin < $t
     rm -f $t
 }
+
+## Function to switch to the last window or session in tmux, if available
+exit_handler() {
+  if [ -n "$TMUX" ]; then
+    # Get the list of windows in the current session
+    local windows=($(tmux list-windows -F '#I'))
+    if [ ${#windows[@]} -gt 1 ]; then
+      # If there is more than one window, switch to the last opened window (assuming the listing is in creation order)
+      tmux select-window -t ${windows[-2]}
+    else
+      # If there is only one window, check for other sessions
+      local sessions=($(tmux list-sessions -F '#S'))
+      if [ ${#sessions[@]} -gt 1 ]; then
+        # Switch to the last created session and remove the current session from the list
+        sessions=("${(@)sessions:#$(tmux display-message -p '#S')}")
+        tmux switch-client -t ${sessions[-1]}
+      fi
+    fi
+  fi
+}

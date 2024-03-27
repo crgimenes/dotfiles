@@ -28,3 +28,8 @@ alias e='${EDITOR} $@'
 alias listdraft='find . -name "*.md" -exec grep -H "^draft.*=.*true$" {} \;'
 
 alias vi='TERM=screen-256color-bce nvim'
+
+alias ts=~/dotfiles/tmux-sessionizer.sh
+
+alias t='tmux new -A -s default'
+

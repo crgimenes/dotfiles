@@ -94,3 +94,6 @@ if is_parent_compterm; then
     PS1="%F{yellow}compterm%f%F{green}>%f "
 fi
 
+# Configures the trap to call exit_handler when the shell receives the EXIT signal
+trap 'exit_handler' EXIT
+
