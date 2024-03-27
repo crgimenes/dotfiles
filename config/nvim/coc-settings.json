@@ -2,39 +2,54 @@
   "languageserver": {
     "go": {
       "command": "gopls",
-      "rootPatterns": ["go.mod"],
+      "rootPatterns": [
+        "go.mod"
+      ],
       "trace.server": "verbose",
-      "filetypes": ["go"]
+      "filetypes": [
+        "go"
+      ]
     },
     "coc-clangd": {
-        "command": "clangd",
-        "rootPatterns": [".git/", "compile_flags.txt", "compile_commands.json"],
-        "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"]
+      "command": "clangd",
+      "rootPatterns": [
+        ".git/",
+        "compile_flags.txt",
+        "compile_commands.json"
+      ],
+      "filetypes": [
+        "c",
+        "cc",
+        "cpp",
+        "c++",
+        "objc",
+        "objcpp"
+      ]
     },
     "ccls": {
-            "command": "ccls",
-            "filetypes": [
-                "c",
-                "cpp",
-                "objc",
-                "objcpp"
-            ],
-            "rootPatterns": [
-                ".ccls",
-                "compile_commands.json",
-                ".vim/",
-                ".git/",
-                ".hg/"
-            ],
-            "initializationOptions": {
-                "cache": {
-                    "directory": "/tmp/ccls"
-                },
-                "client": {
-                    "snippetSupport": true
-                }
-            }
+      "command": "ccls",
+      "filetypes": [
+        "c",
+        "cpp",
+        "objc",
+        "objcpp"
+      ],
+      "rootPatterns": [
+        ".ccls",
+        "compile_commands.json",
+        ".vim/",
+        ".git/",
+        ".hg/"
+      ],
+      "initializationOptions": {
+        "cache": {
+          "directory": "/tmp/ccls"
+        },
+        "client": {
+          "snippetSupport": true
         }
-    },
-    "clangd.path": "~/dotfiles/config/coc/extensions/coc-clangd-data/install/15.0.6/clangd_15.0.6/bin/clangd"
+      }
+    }
+  },
+  "clangd.path": "~/dotfiles/config/coc/extensions/coc-clangd-data/install/15.0.6/clangd_15.0.6/bin/clangd"
 }
