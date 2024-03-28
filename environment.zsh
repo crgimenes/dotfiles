@@ -15,6 +15,6 @@ export LESS_TERMCAP_us=$'\e[1;4;31m'
 
 export GOPATH=~/go
 export GOBIN="${GOPATH}"/bin
-export GO111MODULE=on
+export CGO_ENABLED=0
 export EDITOR="$(command -v nvim)"
 
