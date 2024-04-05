@@ -261,6 +261,8 @@ g.go_highlight_array_whitespace_error = 0
 g.go_highlight_trailing_whitespace_error = 0
 g.go_highlight_extra_types = 1
 
+-- let g:go_template_autocreate = 0
+g.go_template_autocreate = 0
 
 -- C/C++
 
