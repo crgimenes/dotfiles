@@ -155,3 +155,11 @@ vim.api.nvim_exec([[
   au FocusGained,BufEnter * checktime
   au FileChangedShellPost * echohl WarningMsg | echo "File changed. Buffer reloaded." | echohl None
 ]], false)
+
+
+-- close buffer
+-- nnoremap <leader>q :enew<bar>bd #<CR>
+-- nnoremap <leader>q :bp <bar> bd <bar> e# <bar> bd#<CR>
+cmd([[
+nnoremap <leader>q :bp <bar> bd <bar> e# <bar> bd#<CR>
+]])
