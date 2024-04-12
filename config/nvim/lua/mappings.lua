@@ -89,14 +89,12 @@ keyset('i', '<tab>', 'coc#pum#visible() ? coc#pum#confirm() : "<tab>"', { expr =
 keyset('i', '<cr>', 'coc#pum#visible() ? coc#pum#confirm() : "<cr>"', { expr = true })
 
 -- CoC jump to definition
--- call CocActionAsync('jumpDefinition')
--- keyset('n', 'gd', '<Plug>(coc-definition)', {})
 keyset('n', '<C-]>', '<Plug>(coc-definition)', { silent = true, noremap = true })
-
+-- keyset('n', 'gd', '<Plug>(coc-definition)', { silent = true, noremap = true })
 keyset('n', '<cr>', '<Plug>(coc-definition)', { silent = true, noremap = true })
-
 -- back to previous location with backspace or <C-o>
 keyset('n', '<backspace>', '<C-o>', { silent = true, noremap = true })
+
 
 -- cnoremap <expr><Up> pumvisible() ? "\<Left>" : "\<Up>"
 -- cnoremap <expr><Down> pumvisible() ? "\<Right>" : "\<Down>"
