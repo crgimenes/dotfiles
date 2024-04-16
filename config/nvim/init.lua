@@ -163,3 +163,25 @@ vim.api.nvim_exec([[
 cmd([[
 nnoremap <leader>q :bp <bar> bd <bar> e# <bar> bd#<CR>
 ]])
+
+
+--[[
+-- POC, function to get the current word under the cursor and passe to neoframe client as parameter.
+--]]
+
+
+vim.api.nvim_set_keymap('n', '<F5>', ':lua WordLookup()<CR>', { noremap = true, silent = true })
+
+function WordLookup()
+  local word = vim.fn.expand('<cword>')
+  local c = "echo " .. word
+
+  local handle = io.popen(c, 'r')
+  if handle then
+    local result = handle:read("*a")
+    handle:close()
+    vim.notify(result, vim.log.levels.INFO)
+    return
+  end
+  vim.notify("Error running command " .. c .. " " .. word, vim.log.levels.ERROR)
+end
