@@ -29,12 +29,13 @@ function ww() {
 
 
 function wdd() {
-    vim -c 'norm \w\w'
+    vi -c 'norm \w\w'
 }
 
 function wv() {
-    cd ~/Documents/wiki
-    rv $@
+    current_dir=$(pwd)
+    cd ~/Documents/wiki && rv $@
+    cd $current_dir
 }
 
 function fbr() {
