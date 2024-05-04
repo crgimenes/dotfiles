@@ -97,3 +97,7 @@ fi
 # Configures the trap to call exit_handler when the shell receives the EXIT signal
 trap 'exit_handler' EXIT
 
+# key bindings
+#
+bindkey "^X^X" edit-command-line
+
