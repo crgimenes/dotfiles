@@ -19,7 +19,7 @@ find . -name "go.mod" -type f | while read -r file; do
     fi
     git add .
     git commit -m "update to go mod"
-    git push
+    git remote -v | grep -q crgimenes && git push
 
     cd - > /dev/null || exit
 done

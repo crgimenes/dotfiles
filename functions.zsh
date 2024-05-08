@@ -32,7 +32,7 @@ function wdd() {
     vi -c 'norm \w\w'
 }
 
-function wv() {
+function rw() {
     current_dir=$(pwd)
     cd ~/Documents/wiki && rv $@
     cd $current_dir
