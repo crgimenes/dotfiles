@@ -185,3 +185,30 @@ function WordLookup()
   end
   vim.notify("Error running command " .. c .. " " .. word, vim.log.levels.ERROR)
 end
+
+
+-- Terminal Settings
+vim.cmd([[
+  augroup TerminalSettings
+    autocmd!
+    autocmd TermOpen * setlocal nonumber norelativenumber signcolumn=no
+  augroup END
+]])
+
+-- Automatic Insert Mode
+vim.cmd([[
+  augroup TerminalInsertMode
+    autocmd!
+    autocmd TermOpen * startinsert
+  augroup END
+]])
+
+--[[
+vim.api.nvim_create_user_command("Rv", function(args)
+  local output = vim.fn.systemlist("rv " .. args.args)
+  if #output > 0 then
+    vim.cmd("edit " .. output[1])
+  end
+end, { nargs = 1 })
+]]--
+
