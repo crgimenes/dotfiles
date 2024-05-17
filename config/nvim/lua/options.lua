@@ -99,8 +99,8 @@ opt.linebreak = true
 
 
 -- global options
-o.noswapfile = true
-o.nobackup = true
+-- o.noswapfile = true
+-- o.nobackup = true
 
 -- find files recursively in subdirectories
 -- set path+=**
@@ -158,9 +158,9 @@ o.ruler = true
 
 g.no_buffers_menu = 1
 o.mousemodel = "popup"
-o.t_Co = 256
-o.guioptions = "egmrti"
-o.gfn = "Monospace 10"
+-- o.t_Co = 256
+-- o.guioptions = "egmrti"
+-- o.gfn = "Monospace 10"
 
 g.CSApprox_loaded = 1
 
