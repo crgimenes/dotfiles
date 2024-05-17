@@ -37,13 +37,22 @@ return require('packer').startup(function(use)
     use('buoto/gotests-vim')
     use('vimwiki/vimwiki')
     use('Shougo/vimproc.vim')
-    use('chriskempson/base16-vim')
     use('fatih/vim-go')
     use('github/copilot.vim')
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.x',
         requires = { {'nvim-lua/plenary.nvim'} }
     }
+    use 'Mofiqul/dracula.nvim'
+    local dracula = require("dracula")
+    dracula.setup({
+        colors = {
+            bg = "#000000",
+        },
+        lualine_bg_color = "#000000",
+    })
+    vim.cmd[[colorscheme dracula]]
+    -- vim.cmd[[colorscheme dracula-soft]]
     -- Orgmode Experimental
     --[[
         use {'nvim-treesitter/nvim-treesitter'}

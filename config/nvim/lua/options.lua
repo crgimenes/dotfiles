@@ -311,7 +311,22 @@ api.nvim_create_autocmd("BufEnter", {
 -- lualine setup
 require('lualine').setup({
     options = {
-        theme = '16color',
+        theme = 'dracula-nvim',
         icons_enabled = false,
     },
 })
+
+-- https://github.com/Mofiqul/dracula.nvim
+local dracula = require("dracula")
+dracula.setup({
+  colors = {
+    bg = "#000000",
+    black = "#000000",
+    visual = "#000000",
+    nontext = "#000000"
+  },
+  transparent_bg = true,
+  lualine_bg_color = "#000000",
+  italic_comment = true
+})
+
