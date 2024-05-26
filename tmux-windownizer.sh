@@ -4,10 +4,11 @@
     echo "This script must be run from within tmux" && \
     exit 1
 
+#DIRECTORY=$(find ~/Work ~/Projects ~/Documents ~ -mindepth 1 -maxdepth 1 -type d) && \
 
 SELECTED=${1}
 [[ -z "${SELECTED}" ]] && \
-    DIRECTORY=$(find ~/Work ~/Projects ~/Documents ~ -mindepth 1 -maxdepth 1 -type d) && \
+    DIRECTORY=$(find ~/Work ~/Projects ~/Documents -mindepth 1 -not -path '*/.*' -type d) && \
     SELECTED=$(echo "${DIRECTORY}" | fzf)
 
 [[ -z "${SELECTED}" ]] && \
