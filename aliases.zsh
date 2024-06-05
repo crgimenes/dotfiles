@@ -3,7 +3,7 @@ alias ccb='pbpaste|pbcopy' # clear clipboard
 #alias ls='ls --time-style="+%Y-%m-%d %H:%M:%S" --color -h'
 alias lsa='stat -l -t '%F%T' * | tr ' ' \\t'
 
-alias -s {go,c,json,txt,md,sh,zsh}=nvim
+alias -s {go,c,json,txt,md}=nvim
 
 alias -g gp='| grep -i' #creates a global alias for grep
 # $ ps ax gp ruby
