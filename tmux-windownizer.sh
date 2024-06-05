@@ -8,7 +8,7 @@
 
 SELECTED=${1}
 [[ -z "${SELECTED}" ]] && \
-    DIRECTORY=$(find ~/Work ~/Projects ~/Documents -mindepth 1 -not -path '*/.*' -type d) && \
+    DIRECTORY=$(find ~/Work ~/Projects ~/Documents -mindepth 1 -maxdepth 3 -not -path '*/.*' -type d) && \
     SELECTED=$(echo "${DIRECTORY}" | fzf)
 
 [[ -z "${SELECTED}" ]] && \
