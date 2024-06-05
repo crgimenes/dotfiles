@@ -3,7 +3,7 @@ alias ccb='pbpaste|pbcopy' # clear clipboard
 #alias ls='ls --time-style="+%Y-%m-%d %H:%M:%S" --color -h'
 alias lsa='stat -l -t '%F%T' * | tr ' ' \\t'
 
-alias -s {go,c,json,txt}=vim
+alias -s {go,c,json,txt,md,sh,zsh}=nvim
 
 alias -g gp='| grep -i' #creates a global alias for grep
 # $ ps ax gp ruby
@@ -27,7 +27,7 @@ alias e='${EDITOR} $@'
 
 alias listdraft='find . -name "*.md" -exec grep -H "^draft.*=.*true$" {} \;'
 
-alias vi='TERM=screen-256color-bce nvim'
+#alias vi='TERM=screen-256color-bce nvim'
 
 
 
