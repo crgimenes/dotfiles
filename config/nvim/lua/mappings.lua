@@ -113,6 +113,9 @@ api.nvim_exec("iabbrev crg@ crg@crg.eti.br", false)
 -- api.nvim_set_keymap("i", '"', '<c-g>u', { noremap = true })
 -- api.nvim_set_keymap("i", '<cr>', '<cr><c-g>u', { noremap = true })
 
+-- use ]e and [e to navigate errors
+
+
 -- Copilot
 cmd("cnoreabbrev dcp Copilot disable")
 cmd("cnoreabbrev ecp Copilot enable")
