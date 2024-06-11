@@ -100,4 +100,5 @@ trap 'exit_handler' EXIT
 # key bindings
 #
 bindkey "^X^X" edit-command-line
+#bindkey -s '^E' '~/dotfiles/iterm2-tabnizer.sh\n'
 
