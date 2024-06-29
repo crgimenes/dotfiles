@@ -330,3 +330,8 @@ dracula.setup({
   italic_comment = true
 })
 
+
+-- Not F# or Fortran .f and .fs is Forth!
+vim.api.nvim_command("let filetype_f  = 'forth'")
+vim.api.nvim_command("let filetype_fs = 'forth'")
+
