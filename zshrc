@@ -64,7 +64,18 @@ export PATH=$python_prefix/bin:$PATH
 export GOROOT="/usr/local/go"
 export PATH=$GOROOT/bin:~/go/bin:$PATH
 
-export PATH=~/bin:$PATH
+#export PATH=~/bin:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin:$PATH
+export PATH=~/bin:$PATH:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
+
+##################################################
+# clang
+
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
+
+##################################################
+
 
 # alias python=/usr/bin/python3
 alias python=$python_prefix/bin/python3
