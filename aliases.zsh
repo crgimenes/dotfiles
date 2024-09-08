@@ -25,7 +25,7 @@ alias zcd='cd $(find . -type d -print | fzf)'
 
 alias e='${EDITOR} $@'
 
-alias listdraft='find . -name "*.md" -exec grep -H "^draft.*=.*true$" {} \;'
+alias listdraft='find . -name "*.md" -exec grep -H "^draft.*=.*true$" {} +'
 
 #alias vi='TERM=screen-256color-bce nvim'
 
