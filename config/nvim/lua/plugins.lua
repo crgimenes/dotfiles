@@ -39,6 +39,7 @@ return require('packer').startup(function(use)
     use('Shougo/vimproc.vim')
     use('fatih/vim-go')
     use('github/copilot.vim')
+    -- use('nanotee/sqls.nvim')
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.x',
         requires = { {'nvim-lua/plenary.nvim'} }
@@ -52,6 +53,7 @@ return require('packer').startup(function(use)
         lualine_bg_color = "#000000",
     })
     vim.cmd[[colorscheme dracula]]
+    
     -- vim.cmd[[colorscheme dracula-soft]]
     -- Orgmode Experimental
     --[[
