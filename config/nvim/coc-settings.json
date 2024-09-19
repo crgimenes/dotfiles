@@ -49,12 +49,6 @@
           "snippetSupport": true
         }
       }
-    },
-    "sql": {
-        "command": "sqls",
-        "args": ["-config", "$HOME/.sqls_config.yml"],
-        "filetypes": ["sql"],
-        "shell": true
     }
   },
   "clangd.path": "~/dotfiles/config/coc/extensions/coc-clangd-data/install/15.0.6/clangd_15.0.6/bin/clangd"
