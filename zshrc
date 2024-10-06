@@ -2,7 +2,6 @@
 
 setopt hist_ignore_all_dups
 
-
 export DOTFILES_DIR="${HOME}/dotfiles"
 export ZSH="${HOME}/.oh-my-zsh"
 export ZSH_THEME="crg"
@@ -38,6 +37,9 @@ source "${DOTFILES_DIR}/functions_tmux.zsh"
 
 # searX 
 source "${DOTFILES_DIR}/functions_searX.zsh"
+
+# improve cd
+source "${DOTFILES_DIR}/scripts/cd_stack_fzf.sh"
 
 # Darwin only
 [[ "${OSTYPE}" == "darwin"* ]] && source "${DOTFILES_DIR}/functions_darwin.zsh"
@@ -112,4 +114,6 @@ trap 'exit_handler' EXIT
 #
 bindkey "^X^X" edit-command-line
 #bindkey -s '^E' '~/dotfiles/iterm2-tabnizer.sh\n'
+
+export _EDITED_FILES=()
 
