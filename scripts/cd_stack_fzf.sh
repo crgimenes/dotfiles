@@ -32,7 +32,7 @@ s() {
     done
 
     selected=$(printf '%s\n' "${formatted_dirs[@]}" | \
-        fzf --prompt="Selecionar diretório: " --height 40% --layout=reverse)
+        fzf --prompt=": " --height 40% --layout=reverse)
 
     [[ -z "$selected" ]] && return 0
 
