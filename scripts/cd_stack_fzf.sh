@@ -11,9 +11,8 @@ cd() {
 
     _CD_STACK=("$PWD" "${_CD_STACK[@]}")
 
-    if (( ${#_CD_STACK[@]} > CD_STACK_MAX )); then
+    (( ${#_CD_STACK[@]} > CD_STACK_MAX )) && \
         _CD_STACK=("${_CD_STACK[@]:0:CD_STACK_MAX}")
-    fi
 
     _CD_STACK=($(printf "%s\n" "${_CD_STACK[@]}" | awk '!x[$0]++'))
 
@@ -47,11 +46,10 @@ s() {
 
 _initialize_cd_stack_fzf() {
     _CD_STACK=(
-        "~"
-        "~/Projects"
-    )
+        "/Users/crg"
+        "/Users/crg/Projects"
+    )    
 }
 
 _initialize_cd_stack_fzf
-
 
