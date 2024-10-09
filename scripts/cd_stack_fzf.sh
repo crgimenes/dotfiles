@@ -5,25 +5,41 @@ CD_STACK_LAST=""
 
 declare -a _CD_STACK=("$PWD")
 
+_cd_save_env() {
+    {
+        declare -p _CD_STACK
+        declare -p CD_STACK_LAST
+    } > ~/.cd_stack_fzf.tmp && mv ~/.cd_stack_fzf.tmp ~/.cd_stack_fzf
+}
+
+_cd_load_env() {
+    [[ -f ~/.cd_stack_fzf ]] && source ~/.cd_stack_fzf
+}
+
 cd() {
     CD_STACK_LAST=${PWD}
     builtin cd "$@" || return "$?"
 
-    _CD_STACK=("$PWD" "${_CD_STACK[@]}")
+    _CD_STACK=("$CD_STACK_LAST" "${_CD_STACK[@]}")
 
     (( ${#_CD_STACK[@]} > CD_STACK_MAX )) && \
         _CD_STACK=("${_CD_STACK[@]:0:CD_STACK_MAX}")
 
     _CD_STACK=($(printf "%s\n" "${_CD_STACK[@]}" | awk '!x[$0]++'))
 
+    _cd_save_env
     return 0
 }
 
 b() {
+    _cd_load_env
     cd "${CD_STACK_LAST}" || return "$?"
+    _cd_save_env
 }
 
 s() {
+    _cd_load_env
+
     local selected
     local formatted_dirs=()
 
@@ -48,7 +64,8 @@ _initialize_cd_stack_fzf() {
     _CD_STACK=(
         "/Users/crg"
         "/Users/crg/Projects"
-    )    
+    )
+    _cd_load_env
 }
 
 _initialize_cd_stack_fzf
