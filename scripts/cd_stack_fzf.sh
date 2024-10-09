@@ -22,8 +22,7 @@ cd() {
 
     _CD_STACK=("$CD_STACK_LAST" "${_CD_STACK[@]}")
 
-    (( ${#_CD_STACK[@]} > CD_STACK_MAX )) && \
-        _CD_STACK=("${_CD_STACK[@]:0:CD_STACK_MAX}")
+    [ "${#_CD_STACK[@]}" -gt "$CD_STACK_MAX" ] && unset '_CD_STACK[-1]'
 
     _CD_STACK=($(printf "%s\n" "${_CD_STACK[@]}" | awk '!x[$0]++'))
 
