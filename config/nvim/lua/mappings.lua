@@ -91,10 +91,11 @@ keyset('i', '<cr>', 'coc#pum#visible() ? coc#pum#confirm() : "<cr>"', { expr = t
 -- CoC jump to definition
 keyset('n', '<C-]>', '<Plug>(coc-definition)', { silent = true, noremap = true })
 -- keyset('n', 'gd', '<Plug>(coc-definition)', { silent = true, noremap = true })
--- keyset('n', '<cr>', '<Plug>(coc-definition)', { silent = true, noremap = true })
+keyset('n', '<cr>', '<Plug>(coc-definition)', { silent = true, noremap = true })
 keyset('n', '<A-CR>', '<Plug>(coc-definition)', { silent = true, noremap = true })
+
 -- back to previous location with backspace or <C-o>
--- keyset('n', '<backspace>', '<C-o>', { silent = true, noremap = true })
+keyset('n', '<backspace>', '<C-o>', { silent = true, noremap = true })
 keyset('n', '<A-BS>', '<C-o>', { silent = true, noremap = true })
 
 -- go to implementation
