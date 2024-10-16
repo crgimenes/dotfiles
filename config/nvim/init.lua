@@ -212,3 +212,24 @@ vim.api.nvim_create_user_command("Rv", function(args)
 end, { nargs = 1 })
 ]]--
 
+function Mark_point()
+    local home = os.getenv("HOME")
+    local file_marks = home .. "/marks.txt"
+
+    local file = vim.fn.expand('%:p')  -- caminho completo
+    local line = vim.fn.line('.')      -- número da linha atual
+
+    local mark = file .. " +" .. line
+
+    local file_handle = io.open(file_marks, "a")
+    if file_handle then
+        file_handle:write(mark .. "\n")
+        file_handle:close()
+        print("Marked: " .. mark)
+        return
+    end
+    print("Erro ao abrir o arquivo de marcação: " .. file_marks)
+end
+
+vim.api.nvim_set_keymap('n', '<leader>m', ':lua Mark_point()<CR>', { noremap = true, silent = true })
+
