@@ -272,4 +272,20 @@ vim.api.nvim_set_keymap('n', '<leader>m', ':lua Mark_point()<CR>', { noremap = t
 
 vim.api.nvim_command('command! Clearmarks lua Clear_marks()')
 
+-- buffers
+vim.api.nvim_set_keymap('n', '<leader>bd', ':bp|bd #<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>bl', ':ls<CR>', { noremap = true, silent = true })
+
+function Clean_buffers()
+    local buffers = vim.api.nvim_list_bufs()
+    for _, buf in ipairs(buffers) do
+        if vim.api.nvim_buf_is_loaded(buf) and not vim.api.nvim_buf_get_option(buf, 'modified') then
+            vim.api.nvim_buf_delete(buf, {})
+        end
+    end
+    print("Buffers não utilizados foram limpos.")
+end
+
+vim.api.nvim_set_keymap('n', '<leader>bc', ':lua Clean_buffers()<CR>', { noremap = true, silent = true })
+
 
