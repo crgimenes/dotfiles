@@ -231,5 +231,24 @@ function Mark_point()
     print("Erro ao abrir o arquivo de marcação: " .. file_marks)
 end
 
+function Open_marks()
+    local home = os.getenv("HOME")
+    local marks_file = home .. "/marks.txt"
+
+    local file = io.open(marks_file, "r")
+    if not file then
+        print("Erro ao abrir o arquivo de marcação: " .. marks_file)
+        return
+    end
+
+    for line in file:lines() do
+        local file_path, line_number = string.match(line, "^(.-)%s+%+(%d+)$")
+        vim.cmd('edit ' .. file_path)
+        vim.cmd('normal ' .. line_number .. 'G')
+    end
+    file:close()
+end
+
+vim.api.nvim_set_keymap('n', '<leader>o', ':lua Open_marks()<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>m', ':lua Mark_point()<CR>', { noremap = true, silent = true })
 
