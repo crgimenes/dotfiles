@@ -256,6 +256,20 @@ function Open_marks()
     Open_mark(marks_file)
 end
 
+function Clear_marks()
+    local path = os.getenv("HOME")
+    local marks_file = path .. "/marks.txt"
+    os.remove(marks_file)
+
+    path = vim.fn.getcwd()
+    marks_file = path .. "/marks.txt"
+    os.remove(marks_file)
+end
+
+
 vim.api.nvim_set_keymap('n', '<leader>o', ':lua Open_marks()<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>m', ':lua Mark_point()<CR>', { noremap = true, silent = true })
+
+vim.api.nvim_command('command! Clearmarks lua Clear_marks()')
+
 
