@@ -132,7 +132,6 @@ history_list() {
   selected=$(fc -rl 1 | \
       fzf \
         --height 60% \
-        --reverse \
         --prompt ": " \
         --ansi \
         --preview "sed 's/^ *[0-9]* *//' <<< {}" \
