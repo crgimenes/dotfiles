@@ -126,3 +126,19 @@ exit_handler() {
     fi
   fi
 }
+
+history_list() {
+  local selected
+  selected=$(fc -rl 1 | \
+      fzf \
+        --height 60% \
+        --reverse \
+        --prompt ": " \
+        --ansi \
+        --preview "sed 's/^ *[0-9]* *//' <<< {}" \
+        --preview-window=down:3:wrap)
+
+  [[ -n "$selected" ]] && \
+      print -z $(echo "$selected" | sed 's/^ *[0-9]* *//')
+}
+
