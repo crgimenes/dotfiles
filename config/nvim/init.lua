@@ -318,3 +318,33 @@ end
 vim.api.nvim_set_keymap('n', '<leader>bc', ':lua Clean_buffers()<CR>', { noremap = true, silent = true })
 
 
+local function SafeFormatJsonOnSave()
+  if vim.fn.executable('jq') == 0 then
+    vim.notify("The 'jq' utility is not available on the system.", vim.log.levels.ERROR)
+    return
+  end
+
+  local view = vim.fn.winsaveview()
+  local formatted_content = vim.fn.systemlist('jq .', vim.fn.getline(1, '$'))
+
+  if vim.v.shell_error == 0 then
+    vim.api.nvim_buf_set_lines(0, 0, -1, false, formatted_content)
+    vim.bo.modified = false
+    vim.fn.winrestview(view)
+  else
+    vim.notify(
+      "Error formatting JSON: please check the file syntax.\nDetails: " .. table.concat(formatted_content, "\n"),
+      vim.log.levels.ERROR
+    )
+  end
+end
+
+vim.api.nvim_create_autocmd('BufWritePre', {
+  pattern = '*',
+  callback = function()
+    if vim.bo.filetype == 'json' then
+      SafeFormatJsonOnSave()
+    end
+  end,
+})
+
