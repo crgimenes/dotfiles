@@ -93,10 +93,10 @@ autocmd FileType cpp setlocal tabstop=4 shiftwidth=4 expandtab
 
 cmd([[
 
-if remote_clipboard_enabled 
+if remote_clipboard_enabled
 
-  " It Sends yanked text to the client 
-  " machine's clipboard. Requires terminal 
+  " It Sends yanked text to the client
+  " machine's clipboard. Requires terminal
   " emulator with OSC52 support
   augroup remote_clipboard
       au!
@@ -340,11 +340,33 @@ local function SafeFormatJsonOnSave()
 end
 
 vim.api.nvim_create_autocmd('BufWritePre', {
-  pattern = '*',
+  pattern = '*.json',
   callback = function()
-    if vim.bo.filetype == 'json' then
       SafeFormatJsonOnSave()
-    end
   end,
 })
 
+vim.api.nvim_create_autocmd("BufWritePre", {
+    -- Clear trailing whitespace on save
+    pattern = {
+        "*.c",
+        "*.cpp",
+        "*.go",
+        "*.h",
+        "*.hpp",
+        "*.json",
+        "*.lua",
+        "*.m",
+        "*.md",
+        "*.py",
+        "*.rs",
+        "*.sh",
+        "*.txt",
+        "*.vim",
+        "*.yaml",
+        "*.yml",
+    },
+    callback = function()
+        vim.cmd([[silent! %s/\s\+$//e]])
+    end,
+})
