@@ -108,7 +108,7 @@ function ei {
 }
 
 ## Function to switch to the last window or session in tmux, if available
-exit_handler() {
+function exit_handler() {
   if [ -n "$TMUX" ]; then
     # Get the list of windows in the current session
     local windows=($(tmux list-windows -F '#I'))
@@ -127,7 +127,7 @@ exit_handler() {
   fi
 }
 
-history_list() {
+function history_list() {
   local selected
   selected=$(fc -rl 1 | \
       fzf \
@@ -139,5 +139,15 @@ history_list() {
 
   [[ -n "$selected" ]] && \
       print -z $(echo "$selected" | sed 's/^ *[0-9]* *//')
+}
+
+function nuke() {
+  local pid
+  pid=$(ps -al | grep -v ^root | sed 1d | fzf -m | awk '{print $2}')
+
+  [ -n "$pid" ] && \
+      echo $pid 
+        #| \
+      #xargs kill -9
 }
 

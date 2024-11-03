@@ -20,3 +20,4 @@ function update_branch() {
     git merge master
     git push origin ${branch_name}
 }
+
