@@ -33,9 +33,9 @@ function wdd() {
 }
 
 function rw() {
-    current_dir=$(pwd)
-    cd ~/Documents/wiki && rv $@
-    cd $current_dir
+    local current_dir=$(pwd)
+    builtin cd ~/Documents/wiki && rv $@
+    builtin cd $current_dir
 }
 
 function fbr() {
@@ -47,11 +47,17 @@ function delete-branches() {
   local branches_to_delete
   branches_to_delete=$(git branch | fzf --multi)
 
-  if [ -n "$branches_to_delete" ]; then 
+  [ -n "$branches_to_delete" ] && \
     git branch --delete --force $branches_to_delete
-  fi
 }
 
+function checkout-branch() {
+  local branches
+  branches=$(git branch | fzf)
+
+  [ -n "$branches" ] && \
+    git checkout $branches
+}
 
 function colors256() {
         local c i j
@@ -91,7 +97,7 @@ function copyFromStdin() {
 }
 
 function ei {
-    ext=$1
+    local ext=$1
     if [ -z "$ext" ]; then
         ext="md"
     fi
@@ -109,21 +115,18 @@ function ei {
 
 ## Function to switch to the last window or session in tmux, if available
 function exit_handler() {
-  if [ -n "$TMUX" ]; then
-    # Get the list of windows in the current session
-    local windows=($(tmux list-windows -F '#I'))
-    if [ ${#windows[@]} -gt 1 ]; then
-      # If there is more than one window, switch to the last opened window (assuming the listing is in creation order)
+  [ -z "$TMUX" ] && return
+
+  local windows=($(tmux list-windows -F '#I'))
+  if [ ${#windows[@]} -gt 1 ]; then
       tmux select-window -t ${windows[-2]}
-    else
-      # If there is only one window, check for other sessions
-      local sessions=($(tmux list-sessions -F '#S'))
-      if [ ${#sessions[@]} -gt 1 ]; then
-        # Switch to the last created session and remove the current session from the list
-        sessions=("${(@)sessions:#$(tmux display-message -p '#S')}")
-        tmux switch-client -t ${sessions[-1]}
-      fi
-    fi
+      return
+  fi
+
+  local sessions=($(tmux list-sessions -F '#S'))
+  if [ ${#sessions[@]} -gt 1 ]; then
+      sessions=("${(@)sessions:#$(tmux display-message -p '#S')}")
+      tmux switch-client -t ${sessions[-1]}
   fi
 }
 
@@ -146,8 +149,7 @@ function nuke() {
   pid=$(ps -al | grep -v ^root | sed 1d | fzf -m | awk '{print $2}')
 
   [ -n "$pid" ] && \
-      echo $pid 
-        #| \
-      #xargs kill -9
+      echo $pid | \
+      xargs kill -9
 }
 
