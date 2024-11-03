@@ -53,7 +53,7 @@ return require('packer').startup(function(use)
         lualine_bg_color = "#000000",
     })
     vim.cmd[[colorscheme dracula]]
-    
+
     -- vim.cmd[[colorscheme dracula-soft]]
     -- Orgmode Experimental
     --[[
@@ -81,7 +81,7 @@ return require('packer').startup(function(use)
         vim.opt.foldenable = false
         -- vim.opt.foldmethod = "expr"
         -- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-    
+
     --
 
     -- use('~/Projects/liprog.nvim')
