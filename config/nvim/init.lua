@@ -331,12 +331,12 @@ local function SafeFormatJsonOnSave()
     vim.api.nvim_buf_set_lines(0, 0, -1, false, formatted_content)
     vim.bo.modified = false
     vim.fn.winrestview(view)
-  else
-    vim.notify(
-      "Error formatting JSON: please check the file syntax.\nDetails: " .. table.concat(formatted_content, "\n"),
-      vim.log.levels.ERROR
-    )
+    return
   end
+  vim.notify(
+    "Error formatting JSON: please check the file syntax.\nDetails: " .. table.concat(formatted_content, "\n"),
+    vim.log.levels.ERROR
+  )
 end
 
 vim.api.nvim_create_autocmd('BufWritePre', {
@@ -367,6 +367,8 @@ vim.api.nvim_create_autocmd("BufWritePre", {
         "*.yml",
     },
     callback = function()
+        local save_cursor = vim.fn.getpos('.')
         vim.cmd([[silent! %s/\s\+$//e]])
+        vim.fn.setpos('.', save_cursor)
     end,
 })
