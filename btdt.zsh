@@ -34,15 +34,12 @@ bt() {
     [[ -z "$NAME" ]] && echo "No name given, aborting" && return 1
     read "LONG?Longer description (optional): "
 
-    if [[ ! -d "${HOME}/.config/btdt" ]]; then
+    [[ ! -d "${HOME}/.config/btdt" ]] && \
         mkdir -p "${HOME}/.config/btdt"
-    fi
 
     DATA="${BTDT_DATA:-${HOME}/.config/btdt/data}"
 
-    if [[ ! -f $DATA ]]; then
-        touch $DATA
-    fi
+    [[ ! -f $DATA ]] && touch $DATA
     
     result="${CMD}\t${NAME}\t${LONG}\n"
     printf "$result" >> $DATA

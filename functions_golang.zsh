@@ -5,7 +5,7 @@
 # open coverage report in browser
 function gocover() {
     echo "Testing..."
-    t="/tmp/go-cover.$$.tmp" 
+    local t="/tmp/go-cover.$$.tmp" 
     go test ./... -coverprofile=$t && \
         go tool cover -html=$t -o /tmp/cover.html && \
         rm -f $t || \
