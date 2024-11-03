@@ -372,3 +372,9 @@ vim.api.nvim_create_autocmd("BufWritePre", {
         vim.fn.setpos('.', save_cursor)
     end,
 })
+
+-- Create a Scratch Buffer. Open a temporary, non-file-backed buffer for jotting down notes or testing code snippets.
+vim.api.nvim_set_keymap('n', 'bb', ':enew<CR>', { noremap = true, silent = true })
+
+
+
