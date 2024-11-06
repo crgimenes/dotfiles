@@ -270,6 +270,7 @@ function Open_mark(marks_file)
     for line in file:lines() do
         local file_path, line_number = string.match(line, "^(.-)%s+%+(%d+)$")
         vim.cmd('edit ' .. file_path)
+        vim.cmd('normal gg')
         vim.cmd('normal ' .. line_number .. 'G')
     end
     file:close()
