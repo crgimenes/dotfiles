@@ -23,6 +23,15 @@ function pause {
   printf '\n'
 }
 
+function pause_and_capture {
+  local message="${1:-Pressione uma tecla para continuar...}"
+  >/dev/tty printf '%s' "$message"
+  local key
+  read -krs key
+  >/dev/tty printf '\n'
+  echo "$key"
+}
+
 function ww() {
     vi -c ':VimwikiIndex'
 }
