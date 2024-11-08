@@ -18,5 +18,7 @@ export GOBIN="${GOPATH}"/bin
 export CGO_ENABLED=0
 export EDITOR="$(command -v nvim)"
 
+#export HOMEBREW_NO_AUTO_UPDATE=TRUE
 #export HOMEBREW_NO_ENV_HINTS=FALSE
+export HOMEBREW_AUTO_UPDATE_SECS=86400
 
