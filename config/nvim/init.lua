@@ -319,7 +319,7 @@ end
 vim.api.nvim_set_keymap('n', '<leader>bc', ':lua Clean_buffers()<CR>', { noremap = true, silent = true })
 
 
-local function SafeFormatJsonOnSave()
+local function safe_format_json_onsave()
   if vim.fn.executable('jq') == 0 then
     vim.notify("The 'jq' utility is not available on the system.", vim.log.levels.ERROR)
     return
@@ -343,7 +343,7 @@ end
 vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = '*.json',
   callback = function()
-      SafeFormatJsonOnSave()
+      safe_format_json_onsave()
   end,
 })
 
