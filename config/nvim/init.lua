@@ -352,9 +352,11 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     pattern = {
         "*.c",
         "*.cpp",
+        "*.css",
         "*.go",
         "*.h",
         "*.hpp",
+        "*.js",
         "*.json",
         "*.lua",
         "*.m",
@@ -378,4 +380,20 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 vim.api.nvim_set_keymap('n', 'bb', ':enew<CR>', { noremap = true, silent = true })
 
 
+-- vim.api.nvim_set_keymap("n", "<leader>f", ":lua FormatJavaScript()<CR>", { noremap = true, silent = true })
+-- /format javascript files with prettier
+
+vim.api.nvim_create_autocmd('BufWritePre', {
+  pattern = {
+      "*.html",
+      "*.js",
+  },
+  callback = function()
+      if vim.fn.executable("prettier") == 1 then
+          vim.cmd("%!prettier --stdin-filepath %")
+          return
+      end
+      print("Prettier não está instalado. Instale-o para formatar JavaScript.")
+  end,
+})
 
