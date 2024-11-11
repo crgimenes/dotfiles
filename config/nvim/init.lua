@@ -397,10 +397,12 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   end,
 })
 
-
-
 -- Função para copiar o bloco de código delimitado por ```
 function Copy_code_block()
+  if vim.bo.filetype ~= "markdown" then
+    return
+  end
+
   -- Obtém o buffer atual e as informações do cursor
   local bufnr = vim.api.nvim_get_current_buf()
   local cursor = vim.api.nvim_win_get_cursor(0)
@@ -462,7 +464,6 @@ function Copy_code_block()
   vim.notify("Bloco de código copiado para a área de transferência.", vim.log.levels.INFO)
 end
 
--- Mapeia a função para <Leader>c no modo normal
-vim.api.nvim_set_keymap('n', '<Leader>c', ':lua Copy_code_block()<CR>', { noremap = true, silent = true })
-
+-- Mapeia a função para <Leader>c no modo normal if filetypes == markdown
+vim.api.nvim_set_keymap("n", "<Leader>c", ":lua Copy_code_block()<CR>", { noremap = true, silent = true })
 
