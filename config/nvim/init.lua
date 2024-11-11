@@ -397,3 +397,72 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   end,
 })
 
+
+
+-- Função para copiar o bloco de código delimitado por ```
+function Copy_code_block()
+  -- Obtém o buffer atual e as informações do cursor
+  local bufnr = vim.api.nvim_get_current_buf()
+  local cursor = vim.api.nvim_win_get_cursor(0)
+  local current_line = cursor[1]
+
+  -- Obtém todas as linhas do buffer
+  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+
+  -- Função para verificar se uma linha começa com ```
+  local function is_backtick_line(line)
+    return string.match(line, "^```") ~= nil
+  end
+
+  -- Encontra a linha de início do bloco de código
+  local start_line = nil
+  for i = current_line, 1, -1 do
+    if is_backtick_line(lines[i]) then
+      start_line = i
+      break
+    end
+  end
+
+  if not start_line then
+    vim.notify("Bloco de código de início ``` não encontrado.", vim.log.levels.ERROR)
+    return
+  end
+
+  -- Encontra a linha de término do bloco de código
+  local end_line = nil
+  for i = current_line, #lines do
+    if is_backtick_line(lines[i]) then
+      end_line = i
+      break
+    end
+  end
+
+  if not end_line then
+    vim.notify("Bloco de código de término ``` não encontrado.", vim.log.levels.ERROR)
+    return
+  end
+
+  if end_line == start_line then
+    vim.notify("Bloco de código não fechado corretamente.", vim.log.levels.ERROR)
+    return
+  end
+
+  -- Extrai as linhas do código entre os ```
+  local code_lines = {}
+  for i = start_line + 1, end_line - 1 do
+    table.insert(code_lines, lines[i])
+  end
+
+  -- Junta as linhas em uma única string
+  local code = table.concat(code_lines, "\n")
+
+  -- Copia para a área de transferência
+  vim.fn.setreg("+", code)
+
+  vim.notify("Bloco de código copiado para a área de transferência.", vim.log.levels.INFO)
+end
+
+-- Mapeia a função para <Leader>c no modo normal
+vim.api.nvim_set_keymap('n', '<Leader>c', ':lua Copy_code_block()<CR>', { noremap = true, silent = true })
+
+
