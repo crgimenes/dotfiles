@@ -12,16 +12,16 @@ if not status then
     print("vim command failed")
     return
 end
-]] --
+]]                  --
 
-local fn = vim.fn -- call Vim functions
+local fn = vim.fn   -- call Vim functions
 local api = vim.api -- nvim api
 local cmd = vim.cmd -- execute Vim commands
 
 -- load local configurations
 local local_vim = fn.expand("~/.config/nvim/local.vim")
 if fn.filereadable(local_vim) == 1 then
-    cmd("source " .. local_vim)
+  cmd("source " .. local_vim)
 end
 
 -- calendarfile autocmd
@@ -37,7 +37,7 @@ api.nvim_create_autocmd("BufRead,BufNewFile", {
     group = calendarfile,
     pattern = "calendarfile",
 })
-]]--
+]] --
 
 -- Remember cursor position
 cmd([[
@@ -55,7 +55,7 @@ api.nvim_create_autocmd("BufNewFile,BufRead", {
     group = calendarfile,
     pattern = "*.asm",
 })
-]]--
+]] --
 
 cmd([[
 augroup calendarfile
@@ -114,58 +114,58 @@ endif
 -- vim.o.termguicolors = false
 
 P = function(v)
-    print(vim.inspect(v))
-    return v
+  print(vim.inspect(v))
+  return v
 end
 
 -----------------------------------------------------
 
 function sort_lines()
-    -- Obter a posição inicial e final da seleção
-    local start_pos = vim.fn.getpos("'<")
-    local end_pos = vim.fn.getpos("'>")
+  -- Obter a posição inicial e final da seleção
+  local start_pos = vim.fn.getpos("'<")
+  local end_pos = vim.fn.getpos("'>")
 
-    -- Converter a posição para o índice da linha
-    local start_line = start_pos[2] - 1  -- Ajuste porque as linhas no Lua começam do 0
-    local end_line = end_pos[2]          -- Não precisa de ajuste, o fim é exclusivo
+  -- Converter a posição para o índice da linha
+  local start_line = start_pos[2] - 1   -- Ajuste porque as linhas no Lua começam do 0
+  local end_line = end_pos[2]           -- Não precisa de ajuste, o fim é exclusivo
 
-    -- Obter as linhas selecionadas
-    local lines = vim.api.nvim_buf_get_lines(0, start_line, end_line, false)
+  -- Obter as linhas selecionadas
+  local lines = vim.api.nvim_buf_get_lines(0, start_line, end_line, false)
 
-    -- Ordenar as linhas
-    table.sort(lines)
+  -- Ordenar as linhas
+  table.sort(lines)
 
-    -- Substituir as linhas originais
-    vim.api.nvim_buf_set_lines(0, start_line, end_line, false, lines)
+  -- Substituir as linhas originais
+  vim.api.nvim_buf_set_lines(0, start_line, end_line, false, lines)
 end
 
 function sort_and_uniq_lines()
-    -- Obter a posição inicial e final da seleção
-    local start_pos = vim.fn.getpos("'<")
-    local end_pos = vim.fn.getpos("'>")
+  -- Obter a posição inicial e final da seleção
+  local start_pos = vim.fn.getpos("'<")
+  local end_pos = vim.fn.getpos("'>")
 
-    -- Converter a posição para o índice da linha
-    local start_line = start_pos[2] - 1  -- Ajuste porque as linhas no Lua começam do 0
-    local end_line = end_pos[2]          -- Não precisa de ajuste, o fim é exclusivo
+  -- Converter a posição para o índice da linha
+  local start_line = start_pos[2] - 1   -- Ajuste porque as linhas no Lua começam do 0
+  local end_line = end_pos[2]           -- Não precisa de ajuste, o fim é exclusivo
 
-    -- Obter as linhas selecionadas
-    local lines = vim.api.nvim_buf_get_lines(0, start_line, end_line, false)
+  -- Obter as linhas selecionadas
+  local lines = vim.api.nvim_buf_get_lines(0, start_line, end_line, false)
 
-    -- Ordenar as linhas
-    table.sort(lines)
+  -- Ordenar as linhas
+  table.sort(lines)
 
-    -- Remover linhas duplicadas
-    local uniq_lines = {}
-    local last_line = nil
-    for _, line in ipairs(lines) do
-        if line ~= last_line then
-            table.insert(uniq_lines, line)
-            last_line = line
-        end
+  -- Remover linhas duplicadas
+  local uniq_lines = {}
+  local last_line = nil
+  for _, line in ipairs(lines) do
+    if line ~= last_line then
+      table.insert(uniq_lines, line)
+      last_line = line
     end
+  end
 
-    -- Substituir as linhas originais
-    vim.api.nvim_buf_set_lines(0, start_line, end_line, false, uniq_lines)
+  -- Substituir as linhas originais
+  vim.api.nvim_buf_set_lines(0, start_line, end_line, false, uniq_lines)
 end
 
 vim.api.nvim_set_keymap('v', '<Leader>s', ':lua sort_lines()<CR>', { noremap = true, silent = true })
@@ -215,7 +215,6 @@ function WordLookup()
   vim.notify("Error running command " .. c .. " " .. word, vim.log.levels.ERROR)
 end
 
-
 -- Terminal Settings
 vim.cmd([[
   augroup TerminalSettings
@@ -239,63 +238,62 @@ vim.api.nvim_create_user_command("Rv", function(args)
     vim.cmd("edit " .. output[1])
   end
 end, { nargs = 1 })
-]]--
+]] --
 
 function Mark_point()
-    local home = os.getenv("HOME")
-    local file_marks = home .. "/marks.txt"
+  local home = os.getenv("HOME")
+  local file_marks = home .. "/marks.txt"
 
-    local file = vim.fn.expand('%:p')  -- caminho completo
-    local line = vim.fn.line('.')      -- número da linha atual
+  local file = vim.fn.expand('%:p')   -- caminho completo
+  local line = vim.fn.line('.')       -- número da linha atual
 
-    local mark = file .. " +" .. line
+  local mark = file .. " +" .. line
 
-    local file_handle = io.open(file_marks, "a")
-    if file_handle then
-        file_handle:write(mark .. "\n")
-        file_handle:close()
-        print("Marked: " .. mark)
-        return
-    end
-    print("Erro ao abrir o arquivo de marcação: " .. file_marks)
+  local file_handle = io.open(file_marks, "a")
+  if file_handle then
+    file_handle:write(mark .. "\n")
+    file_handle:close()
+    print("Marked: " .. mark)
+    return
+  end
+  print("Erro ao abrir o arquivo de marcação: " .. file_marks)
 end
 
 function Open_mark(marks_file)
-    local file = io.open(marks_file, "r")
-    if not file then
-        -- print("Erro ao abrir o arquivo de marcação: " .. marks_file)
-        return
-    end
+  local file = io.open(marks_file, "r")
+  if not file then
+    -- print("Erro ao abrir o arquivo de marcação: " .. marks_file)
+    return
+  end
 
-    for line in file:lines() do
-        local file_path, line_number = string.match(line, "^(.-)%s+%+(%d+)$")
-        vim.cmd('edit ' .. file_path)
-        vim.cmd('normal gg')
-        vim.cmd('normal ' .. line_number .. 'G')
-    end
-    file:close()
+  for line in file:lines() do
+    local file_path, line_number = string.match(line, "^(.-)%s+%+(%d+)$")
+    vim.cmd('edit ' .. file_path)
+    vim.cmd('normal gg')
+    vim.cmd('normal ' .. line_number .. 'G')
+  end
+  file:close()
 end
 
 function Open_marks()
-    local path = os.getenv("HOME")
-    local marks_file = path .. "/marks.txt"
-    Open_mark(marks_file)
+  local path = os.getenv("HOME")
+  local marks_file = path .. "/marks.txt"
+  Open_mark(marks_file)
 
-    path = vim.fn.getcwd()
-    marks_file = path .. "/marks.txt"
-    Open_mark(marks_file)
+  path = vim.fn.getcwd()
+  marks_file = path .. "/marks.txt"
+  Open_mark(marks_file)
 end
 
 function Clear_marks()
-    local path = os.getenv("HOME")
-    local marks_file = path .. "/marks.txt"
-    os.remove(marks_file)
+  local path = os.getenv("HOME")
+  local marks_file = path .. "/marks.txt"
+  os.remove(marks_file)
 
-    path = vim.fn.getcwd()
-    marks_file = path .. "/marks.txt"
-    os.remove(marks_file)
+  path = vim.fn.getcwd()
+  marks_file = path .. "/marks.txt"
+  os.remove(marks_file)
 end
-
 
 vim.api.nvim_set_keymap('n', '<leader>o', ':lua Open_marks()<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>m', ':lua Mark_point()<CR>', { noremap = true, silent = true })
@@ -307,13 +305,13 @@ vim.api.nvim_set_keymap('n', '<leader>bd', ':bp|bd #<CR>', { noremap = true, sil
 vim.api.nvim_set_keymap('n', '<leader>bl', ':ls<CR>', { noremap = true, silent = true })
 
 function Clean_buffers()
-    local buffers = vim.api.nvim_list_bufs()
-    for _, buf in ipairs(buffers) do
-        if vim.api.nvim_buf_is_loaded(buf) and not vim.api.nvim_buf_get_option(buf, 'modified') then
-            vim.api.nvim_buf_delete(buf, {})
-        end
+  local buffers = vim.api.nvim_list_bufs()
+  for _, buf in ipairs(buffers) do
+    if vim.api.nvim_buf_is_loaded(buf) and not vim.api.nvim_buf_get_option(buf, 'modified') then
+      vim.api.nvim_buf_delete(buf, {})
     end
-    print("Buffers não utilizados foram limpos.")
+  end
+  print("Buffers não utilizados foram limpos.")
 end
 
 vim.api.nvim_set_keymap('n', '<leader>bc', ':lua Clean_buffers()<CR>', { noremap = true, silent = true })
@@ -343,37 +341,37 @@ end
 vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = '*.json',
   callback = function()
-      safe_format_json_onsave()
+    safe_format_json_onsave()
   end,
 })
 
 vim.api.nvim_create_autocmd("BufWritePre", {
-    -- Clear trailing whitespace on save
-    pattern = {
-        "*.c",
-        "*.cpp",
-        "*.css",
-        "*.go",
-        "*.h",
-        "*.hpp",
-        "*.js",
-        "*.json",
-        "*.lua",
-        "*.m",
-        "*.md",
-        "*.py",
-        "*.rs",
-        "*.sh",
-        "*.txt",
-        "*.vim",
-        "*.yaml",
-        "*.yml",
-    },
-    callback = function()
-        local save_cursor = vim.fn.getpos('.')
-        vim.cmd([[silent! %s/\s\+$//e]])
-        vim.fn.setpos('.', save_cursor)
-    end,
+  -- Clear trailing whitespace on save
+  pattern = {
+    "*.c",
+    "*.cpp",
+    "*.css",
+    "*.go",
+    "*.h",
+    "*.hpp",
+    "*.js",
+    "*.json",
+    "*.lua",
+    "*.m",
+    "*.md",
+    "*.py",
+    "*.rs",
+    "*.sh",
+    "*.txt",
+    "*.vim",
+    "*.yaml",
+    "*.yml",
+  },
+  callback = function()
+    local save_cursor = vim.fn.getpos('.')
+    vim.cmd([[silent! %s/\s\+$//e]])
+    vim.fn.setpos('.', save_cursor)
+  end,
 })
 
 -- Create a Scratch Buffer. Open a temporary, non-file-backed buffer for jotting down notes or testing code snippets.
@@ -385,15 +383,22 @@ vim.api.nvim_set_keymap('n', 'bb', ':enew<CR>', { noremap = true, silent = true 
 
 vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = {
-      "*.html",
-      "*.js",
+    "*.html",
+    "*.js",
   },
   callback = function()
-      if vim.fn.executable("prettier") == 1 then
-          vim.cmd("%!prettier --stdin-filepath %")
-          return
-      end
-      print("Prettier não está instalado. Instale-o para formatar JavaScript.")
+    -- sabe the cursor position
+    local save_cursor = vim.fn.getpos('.')
+
+    if vim.fn.executable("prettier") == 1 then
+      vim.cmd("%!prettier --stdin-filepath %")
+
+      -- restore the cursor position
+      vim.fn.setpos('.', save_cursor)
+
+      return
+    end
+    print("Prettier não está instalado. Instale-o para formatar JavaScript.")
   end,
 })
 
@@ -466,4 +471,3 @@ end
 
 -- Mapeia a função para <Leader>c no modo normal if filetypes == markdown
 vim.api.nvim_set_keymap("n", "<Leader>c", ":lua Copy_code_block()<CR>", { noremap = true, silent = true })
-
