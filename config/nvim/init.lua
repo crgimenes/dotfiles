@@ -381,25 +381,46 @@ vim.api.nvim_set_keymap('n', 'bb', ':enew<CR>', { noremap = true, silent = true 
 -- vim.api.nvim_set_keymap("n", "<leader>f", ":lua FormatJavaScript()<CR>", { noremap = true, silent = true })
 -- /format javascript files with prettier
 
+
 vim.api.nvim_create_autocmd('BufWritePre', {
-  pattern = {
-    "*.html",
-    "*.js",
-  },
-  callback = function()
-    -- sabe the cursor position
-    local save_cursor = vim.fn.getpos('.')
+    pattern = {
+        "*.html",
+        "*.js",
+    },
+    callback = function()
+        -- Save the cursor position
+        local save_cursor = vim.fn.getpos('.')
 
-    if vim.fn.executable("prettier") == 1 then
-      vim.cmd("%!prettier --stdin-filepath %")
+        if vim.fn.executable("prettier") ~= 1 then
+            print("Prettier não está instalado. Instale-o para formatar JavaScript e HTML.")
+            return
+        end
 
-      -- restore the cursor position
-      vim.fn.setpos('.', save_cursor)
+        local buf = vim.api.nvim_get_current_buf()
+        local start_line = 0
+        local end_line = vim.api.nvim_buf_line_count(buf)
+        local buf_content = vim.api.nvim_buf_get_lines(buf, start_line, end_line, false)
+        local content = table.concat(buf_content, '\n')
 
-      return
+        -- Exec the prettier command and get the output
+        local cmd = "prettier --stdin-filepath " .. vim.fn.shellescape(vim.fn.expand('%')) .. " 2>&1"
+        local output = vim.fn.system(cmd, content)
+        local exit_code = vim.v.shell_error
+
+        if exit_code == 0 then
+            -- Prettier has succeeded, format the buffer
+            local formatted = vim.split(output, '\n')
+            vim.api.nvim_buf_set_lines(buf, start_line, end_line, false, formatted)
+
+            -- Restore the cursor position
+            return
+        end
+
+        -- Restore the cursor position
+        vim.fn.setpos('.', save_cursor)
+        -- Prettier falhou, exibe a mensagem de erro sem alterar o buffer
+        vim.notify("Erro ao formatar com Prettier:\n" .. output, vim.log.levels.ERROR)
     end
-    print("Prettier não está instalado. Instale-o para formatar JavaScript.")
-  end,
 })
 
 -- Função para copiar o bloco de código delimitado por ```
