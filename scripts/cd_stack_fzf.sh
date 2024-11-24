@@ -9,11 +9,13 @@ _cd_save_env() {
     {
         declare -p _CD_STACK
         declare -p CD_STACK_LAST
-    } > ~/.cd_stack_fzf.tmp && mv ~/.cd_stack_fzf.tmp ~/.cd_stack_fzf
+    } > ~/.cd_stack_fzf.tmp && \
+        mv ~/.cd_stack_fzf.tmp ~/.cd_stack_fzf
 }
 
 _cd_load_env() {
-    [[ -f ~/.cd_stack_fzf ]] && source ~/.cd_stack_fzf
+    [[ -f ~/.cd_stack_fzf ]] && \
+        source ~/.cd_stack_fzf
 }
 
 cd() {
@@ -22,9 +24,11 @@ cd() {
 
     _CD_STACK=("$CD_STACK_LAST" "${_CD_STACK[@]}")
 
-    [ "${#_CD_STACK[@]}" -gt "$CD_STACK_MAX" ] && unset '_CD_STACK[-1]'
+    [ "${#_CD_STACK[@]}" -gt "$CD_STACK_MAX" ] && \
+        unset '_CD_STACK[-1]'
 
-    _CD_STACK=($(printf "%s\n" "${_CD_STACK[@]}" | awk '!x[$0]++'))
+    _CD_STACK=($(printf "%s\n" "${_CD_STACK[@]}" | \
+        awk '!x[$0]++'))
 
     _cd_save_env
     return 0
@@ -38,7 +42,6 @@ b() {
 
 s() {
     _cd_load_env
-
     local selected
     local formatted_dirs=()
 
@@ -47,17 +50,16 @@ s() {
     done
 
     selected=$(printf '%s\n' "${formatted_dirs[@]}" | \
-        fzf --prompt=": " --height 40% --layout=reverse)
+        fzf --prompt=": " \
+            --height 40% \
+            --layout=reverse)
 
     [[ -z "$selected" ]] && return 0
 
     local dir="${selected/#\~/$HOME}"
-
     cd "$dir" || return "$?"
-
     return 0
 }
-
 
 _initialize_cd_stack_fzf() {
     _CD_STACK=(
