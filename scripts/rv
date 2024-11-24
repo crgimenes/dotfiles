@@ -16,9 +16,10 @@ IFS=: read -ra selected < <(
     fzf --ansi \
         --bind "change:reload:sleep 0.1; $RG_PREFIX {q} || true" \
         --delimiter : \
-        --disabled --query "$INITIAL_QUERY" \
+        --disabled \
         --preview 'bat --color=always {1} --highlight-line {2}' \
-        --preview-window 'up,60%,border-bottom,+{2}+3/3,~3'
+        --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
+        --query "$INITIAL_QUERY"
 )
 [ -n "${selected[0]}" ] && \
     $EDITOR "${selected[0]}" "+${selected[1]}" && \

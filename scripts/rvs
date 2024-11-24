@@ -11,21 +11,24 @@ RG_PREFIX="rg \
     --smart-case \
     --sort=modified"
 
-# Recebe a consulta inicial, se houver
-INITIAL_QUERY="${*:-}"
-IFS=: read -ra selected < <(
+while true; do
+  # Recebe a consulta inicial, se houver
+  INITIAL_QUERY="${*:-}"
+  IFS=: read -ra selected < <(
     FZF_DEFAULT_COMMAND="$RG_PREFIX $(printf %q "$INITIAL_QUERY")" \
     fzf --ansi \
         --bind "change:reload:sleep 0.1; $RG_PREFIX {q} || true" \
         --delimiter : \
-        --disabled --query "$INITIAL_QUERY" \
+        --disabled \
         --preview 'bat --color=always {1} --highlight-line {2}' \
-        --preview-window 'up,60%,border-bottom,+{2}+3/3,~3'
-)
+        --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
+        --query "$INITIAL_QUERY"
+  )
   
-# Se algo foi selecionado, abre no editor; se não, sai do loop
-[ -n "${selected[0]}" ] && {
-    $EDITOR "${selected[0]}" "+${selected[1]}"
-    echo "${selected[0]}" "+${selected[1]}"
-}
+  # Se nenhum arquivo foi selecionado, encerra o loop
+  [ -z "${selected[0]}" ] && break
+
+  $EDITOR "${selected[0]}" "+${selected[1]}"
+  echo "${selected[0]}" "+${selected[1]}"
+done
 
