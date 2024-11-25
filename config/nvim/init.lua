@@ -126,8 +126,8 @@ function sort_lines()
   local end_pos = vim.fn.getpos("'>")
 
   -- Converter a posição para o índice da linha
-  local start_line = start_pos[2] - 1   -- Ajuste porque as linhas no Lua começam do 0
-  local end_line = end_pos[2]           -- Não precisa de ajuste, o fim é exclusivo
+  local start_line = start_pos[2] - 1 -- Ajuste porque as linhas no Lua começam do 0
+  local end_line = end_pos[2]         -- Não precisa de ajuste, o fim é exclusivo
 
   -- Obter as linhas selecionadas
   local lines = vim.api.nvim_buf_get_lines(0, start_line, end_line, false)
@@ -145,8 +145,8 @@ function sort_and_uniq_lines()
   local end_pos = vim.fn.getpos("'>")
 
   -- Converter a posição para o índice da linha
-  local start_line = start_pos[2] - 1   -- Ajuste porque as linhas no Lua começam do 0
-  local end_line = end_pos[2]           -- Não precisa de ajuste, o fim é exclusivo
+  local start_line = start_pos[2] - 1 -- Ajuste porque as linhas no Lua começam do 0
+  local end_line = end_pos[2]         -- Não precisa de ajuste, o fim é exclusivo
 
   -- Obter as linhas selecionadas
   local lines = vim.api.nvim_buf_get_lines(0, start_line, end_line, false)
@@ -244,8 +244,8 @@ function Mark_point()
   local home = os.getenv("HOME")
   local file_marks = home .. "/marks.txt"
 
-  local file = vim.fn.expand('%:p')   -- caminho completo
-  local line = vim.fn.line('.')       -- número da linha atual
+  local file = vim.fn.expand('%:p') -- caminho completo
+  local line = vim.fn.line('.')     -- número da linha atual
 
   local mark = file .. " +" .. line
 
@@ -262,7 +262,7 @@ end
 function Open_mark(marks_file)
   local file = io.open(marks_file, "r")
   if not file then
-    -- print("Erro ao abrir o arquivo de marcação: " .. marks_file)
+    print("Erro ao abrir o arquivo de marcação: " .. marks_file)
     return
   end
 
@@ -295,10 +295,17 @@ function Clear_marks()
   os.remove(marks_file)
 end
 
-vim.api.nvim_set_keymap('n', '<leader>o', ':lua Open_marks()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>m', ':lua Mark_point()<CR>', { noremap = true, silent = true })
-
-vim.api.nvim_command('command! Clearmarks lua Clear_marks()')
+vim.api.nvim_set_keymap(
+  'n', '<leader>o', ':lua Open_marks()<CR>',
+  { noremap = true, silent = true }
+)
+vim.api.nvim_set_keymap(
+  'n', '<leader>m', ':lua Mark_point()<CR>',
+  { noremap = true, silent = true }
+)
+vim.api.nvim_command(
+  'command! Clearmarks lua Clear_marks()'
+)
 
 -- buffers
 vim.api.nvim_set_keymap('n', '<leader>bd', ':bp|bd #<CR>', { noremap = true, silent = true })
@@ -383,44 +390,44 @@ vim.api.nvim_set_keymap('n', 'bb', ':enew<CR>', { noremap = true, silent = true 
 
 
 vim.api.nvim_create_autocmd('BufWritePre', {
-    pattern = {
-        "*.html",
-        "*.js",
-    },
-    callback = function()
-        -- Save the cursor position
-        local save_cursor = vim.fn.getpos('.')
+  pattern = {
+    "*.html",
+    "*.js",
+  },
+  callback = function()
+    -- Save the cursor position
+    local save_cursor = vim.fn.getpos('.')
 
-        if vim.fn.executable("prettier") ~= 1 then
-            print("Prettier não está instalado. Instale-o para formatar JavaScript e HTML.")
-            return
-        end
-
-        local buf = vim.api.nvim_get_current_buf()
-        local start_line = 0
-        local end_line = vim.api.nvim_buf_line_count(buf)
-        local buf_content = vim.api.nvim_buf_get_lines(buf, start_line, end_line, false)
-        local content = table.concat(buf_content, '\n')
-
-        -- Exec the prettier command and get the output
-        local cmd = "prettier --stdin-filepath " .. vim.fn.shellescape(vim.fn.expand('%')) .. " 2>&1"
-        local output = vim.fn.system(cmd, content)
-        local exit_code = vim.v.shell_error
-
-        if exit_code == 0 then
-            -- Prettier has succeeded, format the buffer
-            local formatted = vim.split(output, '\n')
-            vim.api.nvim_buf_set_lines(buf, start_line, end_line, false, formatted)
-
-            -- Restore the cursor position
-            return
-        end
-
-        -- Restore the cursor position
-        vim.fn.setpos('.', save_cursor)
-        -- Prettier falhou, exibe a mensagem de erro sem alterar o buffer
-        vim.notify("Erro ao formatar com Prettier:\n" .. output, vim.log.levels.ERROR)
+    if vim.fn.executable("prettier") ~= 1 then
+      print("Prettier não está instalado. Instale-o para formatar JavaScript e HTML.")
+      return
     end
+
+    local buf = vim.api.nvim_get_current_buf()
+    local start_line = 0
+    local end_line = vim.api.nvim_buf_line_count(buf)
+    local buf_content = vim.api.nvim_buf_get_lines(buf, start_line, end_line, false)
+    local content = table.concat(buf_content, '\n')
+
+    -- Exec the prettier command and get the output
+    local cmd = "prettier --stdin-filepath " .. vim.fn.shellescape(vim.fn.expand('%')) .. " 2>&1"
+    local output = vim.fn.system(cmd, content)
+    local exit_code = vim.v.shell_error
+
+    if exit_code == 0 then
+      -- Prettier has succeeded, format the buffer
+      local formatted = vim.split(output, '\n')
+      vim.api.nvim_buf_set_lines(buf, start_line, end_line, false, formatted)
+
+      -- Restore the cursor position
+      return
+    end
+
+    -- Restore the cursor position
+    vim.fn.setpos('.', save_cursor)
+    -- Prettier falhou, exibe a mensagem de erro sem alterar o buffer
+    vim.notify("Erro ao formatar com Prettier:\n" .. output, vim.log.levels.ERROR)
+  end
 })
 
 -- Função para copiar o bloco de código delimitado por ```
