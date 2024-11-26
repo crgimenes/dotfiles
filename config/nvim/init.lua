@@ -6,7 +6,7 @@ require "options"
 require "mappings"
 require "colors"
 require "bookmark"
-
+require "sort"
 
 --[[
 local status,_ = pcall(vim.cmd, "vim command")
@@ -16,9 +16,9 @@ if not status then
 end
 ]]                  --
 
-local fn = vim.fn   -- call Vim functions
 local api = vim.api -- nvim api
 local cmd = vim.cmd -- execute Vim commands
+local fn = vim.fn   -- call Vim functions
 
 -- load local configurations
 local local_vim = fn.expand("~/.config/nvim/local.vim")
@@ -121,58 +121,6 @@ P = function(v)
 end
 
 -----------------------------------------------------
-
-function sort_lines()
-  -- Obter a posição inicial e final da seleção
-  local start_pos = vim.fn.getpos("'<")
-  local end_pos = vim.fn.getpos("'>")
-
-  -- Converter a posição para o índice da linha
-  local start_line = start_pos[2] - 1 -- Ajuste porque as linhas no Lua começam do 0
-  local end_line = end_pos[2]         -- Não precisa de ajuste, o fim é exclusivo
-
-  -- Obter as linhas selecionadas
-  local lines = vim.api.nvim_buf_get_lines(0, start_line, end_line, false)
-
-  -- Ordenar as linhas
-  table.sort(lines)
-
-  -- Substituir as linhas originais
-  vim.api.nvim_buf_set_lines(0, start_line, end_line, false, lines)
-end
-
-function sort_and_uniq_lines()
-  -- Obter a posição inicial e final da seleção
-  local start_pos = vim.fn.getpos("'<")
-  local end_pos = vim.fn.getpos("'>")
-
-  -- Converter a posição para o índice da linha
-  local start_line = start_pos[2] - 1 -- Ajuste porque as linhas no Lua começam do 0
-  local end_line = end_pos[2]         -- Não precisa de ajuste, o fim é exclusivo
-
-  -- Obter as linhas selecionadas
-  local lines = vim.api.nvim_buf_get_lines(0, start_line, end_line, false)
-
-  -- Ordenar as linhas
-  table.sort(lines)
-
-  -- Remover linhas duplicadas
-  local uniq_lines = {}
-  local last_line = nil
-  for _, line in ipairs(lines) do
-    if line ~= last_line then
-      table.insert(uniq_lines, line)
-      last_line = line
-    end
-  end
-
-  -- Substituir as linhas originais
-  vim.api.nvim_buf_set_lines(0, start_line, end_line, false, uniq_lines)
-end
-
-vim.api.nvim_set_keymap('v', '<Leader>s', ':lua sort_lines()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<Leader>u', ':lua sort_and_uniq_lines()<CR>', { noremap = true, silent = true })
-
 
 cmd([[
 " Use `[e` and `]e` to navigate diagnostics
