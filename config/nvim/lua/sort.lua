@@ -4,32 +4,47 @@ function sort_lines()
   local end_pos = vim.fn.getpos("'>")
 
   -- Converter a posição para o índice da linha
-  local start_line = start_pos[2] - 1 -- Ajuste porque as linhas no Lua começam do 0
-  local end_line = end_pos[2]         -- Não precisa de ajuste, o fim é exclusivo
+
+  -- Ajuste start_pos porque as linhas no Lua começam do 0
+  local start_line = start_pos[2] - 1
+  -- Não precisa ajustar end_line
+  local end_line = end_pos[2]
 
   -- Obter as linhas selecionadas
-  local lines = vim.api.nvim_buf_get_lines(0, start_line, end_line, false)
+  local lines = vim.api.nvim_buf_get_lines(
+      0,
+      start_line,
+      end_line,
+      false
+  )
 
   -- Ordenar as linhas
   table.sort(lines)
 
   -- Substituir as linhas originais
-  vim.api.nvim_buf_set_lines(0, start_line, end_line, false, lines)
+  vim.api.nvim_buf_set_lines(
+    0,
+    start_line,
+    end_line,
+    false,
+    lines
+  )
 end
 
 function sort_and_uniq_lines()
-  -- Obter a posição inicial e final da seleção
   local start_pos = vim.fn.getpos("'<")
   local end_pos = vim.fn.getpos("'>")
 
-  -- Converter a posição para o índice da linha
-  local start_line = start_pos[2] - 1 -- Ajuste porque as linhas no Lua começam do 0
-  local end_line = end_pos[2]         -- Não precisa de ajuste, o fim é exclusivo
+  local start_line = start_pos[2] - 1
+  local end_line = end_pos[2]
 
-  -- Obter as linhas selecionadas
-  local lines = vim.api.nvim_buf_get_lines(0, start_line, end_line, false)
+  local lines = vim.api.nvim_buf_get_lines(
+    0,
+    start_line,
+    end_line,
+    false
+  )
 
-  -- Ordenar as linhas
   table.sort(lines)
 
   -- Remover linhas duplicadas
@@ -42,10 +57,25 @@ function sort_and_uniq_lines()
     end
   end
 
-  -- Substituir as linhas originais
-  vim.api.nvim_buf_set_lines(0, start_line, end_line, false, uniq_lines)
+  vim.api.nvim_buf_set_lines(
+    0,
+    start_line,
+    end_line,
+    false,
+    uniq_lines
+  )
 end
 
-vim.api.nvim_set_keymap('v', '<Leader>s', ':lua sort_lines()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<Leader>u', ':lua sort_and_uniq_lines()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap(
+    'v',
+    '<Leader>s',
+    ':lua sort_lines()<CR>',
+    { noremap = true, silent = true }
+)
+vim.api.nvim_set_keymap(
+    'v',
+    '<Leader>u',
+    ':lua sort_and_uniq_lines()<CR>',
+    { noremap = true, silent = true }
+)
 
