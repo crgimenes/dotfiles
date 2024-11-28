@@ -8,6 +8,7 @@ require "colors"
 require "bookmark"
 require "sort"
 require "eval"
+require "cmdx"
 
 --[[
 local status,_ = pcall(vim.cmd, "vim command")

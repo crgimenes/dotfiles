@@ -47,29 +47,24 @@ end
 
 -- Função para obter o texto selecionado no modo visual, incluindo colunas
 function get_selected_text()
-  -- Obtém as posições de início e fim da seleção
+  local start_line, start_col, end_line, end_col
   local start_pos = vim.fn.getpos("'<")
   local end_pos = vim.fn.getpos("'>")
+  start_line = start_pos[2] - 1
+  start_col = start_pos[3] - 1
+  end_line = end_pos[2] - 1
+  end_col = end_pos[3]
 
-  local start_line = start_pos[2]
-  local start_col = start_pos[3]
-  local end_line = end_pos[2]
-  local end_col = end_pos[3]
+  local lines = vim.api.nvim_buf_get_text(0, start_line, start_col, end_line, end_col, {})
 
-  local buf = vim.api.nvim_get_current_buf()
-
-  if start_line == end_line then
-    -- Seleção dentro de uma única linha
-    local line = vim.api.nvim_buf_get_lines(buf, start_line - 1, start_line, false)[1]
-    return line:sub(start_col, end_col)
-  else
-    -- Seleção que abrange múltiplas linhas
-    local lines = vim.api.nvim_buf_get_lines(buf, start_line - 1, end_line, false)
-    -- Ajusta a primeira e a última linha para considerar as colunas
-    lines[1] = lines[1]:sub(start_col)
-    lines[#lines] = lines[#lines]:sub(1, end_col)
-    return table.concat(lines, "\n")
+  if #lines == 0 then
+    print("Nenhum texto selecionado")
+    return
   end
+
+  -- Imprimir o texto selecionado
+  -- print(table.concat(lines, "\n"))
+  return table.concat(lines, "\n")
 end
 
 -- Função para substituir a seleção com o resultado da avaliação Lua
