@@ -75,6 +75,7 @@ export PATH=~/bin:$PATH:/Applications/Xcode.app/Contents/Developer/Toolchains/Xc
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
+export CCLS_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path) -I /opt/homebrew/include -I /usr/local/include -resource-dir=/opt/homebrew/opt/llvm/lib/clang/current/include"
 
 ##################################################
 
