@@ -43,7 +43,22 @@
       ],
       "initializationOptions": {
         "cache": {
-          "directory": "/tmp/ccls"
+          "directory": "/tmp/ccls",
+          "format": "binary",
+          "hierarchicalPath": false,
+          "retainInMemory": 2
+        },
+        "clang": {
+          "resourceDir": "/opt/homebrew/opt/llvm/lib/clang/current",
+          "extraArgs": [
+            "--target=arm64-apple-darwin",
+            "-isysroot",
+            "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk",
+            "-I",
+            "/opt/homebrew/include",
+            "-I",
+            "/usr/local/include"
+          ]
         },
         "client": {
           "snippetSupport": true
@@ -52,8 +67,13 @@
     },
     "swift": {
       "command": "sourcekit-lsp",
-      "filetypes": ["swift"],
-      "rootPatterns": [".git/", "Package.swift"],
+      "filetypes": [
+        "swift"
+      ],
+      "rootPatterns": [
+        ".git/",
+        "Package.swift"
+      ],
       "trace.server": "verbose"
     }
   },
