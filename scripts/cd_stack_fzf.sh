@@ -40,10 +40,16 @@ b() {
     _cd_save_env
 }
 
+
 s() {
     _cd_load_env
     local selected
     local formatted_dirs=()
+    local query=""
+
+    if (( $# > 0 )); then
+        query="$*"
+    fi
 
     for dir in "${_CD_STACK[@]}"; do
         formatted_dirs+=("${dir/#"$HOME"/~}")
@@ -52,7 +58,8 @@ s() {
     selected=$(printf '%s\n' "${formatted_dirs[@]}" | \
         fzf --prompt=": " \
             --height 40% \
-            --layout=reverse)
+            --layout=reverse \
+            ${query:+--query="$query"})
 
     [[ -z "$selected" ]] && return 0
 
